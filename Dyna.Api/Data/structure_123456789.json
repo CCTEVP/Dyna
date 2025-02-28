@@ -1,0 +1,68 @@
+{
+  "id": "123456789",
+  "elements": [
+    {
+      "slide": {
+        "identifier": "slide01",
+        "attributes": [],
+        "status": "",
+        "widgets": [
+          {
+            "image": {
+              "identifier": "background",
+              "source": "./img/welcome_sunset.jpg",
+              "attributes": [
+                "fullscreen"
+              ],
+              "status": ""
+            }
+          },
+          {
+            "countdown": {
+              "attributes": [
+                "marginTop-400",
+                "zIndex5"
+              ],
+              "targetDateTime": {
+                "source": "queryParameter",
+                "name": "targetDateTime"
+              },
+              "parts": [
+                "days",
+                "hours",
+                "minutes",
+                "seconds"
+              ],
+              "outcome": {
+                "action": "play",
+                "type": "video",
+                "id": "outcome"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "slide": {
+        "identifier": "slide02",
+        "attributes": [
+          "hidden"
+        ],
+        "status": "disabled",
+        "widgets": [
+          {
+            "video": {
+              "identifier": "outcome",
+              "source": "./vid/celebrate.mp4",
+              "attributes": [
+                "fullscreen"
+              ],
+              "status": ""
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

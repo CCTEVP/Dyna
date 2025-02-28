@@ -1,0 +1,30 @@
+﻿@model Dyna.Player.Models.SlideData
+@using Dyna.Player.TagHelpers
+
+<div id="slide-layout-@Model.Identifier" class="slide @string.Join(" ", Model.Attributes)">
+@if (Model.Widgets != null)
+{
+    foreach (var widget in Model.Widgets)
+    {
+        if (widget is Dyna.Player.Models.ImageWidget imageWidget)
+        {
+            @await Component.InvokeAsync("ImageWidget", imageWidget)
+            Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("ImageWidget","widget");
+        }
+        else if (widget is Dyna.Player.Models.VideoWidget videoWidget)
+        {
+            @await Component.InvokeAsync("VideoWidget", videoWidget)
+            Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("VideoWidget", "widget");
+        }
+        else if (widget is Dyna.Player.Models.CountdownWidget countdownWidget)
+        {
+            @await Component.InvokeAsync("CountdownWidget", countdownWidget)
+            Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("CountdownWidget", "widget");
+        }
+        else
+        {
+            <p>Unknown Widget Type: @widget?.GetType().Name</p>
+        }
+    }
+}
+</div>

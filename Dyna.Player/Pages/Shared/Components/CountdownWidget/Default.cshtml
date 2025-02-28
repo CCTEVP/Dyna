@@ -1,0 +1,16 @@
+﻿@model Dyna.Player.Models.CountdownWidget
+<div class="countdown-widget-container" data-target="@Model.TargetDateTime.Name" class="@string.Join(" ", Model.Attributes)">
+    @if (Model.Parts != null)
+    {
+        foreach (var part in Model.Parts)
+        {
+            <div id="days" class="part">
+                <div class="label">@part</div>
+                <div class="number"></div>
+            </div>
+
+        }
+    }
+    <p>Outcome Action: @Model.Outcome.Action</p>
+
+</div>

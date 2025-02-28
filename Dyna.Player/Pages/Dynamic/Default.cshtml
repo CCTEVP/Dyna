@@ -1,0 +1,18 @@
+﻿@page "/dynamic/{id}"
+@using Dyna.Player.TagHelpers
+@model Dyna.Player.Models.CreativeModel
+@{
+}
+@if (Model?.Creative?.Elements != null)
+{
+    ViewData["Title"] = Model.Creative.Name;
+    @foreach (var element in Model.Creative.Elements)
+    {
+        @await Component.InvokeAsync("SlideLayout", element.Slide)
+        Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("SlideLayout", "view");
+    }
+}
+else
+{
+    <p>Loading...</p>
+}
