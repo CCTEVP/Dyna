@@ -1,18 +1,18 @@
 ﻿function renderImageWidgets() {
-
+    console.log("Rendering ImageWidgets");
     const imageWidgets = document.querySelectorAll('[id^="image-widget-"]');
 
     imageWidgets.forEach(imageWidget => {
-        const shadow = imageWidget.attachShadow({ mode: 'open' });
+        // Get the CSS styles from the data-css attribute
+        const cssStyles = imageWidget.getAttribute('data-css');
 
-        // Create the image element within the Shadow DOM
+        // Set the styles directly as inline styles
+        imageWidget.style.cssText = cssStyles;
+
+        // Create the image element within the imageWidget
         const img = document.createElement('img');
         img.src = imageWidget.getAttribute('data-src');
-        shadow.appendChild(img);
-
-        // Add CSS styles within the Shadow DOM
-        const style = document.createElement('style');
-        style.textContent = `/* CSS_CONTENT_PLACEHOLDER */`; // Placeholder for CSS content (DO NOT DELETE)
-        shadow.appendChild(style);
+        img.alt = imageWidget.getAttribute('data-alt');
+        imageWidget.appendChild(img);
     });
 }

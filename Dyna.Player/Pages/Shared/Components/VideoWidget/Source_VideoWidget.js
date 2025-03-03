@@ -1,20 +1,19 @@
 ﻿function renderVideoWidgets() {
-    console.log("video")
-    const videoWidgets = document.querySelectorAll('[id^="video-widget-"]');
+    console.log("Rendering VideoWidgets");
+    const videoWidgets = document.querySelectorAll('[id^="image-widget-"]');
 
     videoWidgets.forEach(videoWidget => {
-        const shadow = videoWidget.attachShadow({ mode: 'open' });
+        // Get the CSS styles from the data-css attribute
+        const cssStyles = videoWidget.getAttribute('data-css');
 
-        // Create the image element within the Shadow DOM
+        // Set the styles directly as inline styles
+        videoWidget.style.cssText = cssStyles;
+
+        // Create the image element within the imageWidget
         const vid = document.createElement('video');
         const src = document.createElement('source');
-        src.href = imageWidget.getAttribute('data-src');
+        src.href = videoWidget.getAttribute('data-src');
         vid.appendChild(src);
-        shadow.appendChild(vid);
-
-        // Add CSS styles within the Shadow DOM
-        const style = document.createElement('style');
-        style.textContent = `/* CSS_CONTENT_PLACEHOLDER */`; // Placeholder for CSS content (DO NOT DELETE)
-        shadow.appendChild(style);
+        videoWidget.appendChild(vid);
     });
 }

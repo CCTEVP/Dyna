@@ -9,7 +9,7 @@
     @foreach (var element in Model.Creative.Elements)
     {
         @await Component.InvokeAsync("SlideLayout", element.Slide)
-        Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("SlideLayout", "view");
+        Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("SlideLayout", "layout");
     }
 }
 else

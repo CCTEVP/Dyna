@@ -1,10 +1,8 @@
-﻿@model Dyna.Player.Models.SlideData
-@using Dyna.Player.TagHelpers
-
-<div id="slide-layout-@(Model.Identifier ?? "container")" class="@(Model.Classes ?? "")" style="@Model.Styles">
-    @if (Model.Widgets != null)
+﻿@model Dyna.Player.Models.BoxLayout
+<div class="box-layout-@(Model.Identifier ?? "container")" class="@(Model.Classes ?? "")">
+    @if (Model.Contents != null)
     {
-        foreach (var widget in Model.Widgets)
+        @foreach (var widget in Model.Contents)
         {
             if (widget is Dyna.Player.Models.TextWidget textWidget)
             {
@@ -13,12 +11,12 @@
             }
             else if (widget is Dyna.Player.Models.ImageWidget imageWidget)
             {
-                @await Component.InvokeAsync("ImageWidget", imageWidget)
+                @await Component.InvokeAsync("ImageWidget", widget)
                 Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("ImageWidget", "widget");
             }
             else if (widget is Dyna.Player.Models.VideoWidget videoWidget)
             {
-                @await Component.InvokeAsync("VideoWidget", videoWidget)
+                @await Component.InvokeAsync("VideoWidget", widget)
                 Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("VideoWidget", "widget");
             }
             else if (widget is Dyna.Player.Models.CountdownWidget countdownWidget)
@@ -26,7 +24,7 @@
                 @await Component.InvokeAsync("CountdownWidget", countdownWidget)
                 Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("CountdownWidget", "widget");
             }
-            else
+            else 
             {
                 <p>Unknown Widget Type: @widget?.GetType().Name</p>
             }

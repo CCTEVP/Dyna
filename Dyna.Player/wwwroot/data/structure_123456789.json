@@ -4,6 +4,7 @@
   "elements": [
     {
       "slide": {
+        "styles": { "visibility": "visible" },
         "identifier": "slide01",
         "attributes": [],
         "status": "",
@@ -12,46 +13,89 @@
             "image": {
               "identifier": "background",
               "source": "/img/welcome_sunset.jpg",
-              "attributes": [
-                "fullscreen",
-                "background"
-              ],
-              "status": ""
+              "classes": "fullscreen background",
+              "attributes": [],
+              "status": "",
+              "styles": { "position": "relative" }
             }
           },
           {
             "countdown": {
-              "attributes": [
-                "marginTop-400",
-                "zIndex5"
-              ],
+              "classes": "marginTop-400 zIndex5",
+              "styles": {},
+              "attributes": [],
               "targetDateTime": {
                 "source": "queryParameter",
                 "name": "targetDateTime"
               },
               "parts": [
                 {
-                  "text": {
-                    "type": "dateTime",
-                    "source": "days"
+                  "box": {
+                    "identifier": "caca",
+                    "attributes": [],
+                    "contents": [
+                      {
+                        "text": { "value": "Days" }
+                      },
+                      {
+                        "text": {
+                          "value": "00",
+                          "type": "dateTime",
+                          "source": "days"
+                        }
+                      }
+                    ]
                   }
                 },
                 {
-                  "text": {
-                    "type": "dateTime",
-                    "source": "hours"
+                  "box": {
+                    "attributes": [],
+                    "contents": [
+                      {
+                        "text": { "value": "Hours" }
+                      },
+                      {
+                        "text": {
+                          "value": "00",
+                          "type": "dateTime",
+                          "source": "hours"
+                        }
+                      }
+                    ]
                   }
                 },
                 {
-                  "text": {
-                    "type": "dateTime",
-                    "source": "minutes"
+                  "box": {
+                    "attributes": [],
+                    "contents": [
+                      {
+                        "text": { "value": "Minutes" }
+                      },
+                      {
+                        "text": {
+                          "value": "00",
+                          "type": "dateTime",
+                          "source": "minutes"
+                        }
+                      }
+                    ]
                   }
                 },
                 {
-                  "text": {
-                    "type": "dateTime",
-                    "source": "seconds"
+                  "box": {
+                    "attributes": [],
+                    "contents": [
+                      {
+                        "text": { "value": "Seconds" }
+                      },
+                      {
+                        "text": {
+                          "value": "00",
+                          "type": "dateTime",
+                          "source": "seconds"
+                        }
+                      }
+                    ]
                   }
                 }
               ],
@@ -68,9 +112,9 @@
     {
       "slide": {
         "identifier": "slide02",
-        "attributes": [
-          "hidden"
-        ],
+        "classes": "hidden",
+        "styles": { "visibility": "hidden" },
+        "attributes": [],
         "status": "disabled",
         "widgets": [
           {
@@ -80,7 +124,8 @@
               "attributes": [
                 "fullscreen"
               ],
-              "status": ""
+              "status": "",
+              "styles": { "position": "relative" }
             }
           }
         ]
@@ -88,10 +133,10 @@
     },
     {
       "slide": {
+        "styles": { "visibility": "hidden" },
         "identifier": "slide03",
-        "attributes": [
-          "hidden"
-        ],
+        "classes": "hidden",
+        "attributes": [],
         "status": "disabled",
         "widgets": [
         ]

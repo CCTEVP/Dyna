@@ -78,6 +78,7 @@ namespace Dyna.Player.Models
 
     public class ElementData
     {
+        public string Identifier { get; set; }
         public SlideData Slide { get; set; }
     }
 
@@ -85,8 +86,10 @@ namespace Dyna.Player.Models
     {
         public string Identifier { get; set; }
         public List<string> Attributes { get; set; }
+        public string Classes { get; set; }
         public string Status { get; set; }
         public List<object> Widgets { get; set; } // List of objects for flexibility
+        public object Styles { get; set; } // List of objects for flexibility
     }
 
     public class ImageWidget
@@ -95,7 +98,10 @@ namespace Dyna.Player.Models
         public string Type { get; set; }
         public string Source { get; set; }
         public List<string> Attributes { get; set; }
+        public string Classes { get; set; }
         public string Status { get; set; }
+        public object Styles { get; set; } // List of objects for flexibility
+
     }
     public class VideoWidget
     {
@@ -103,29 +109,53 @@ namespace Dyna.Player.Models
         public string Type { get; set; }
         public string Source { get; set; }
         public List<string> Attributes { get; set; }
+        public string Classes { get; set; }
         public string Status { get; set; }
+        public object Styles { get; set; } // List of objects for flexibility
+
     }
 
     public class CountdownWidget
     {
+        public string Identifier { get; set; }
         public List<string> Attributes { get; set; }
+        public string Classes { get; set; }
         public TargetDateTimeData TargetDateTime { get; set; }
-        public List<TextWidget> Parts { get; set; }
+        public List<BoxLayout> Parts { get; set; }
         public OutcomeData Outcome { get; set; }
+        public object Styles { get; set; } // List of objects for flexibility
+
     }
-    public class TextWidget { 
+    public class BoxLayout
+    {
+        public string Identifier { get; set; }
+        public string Classes { get; set; }
+        public List<object> Contents { get; set; }
+        public List<string> Attributes { get; set; }
+        public object Styles { get; set; } // List of objects for flexibility
+
+    }
+    public class TextWidget
+    {
+        public string Identifier { get; set; }
+        public string Value { get; set; }
         public string Type { get; set; }
         public string Source { get; set; }
         public List<string> Attributes { get; set; }
+        public string Classes { get; set; }
+        public object Styles { get; set; } // List of objects for flexibility
+
     }
     public class TargetDateTimeData
     {
+        public string Identifier { get; set; }
         public string Variable { get; set; }
         public string Name { get; set; }
     }
 
     public class OutcomeData
     {
+        public string Identifier { get; set; }
         public string Action { get; set; }
         public string Type { get; set; }
         public string Id { get; set; }

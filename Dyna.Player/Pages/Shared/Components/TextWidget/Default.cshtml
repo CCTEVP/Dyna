@@ -1,3 +1,9 @@
-﻿<div class="text-widget-container" class="@string.Join(" ", Model.Attributes)">
-    
+﻿@model Dyna.Player.Models.TextWidget
+@using Dyna.Player.Helpers
+
+<div class="text-widget-@(Model.Identifier ?? "container")" class="@(Model.Classes ?? "")">
+    @if (Model.Value != null)
+    {
+        @Model.Value
+    }
 </div>

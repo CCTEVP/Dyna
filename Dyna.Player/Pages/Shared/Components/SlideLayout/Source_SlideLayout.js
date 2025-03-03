@@ -1,13 +1,12 @@
 ﻿function renderSlideLayouts() {
+    console.log("Rendering SlideLayouts");
+    const slideLayouts = document.querySelectorAll('[id^="slide-layout-"]');
 
-    const slideLayouts = document.querySelectorAll('[id^="image-widget-"]');
+    slideLayouts.forEach(slideWidget => {
+        // Get the CSS styles from the data-css attribute
+        const cssStyles = slideWidget.getAttribute('data-css');
 
-    slideLayouts.forEach(slideLayout => {
-        const shadow = slideLayout.attachShadow({ mode: 'open' });
-
-        // Add CSS styles within the Shadow DOM
-        const style = document.createElement('style');
-        style.textContent = `/* CSS_CONTENT_PLACEHOLDER */`; // Placeholder for CSS content (DO NOT DELETE)
-        shadow.appendChild(style);
+        // Set the styles directly as inline styles
+        //slideWidget.style.cssText = cssStyles;
     });
 }

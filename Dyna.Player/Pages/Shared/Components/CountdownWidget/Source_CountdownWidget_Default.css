@@ -1,6 +1,11 @@
 ﻿:host {
     display: flex;
     flex-direction: row;
+    position:absolute;
+    border: 1px solid red;
+}
+:host.middle {
+        
 }
 :host.hidden {
     opacity: 0;

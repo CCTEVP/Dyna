@@ -27,7 +27,7 @@ namespace Dyna.Player.TagHelpers
             {
                 AssetLocation = _presentAssets[AssetName]; //get the asset location from the Dictionary.
 
-                if (AssetType == "css")
+                if (AssetType == "css") // Custom styles
                 {
                     if (AssetLocation == "widget")
                     {
@@ -38,7 +38,7 @@ namespace Dyna.Player.TagHelpers
                         output.Content.AppendHtml($"<link rel=\"stylesheet\" href=\"/css/layouts/Custom_{AssetName}.css\" />");
                     }
                 }
-                else if (AssetType == "js")
+                else if (AssetType == "js") // Shadow DOM for encapsulation
                 {
                     if (AssetLocation == "widget")
                     {
@@ -46,7 +46,7 @@ namespace Dyna.Player.TagHelpers
                     }
                     else if (AssetLocation == "layout")
                     {
-                        output.Content.AppendHtml($"<script src=\"/js/layouts/{AssetName}.js\" defer async></script>");
+                        output.Content.AppendHtml($"<script src=\"/js/layout/{AssetName}.js\" defer async></script>");
                     }
                 }
             }

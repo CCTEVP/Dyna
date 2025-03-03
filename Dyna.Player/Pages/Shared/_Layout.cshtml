@@ -7,9 +7,12 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Dyna.Player.styles.css" asp-append-version="true" />
+    <asset asset-name="TextWidget" asset-type="css" asset-location="widget" />
     <asset asset-name="ImageWidget" asset-type="css" asset-location="widget" />
     <asset asset-name="VideoWidget" asset-type="css" asset-location="widget" />
     <asset asset-name="CountdownWidget" asset-type="css" asset-location="widget" />
+    <asset asset-name="BoxLayout" asset-type="css" asset-location="layout" />
+    <asset asset-name="SlideLayout" asset-type="css" asset-location="layout" />
 </head>
 <body>
     <div id="app">
@@ -19,9 +22,12 @@
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <asset asset-name="TextWidget" asset-type="js" asset-location="widget" />
     <asset asset-name="ImageWidget" asset-type="js" asset-location="widget" />
     <asset asset-name="VideoWidget" asset-type="js" asset-location="widget" />
     <asset asset-name="CountdownWidget" asset-type="js" asset-location="widget" />
+    <asset asset-name="BoxLayout" asset-type="js" asset-location="layout" />
+    <asset asset-name="SlideLayout" asset-type="js" asset-location="layout" />
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -1,16 +1,22 @@
 ﻿@model Dyna.Player.Models.CountdownWidget
-<div class="countdown-widget-container" data-target="@Model.TargetDateTime.Name" class="@string.Join(" ", Model.Attributes)">
+<div class="countdown-widget-@(Model.Identifier ?? "container")" data-target="@Model.TargetDateTime.Name" class="@(Model.Classes ?? "")">
     @if (Model.Parts != null)
     {
         foreach (var part in Model.Parts)
         {
-            <div id="days" class="part">
-                <div class="label">@part</div>
-                <div class="number"></div>
-            </div>
-
+            if (part is Dyna.Player.Models.BoxLayout boxWidget)
+            {
+                @await Component.InvokeAsync("BoxLayout", boxWidget)
+                Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("BoxLayout", "layout");
+            }
+            else
+            {
+                <p>Unknown Widget Type: @part?.GetType().Name</p>
+            }
         }
     }
-    <p>Outcome Action: @Model.Outcome.Action</p>
-
+    else
+    {
+        <p>Outcome Action: @Model.Outcome.Action</p>
+    }
 </div>

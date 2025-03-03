@@ -1,12 +1,12 @@
 ﻿function renderCountdownWidgets() {
+    console.log("Rendering CountdownWidgets");
     const countdownWidgets = document.querySelectorAll('[id^="countdown-widget-"]');
 
     countdownWidgets.forEach(countdownWidget => {
-        const shadow = countdownWidget.attachShadow({ mode: 'open' });
+        // Get the CSS styles from the data-css attribute
+        const cssStyles = countdownWidget.getAttribute('data-css');
 
-        // Add CSS styles within the Shadow DOM
-        const style = document.createElement('style');
-        style.textContent = `/* CSS_CONTENT_PLACEHOLDER */`; // Placeholder for CSS content (DO NOT DELETE)
-        shadow.appendChild(style);
+        // Set the styles directly as inline styles
+        countdownWidget.style.cssText = cssStyles;
     });
 }

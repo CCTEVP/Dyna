@@ -1,12 +1,12 @@
 ﻿function renderTextWidgets() {
+    console.log("Rendering TextWidgets");
     const textWidgets = document.querySelectorAll('[id^="text-widget-"]');
 
     textWidgets.forEach(textWidget => {
-        const shadow = textWidget.attachShadow({ mode: 'open' });
+        // Get the CSS styles from the data-css attribute
+        const cssStyles = textWidget.getAttribute('data-css');
 
-        // Add CSS styles within the Shadow DOM
-        const style = document.createElement('style');
-        style.textContent = `/* CSS_CONTENT_PLACEHOLDER */`; // Placeholder for CSS content (DO NOT DELETE)
-        shadow.appendChild(style);
+        // Set the styles directly as inline styles
+        textWidget.style.cssText = cssStyles;
     });
 }

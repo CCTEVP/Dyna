@@ -11,6 +11,7 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); // Cruc
 builder.Services.AddHttpClient();
 // Add the custom services configuration
 builder.Services.Configure<WidgetViewPaths>(builder.Configuration.GetSection("WidgetViewPaths"));
+builder.Services.AddTransient<IWidgetStyleService, WidgetStyleService>();
 
 // Configure View Location Formats for Widgets
 builder.Services.Configure<Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions>(o => {
@@ -33,6 +34,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+//app.MapBlazorHub();
 
 app.UseAuthorization();
 
@@ -57,4 +59,6 @@ app.MapGet("/js/{assetType}/{assetName}.js", async (HttpContext context, string 
     context.Response.ContentType = "application/javascript";
     await context.Response.WriteAsync(script);
 });
+
+
 app.Run();
