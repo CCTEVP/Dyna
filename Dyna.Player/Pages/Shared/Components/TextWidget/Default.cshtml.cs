@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Dyna.Player.Models;
 
 namespace Dyna.Player.Pages.Shared.Components.TextWidget
 {
-    public class TextWidgetViewComponent : ViewComponent
+    public class TextWidgetViewComponent : BaseViewComponent // Inherit from the simplified BaseViewComponent
     {
-        public IViewComponentResult Invoke(Dyna.Player.Models.TextWidget model)
+        public TextWidgetViewComponent() : base() { } // No dependencies needed
+
+        public async Task<IViewComponentResult> InvokeAsync(TextWidgetClass layout)
         {
-            return View(model);
+            return await base.InvokeAsync(layout); // Directly pass the layout to the base InvokeAsync
         }
     }
 }

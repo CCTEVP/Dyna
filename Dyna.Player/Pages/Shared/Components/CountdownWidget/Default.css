@@ -1,0 +1,4 @@
+﻿div[id^="countdown-widget-"] {
+    display: flex;
+    flex-direction: row;
+}

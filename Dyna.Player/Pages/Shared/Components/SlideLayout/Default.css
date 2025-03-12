@@ -1,0 +1,21 @@
+﻿div[id^="slide-layout-"] {
+    /*border:1px solid red;*/
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color-scheme: light dark;
+    color: #ffffffde;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+#slide01 {
+    background-color: rgba(0, 0, 0, 1);
+    z-index: 10;
+}
+
+#slide02 {
+    background-color: rgba(255, 0, 0, 1);
+    z-index: 20;
+}

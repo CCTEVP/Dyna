@@ -1,35 +1,55 @@
-﻿@model Dyna.Player.Models.SlideData
+﻿@model SlideLayoutClass
+@using Dyna.Player.Models
+@using Dyna.Player.Utilities
 @using Dyna.Player.TagHelpers
+@using System.Diagnostics
+@using Newtonsoft.Json;
 
-<div id="slide-layout-@(Model.Identifier ?? "container")" class="@(Model.Classes ?? "")" style="@Model.Styles">
-    @if (Model.Widgets != null)
+<div id="slide-layout-@(Model.Identifier ?? Guid.NewGuid().ToString("N"))" class="@(Model.Classes ?? "")" style="@ConversionUtilities.GenerateCssStyleString(Model.Styles)">
+    @if (Model.Contents != null)
     {
-        foreach (var widget in Model.Widgets)
+        @foreach (var widgetContainer in Model.Contents)
         {
-            if (widget is Dyna.Player.Models.TextWidget textWidget)
+            Debug.WriteLine($"[SlideLayoutView] Widget Container Type: {widgetContainer.GetType().Name}");
+            Debug.WriteLine($"[SlideLayoutView] Contents: {JsonConvert.SerializeObject(widgetContainer)}");
+
+            if (widgetContainer.ImageWidget != null)
             {
-                @await Component.InvokeAsync("TextWidget", widget)
-                Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("TextWidget", "widget");
-            }
-            else if (widget is Dyna.Player.Models.ImageWidget imageWidget)
-            {
-                @await Component.InvokeAsync("ImageWidget", imageWidget)
+                //Debug.WriteLine($"[SlideLayoutView] Rendering ImageWidget");
+                @await Component.InvokeAsync("ImageWidget", widgetContainer.ImageWidget)
                 Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("ImageWidget", "widget");
             }
-            else if (widget is Dyna.Player.Models.VideoWidget videoWidget)
+            else if (widgetContainer.CountdownWidget != null)
             {
-                @await Component.InvokeAsync("VideoWidget", videoWidget)
+                //Debug.WriteLine($"[SlideLayoutView] Rendering CountdownWidget");
+                @await Component.InvokeAsync("CountdownWidget", widgetContainer.CountdownWidget)
+                Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("CountdownWidget", "widget");
+            }
+            else if (widgetContainer.VideoWidget != null)
+            {
+                //Debug.WriteLine($"[SlideLayoutView] Rendering VideoWidget");
+                @await Component.InvokeAsync("VideoWidget", widgetContainer.VideoWidget)
                 Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("VideoWidget", "widget");
             }
-            else if (widget is Dyna.Player.Models.CountdownWidget countdownWidget)
+            else if (widgetContainer.TextWidget != null)
             {
-                @await Component.InvokeAsync("CountdownWidget", countdownWidget)
-                Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("CountdownWidget", "widget");
+                //Debug.WriteLine($"[SlideLayoutView] Rendering TextWidget");
+                @await Component.InvokeAsync("TextWidget", widgetContainer.TextWidget)
+                Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("TextWidget", "widget");
+            }
+
+            else if (widgetContainer.CardWidget != null)
+            {
+                //Debug.WriteLine($"[SlideLayoutView] Rendering CardWidget");
+                @await Component.InvokeAsync("CardWidget", widgetContainer.CardWidget)
+                Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("CardWidget", "widget");
             }
             else
             {
-                <p>Unknown Widget Type: @widget?.GetType().Name</p>
+                Debug.WriteLine($"No widget found in WidgetContainer");
             }
         }
     }
+    
+
 </div>

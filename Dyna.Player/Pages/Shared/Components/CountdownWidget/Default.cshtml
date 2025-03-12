@@ -1,17 +1,41 @@
-﻿@model Dyna.Player.Models.CountdownWidget
-<div class="countdown-widget-@(Model.Identifier ?? "container")" data-target="@Model.TargetDateTime.Name" class="@(Model.Classes ?? "")">
-    @if (Model.Parts != null)
+﻿@model CountdownWidgetClass
+@using System.Diagnostics
+@using Dyna.Player.Pages.Shared.Components.BoxLayout
+@using Dyna.Player.Services
+@using Dyna.Player.Utilities
+@using Newtonsoft.Json
+@inject QueryParameterService QueryParameterService
+@{
+    Debug.WriteLine("CountdownWidgetClass:");
+    Debug.WriteLine(JsonConvert.SerializeObject(Model));
+
+    string targetDateTime = Model.TargetDateTime?.Default;
+
+    if (Model.TargetDateTime?.Source == "queryParameter")
     {
-        foreach (var part in Model.Parts)
+        string queryTargetDateTime = QueryParameterService.GetQueryParameterValue(Model.TargetDateTime.Name);
+        if (queryTargetDateTime != null)
         {
-            if (part is Dyna.Player.Models.BoxLayout boxWidget)
+            targetDateTime = queryTargetDateTime;
+        }
+
+    }
+    Debug.WriteLine($"Query parameter value for {Model.TargetDateTime.Name}: {targetDateTime}");
+   
+}
+
+<div id="countdown-widget-@(Model.Identifier ?? Guid.NewGuid().ToString("N"))" data-target-date-time="@(targetDateTime)" class="@(Model.Classes ?? "")" style="@ConversionUtilities.GenerateCssStyleString(Model.Styles)" data-status="">
+    @if (Model.Contents != null)
+    {
+        foreach (var part in Model.Contents) // Iterate through Elements
+        {
+            if (part.BoxLayout != null && part.BoxLayout is BoxLayoutClass) // Check if Layout is box
             {
-                @await Component.InvokeAsync("BoxLayout", boxWidget)
-                Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("BoxLayout", "layout");
+                @await Component.InvokeAsync("BoxLayout", part.BoxLayout)
             }
             else
             {
-                <p>Unknown Widget Type: @part?.GetType().Name</p>
+                <p>Unknown Element Type: @part?.GetType().Name</p>
             }
         }
     }

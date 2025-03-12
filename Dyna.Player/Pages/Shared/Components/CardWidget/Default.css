@@ -1,0 +1,32 @@
+﻿/* Basic CardWidget Styles */
+div[id^="card-widget-"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-weight: bold;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Container for digits */
+.card-widget-digits-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+/* Default digit container (for non-animated or other animation types) */
+.card-widget-digit-container {
+  width: 100%;
+  text-align: center;
+}
+
+/* Default digit styling */
+.card-widget-digit {
+  width: 100%;
+  text-align: center;
+}

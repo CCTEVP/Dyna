@@ -1,4 +1,4 @@
-﻿namespace Dyna.Player.Converters // Replace Dyna.Player with your project name if different
+﻿namespace Dyna.Player.Converters
 {
     using Dyna.Player.Models;
     using System;
@@ -6,7 +6,7 @@
     using System.Text.Json;
     using System.Text.Json.Serialization;
 
-    public class WidgetsConverter : JsonConverter<List<object>> // Change to List<object>
+    public class WidgetsConverter : JsonConverter<List<object>>
     {
         public override List<object> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
@@ -23,13 +23,13 @@
                             switch (root)
                             {
                                 case JsonElement element when element.TryGetProperty("image", out JsonElement imageElement):
-                                    widgets.Add(JsonSerializer.Deserialize<ImageWidget>(imageElement.ToString(), options));
+                                    //widgets.Add(JsonSerializer.Deserialize<WidgetElement>(imageElement.GetRawText(), options));
                                     break;
                                 case JsonElement element when element.TryGetProperty("video", out JsonElement videoElement):
-                                    widgets.Add(JsonSerializer.Deserialize<VideoWidget>(videoElement.ToString(), options));
+                                    //widgets.Add(JsonSerializer.Deserialize<WidgetElement>(videoElement.GetRawText(), options));
                                     break;
                                 case JsonElement element when element.TryGetProperty("countdown", out JsonElement countdownElement):
-                                    widgets.Add(JsonSerializer.Deserialize<CountdownWidget>(countdownElement.ToString(), options));
+                                    //widgets.Add(JsonSerializer.Deserialize<WidgetElement>(countdownElement.GetRawText(), options));
                                     break;
                                 default:
                                     System.Diagnostics.Debug.WriteLine("Warning: Widget object missing expected property (image, video, countdown).");
@@ -42,7 +42,7 @@
             }
             else
             {
-                return null; // Handle non-array case (if needed)
+                return null;
             }
         }
 

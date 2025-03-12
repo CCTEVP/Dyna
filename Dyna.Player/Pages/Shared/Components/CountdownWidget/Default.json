@@ -1,0 +1,197 @@
+{
+  "identifier": "",
+  "classes": "",
+  "styles": {
+    "display": "flex",
+    "flex-direction": "row",
+    "margin-top": "-500px"
+  },
+  "attributes": [],
+  "targetDateTime": {
+    "source": "queryParameter",
+    "name": "targetDateTime"
+  },
+  "contents": [
+    {
+      "boxLayout": {
+        "identifier": "days",
+        "attributes": [],
+        "styles": {
+          "display": "flex",
+          "flex-direction": "column",
+          "width": "180px",
+          "margin": "30px"
+        },
+        "contents": [
+          {
+            "textWidget": {
+              "value": "Days",
+              "classes": "label",
+              "styles": {
+                "color": "black",
+                "font-size": "40px",
+                "text-align": "center"
+              }
+            }
+          },
+          {
+            "cardWidget": {
+              "classes": "number",
+              "value": "00",
+              "type": "dateTime",
+              "source": "days",
+              "styles": {
+                "color": "black",
+                "height": "200px",
+                "width": "200px",
+                "margin-top": "10px",
+                "font-size": "120px",
+                "text-align": "center",
+                "background-color": "#ffffff1a",
+                "border": "0.5px solid rgba(255, 255, 255, 0.3)",
+                "border-radius": "5%"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "boxLayout": {
+        "identifier": "hours",
+        "attributes": [],
+        "styles": {
+          "display": "flex",
+          "flex-direction": "column",
+          "width": "180px",
+          "margin": "30px"
+        },
+        "contents": [
+          {
+            "textWidget": {
+              "value": "Hours",
+              "classes": "label",
+              "styles": {
+                "color": "black",
+                "font-size": "40px",
+                "text-align": "center"
+              }
+            }
+          },
+          {
+            "cardWidget": {
+              "classes": "number",
+              "value": "00",
+              "type": "dateTime",
+              "source": "hours",
+              "styles": {
+                "color": "black",
+                "height": "200px",
+                "width": "200px",
+                "margin-top": "10px",
+                "font-size": "120px",
+                "text-align": "center",
+                "background-color": "#ffffff1a",
+                "border": "0.5px solid rgba(255, 255, 255, 0.3)",
+                "border-radius": "5%"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "boxLayout": {
+        "identifier": "minutes",
+        "attributes": [],
+        "styles": {
+          "display": "flex",
+          "flex-direction": "column",
+          "width": "180px",
+          "margin": "30px"
+        },
+        "contents": [
+          {
+            "textWidget": {
+              "value": "Minutes",
+              "classes": "label",
+              "styles": {
+                "color": "black",
+                "font-size": "40px",
+                "text-align": "center"
+              }
+            }
+          },
+          {
+            "cardWidget": {
+              "classes": "number",
+              "value": "00",
+              "type": "dateTime",
+              "source": "minutes",
+              "styles": {
+                "color": "black",
+                "height": "200px",
+                "width": "200px",
+                "margin-top": "10px",
+                "font-size": "120px",
+                "text-align": "center",
+                "background-color": "#ffffff1a",
+                "border": "0.5px solid rgba(255, 255, 255, 0.3)",
+                "border-radius": "5%"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "boxLayout": {
+        "identifier": "seconds",
+        "attributes": [],
+        "styles": {
+          "display": "flex",
+          "flex-direction": "column",
+          "width": "180px",
+          "margin": "30px"
+        },
+        "contents": [
+          {
+            "textWidget": {
+              "value": "Seconds",
+              "classes": "label",
+              "styles": {
+                "color": "black",
+                "font-size": "40px",
+                "text-align": "center"
+              }
+            }
+          },
+          {
+            "cardWidget": {
+              "classes": "number",
+              "value": "00",
+              "type": "dateTime",
+              "source": "seconds",
+              "styles": {
+                "color": "black",
+                "height": "200px",
+                "width": "200px",
+                "margin-top": "10px",
+                "font-size": "120px",
+                "text-align": "center",
+                "background-color": "#ffffff1a",
+                "border": "0.5px solid rgba(255, 255, 255, 0.3)",
+                "border-radius": "5%"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "outcome": {
+    "action": "play",
+    "type": "video",
+    "id": "outcome"
+  }
+}

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -9,19 +9,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Pages\Shared\Components\TextWidget\Source_TextWidget.css" />
-    <None Remove="Pages\Shared\Components\TextWidget\Source_TextWidget.js" />
+    <None Remove="Pages\Shared\Libraries\CreativeTicker\Default.css" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Pages\Shared\Components\CountdownWidget\Source_CountdownWidget_Default.css" />
-    <Content Include="Pages\Shared\Components\CountdownWidget\Source_CountdownWidget.js" />
-    <Content Include="Pages\Shared\Components\ImageWidget\Source_ImageWidget.js" />
-    <Content Include="Pages\Shared\Components\SlideLayout\Source_SlideLayout.js" />
-    <Content Include="Pages\Shared\Components\TextWidget\Source_TextWidget.css" />
-    <Content Include="Pages\Shared\Components\TextWidget\Source_TextWidget.js" />
-    <Content Include="Pages\Shared\Components\BoxLayout\Source_BoxLayout.js" />
-    <Content Include="Pages\Shared\Components\VideoWidget\Source_VideoWidget.js" />
+    <Content Include="Pages\Shared\Components\BoxLayout\Default.css" />
+    <Content Include="Pages\Shared\Components\CardWidget\Default.css" />
+    <Content Include="Pages\Shared\Components\CardWidget\Default.js" />
+    <Content Include="Pages\Shared\Components\CountdownWidget\Default.css" />
+    <Content Include="Pages\Shared\Components\CountdownWidget\Default.js" />
+    <Content Include="Pages\Shared\Components\ImageWidget\Default.js" />
+    <Content Include="Pages\Shared\Components\ImageWidget\Default.css" />
+    <Content Include="Pages\Shared\Components\SlideLayout\Default.css" />
+    <Content Include="Pages\Shared\Components\SlideLayout\Default.js" />
+    <Content Include="Pages\Shared\Components\TextWidget\Default.css" />
+    <Content Include="Pages\Shared\Components\TextWidget\Default.js" />
+    <Content Include="Pages\Shared\Components\BoxLayout\Default.js" />
+    <Content Include="Pages\Shared\Components\VideoWidget\Default.js" />
+    <Content Include="Pages\Shared\Components\VideoWidget\Default.css" />
+    <Content Include="Pages\Shared\Libraries\CreativeTicker\Default.css" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +39,10 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <FrameworkReference Include="Microsoft.NETCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\Shared\Libraries\NewFolder\" />
+    <Folder Include="Pages\Shared\Libraries\WidgetAnimations\" />
   </ItemGroup>
 
 </Project>

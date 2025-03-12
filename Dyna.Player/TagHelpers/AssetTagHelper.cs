@@ -1,55 +1,76 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Dyna.Player.TagHelpers
 {
+    [HtmlTargetElement("asset", TagStructure = TagStructure.WithoutEndTag)]
     public class AssetTagHelper : TagHelper
     {
-        private static Dictionary<string, string> _presentAssets = new Dictionary<string, string>(); // Use a Dictionary
+        private static readonly HashSet<AssetInfo> _presentAssets = new HashSet<AssetInfo>();
 
         public string AssetName { get; set; }
         public string AssetType { get; set; }
         public string AssetLocation { get; set; }
 
-        public static void AddPresentAsset(string assetName, string assetLocation) // Modified method
+        public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-            _presentAssets[assetName] = assetLocation;
+            // This tag helper is no longer used to render individual assets
+            // It's only used for tracking which assets are present
+            // The actual rendering is now handled by the BundleTagHelper
+            output.SuppressOutput();
+            return Task.CompletedTask;
         }
 
-        public override void Process(TagHelperContext context, TagHelperOutput output)
+        /// <summary>
+        /// Adds an asset to the list of present assets
+        /// </summary>
+        public static void AddPresentAsset(string assetName, string assetLocation)
         {
-            output.TagName = null;
-            output.TagMode = TagMode.StartTagAndEndTag;
+            // Add both CSS and JS assets
+            _presentAssets.Add(new AssetInfo { AssetName = assetName, AssetType = "css", AssetLocation = assetLocation });
+            _presentAssets.Add(new AssetInfo { AssetName = assetName, AssetType = "js", AssetLocation = assetLocation });
+        }
 
-            
+        /// <summary>
+        /// Gets the list of present assets
+        /// </summary>
+        public static IEnumerable<AssetInfo> GetPresentAssets()
+        {
+            return _presentAssets;
+        }
 
-            if (_presentAssets.ContainsKey(AssetName))
+        /// <summary>
+        /// Clears the list of present assets
+        /// </summary>
+        public static void ClearPresentAssets()
+        {
+            _presentAssets.Clear();
+        }
+    }
+
+    public class AssetInfo
+    {
+        public string AssetName { get; set; }
+        public string AssetType { get; set; }
+        public string AssetLocation { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is AssetInfo other)
             {
-                AssetLocation = _presentAssets[AssetName]; //get the asset location from the Dictionary.
-
-                if (AssetType == "css") // Custom styles
-                {
-                    if (AssetLocation == "widget")
-                    {
-                        output.Content.AppendHtml($"<link rel=\"stylesheet\" href=\"/css/widgets/Custom_{AssetName}.css\" />");
-                    }
-                    else if (AssetLocation == "layout")
-                    {
-                        output.Content.AppendHtml($"<link rel=\"stylesheet\" href=\"/css/layouts/Custom_{AssetName}.css\" />");
-                    }
-                }
-                else if (AssetType == "js") // Shadow DOM for encapsulation
-                {
-                    if (AssetLocation == "widget")
-                    {
-                        output.Content.AppendHtml($"<script src=\"/js/widget/{AssetName}.js\" defer async></script>");
-                    }
-                    else if (AssetLocation == "layout")
-                    {
-                        output.Content.AppendHtml($"<script src=\"/js/layout/{AssetName}.js\" defer async></script>");
-                    }
-                }
+                return AssetName == other.AssetName && 
+                       AssetType == other.AssetType && 
+                       AssetLocation == other.AssetLocation;
             }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(AssetName, AssetType, AssetLocation);
         }
     }
 }

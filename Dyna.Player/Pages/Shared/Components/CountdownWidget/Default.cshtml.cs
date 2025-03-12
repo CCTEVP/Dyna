@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Dyna.Player.Models;
 
 namespace Dyna.Player.Pages.Shared.Components.CountdownWidget
 {
-    public class CountdownWidgetViewComponent : ViewComponent
+    public class CountdownWidgetViewComponent : BaseViewComponent // Inherit from the simplified BaseViewComponent
     {
-        public IViewComponentResult Invoke(Dyna.Player.Models.CountdownWidget model)
+        public CountdownWidgetViewComponent() : base() { } // No dependencies needed
+
+        public async Task<IViewComponentResult> InvokeAsync(CountdownWidgetClass layout)
         {
-            return View(model);
+            return await base.InvokeAsync(layout); // Directly pass the layout to the base InvokeAsync
         }
     }
 }

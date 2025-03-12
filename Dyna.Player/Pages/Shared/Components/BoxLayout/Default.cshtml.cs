@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Dyna.Player.Models;
+using System.Threading.Tasks;
 
 namespace Dyna.Player.Pages.Shared.Components.BoxLayout
 {
-    public class BoxLayoutViewComponent : ViewComponent
+    public class BoxLayoutViewComponent : BaseViewComponent // Inherit from the simplified BaseViewComponent
     {
-        public IViewComponentResult Invoke(Dyna.Player.Models.BoxLayout model)
+        public BoxLayoutViewComponent() : base() { } // No dependencies needed
+
+        public async Task<IViewComponentResult> InvokeAsync(BoxLayoutClass layout)
         {
-            return View(model);
+            return await base.InvokeAsync(layout); // Directly pass the layout to the base InvokeAsync
         }
     }
 }

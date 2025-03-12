@@ -6,29 +6,23 @@
     <title>Dynamic Template :: @ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Dyna.Player.styles.css" asp-append-version="true" />
-    <asset asset-name="TextWidget" asset-type="css" asset-location="widget" />
-    <asset asset-name="ImageWidget" asset-type="css" asset-location="widget" />
-    <asset asset-name="VideoWidget" asset-type="css" asset-location="widget" />
-    <asset asset-name="CountdownWidget" asset-type="css" asset-location="widget" />
-    <asset asset-name="BoxLayout" asset-type="css" asset-location="layout" />
-    <asset asset-name="SlideLayout" asset-type="css" asset-location="layout" />
+    <!-- Debug mode is determined solely by the ?debug=true query parameter -->
+    <bundle type="css" />
 </head>
 <body>
-    <div id="app">
-        <main role="main" class="container-fluid">
-            @RenderBody()
-        </main>
+    <main id="app" role="main" class="container-fluid">
+        @RenderBody()
+    </main>
+    <div id="debug">
+        <a href="/dynamic/123456789?targetDateTime=2025-03-13T12:00:00">Dynamic sample</a><br />
+        <a href="/interactive/123456789?targetDateTime=2025-03-13T12:00:00&debug=true">Interactive sample</a><br />
+        <a href="@(Context.Request.Path)@(Context.Request.QueryString.HasValue ? Context.Request.QueryString.Value + "&debug=true" : "?debug=true")">Enable debug mode</a>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <asset asset-name="TextWidget" asset-type="js" asset-location="widget" />
-    <asset asset-name="ImageWidget" asset-type="js" asset-location="widget" />
-    <asset asset-name="VideoWidget" asset-type="js" asset-location="widget" />
-    <asset asset-name="CountdownWidget" asset-type="js" asset-location="widget" />
-    <asset asset-name="BoxLayout" asset-type="js" asset-location="layout" />
-    <asset asset-name="SlideLayout" asset-type="js" asset-location="layout" />
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Debug mode is determined solely by the ?debug=true query parameter -->
+    <bundle type="js" />
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

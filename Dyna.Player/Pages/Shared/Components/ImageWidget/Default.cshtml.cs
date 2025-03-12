@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Dyna.Player.Models;
+﻿using Dyna.Player.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Dyna.Player.Pages.Shared.Components.ImageWidget
 {
-    public class ImageWidgetViewComponent : ViewComponent
+    public class ImageWidgetViewComponent : BaseViewComponent // Inherit from the simplified BaseViewComponent
     {
-        public IViewComponentResult Invoke(Dyna.Player.Models.ImageWidget model)
+        public ImageWidgetViewComponent() : base() { } // No dependencies needed
+
+        public async Task<IViewComponentResult> InvokeAsync(ImageWidgetClass layout)
         {
-            return View(model);
+            return await base.InvokeAsync(layout); // Directly pass the layout to the base InvokeAsync
         }
     }
 }

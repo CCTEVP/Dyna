@@ -1,25 +1,14 @@
-﻿// SlideLayoutViewComponent.cs (example)
-
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using Dyna.Player.Models;
-using Dyna.Player.Services; // Add this
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Dyna.Player.Pages.Shared.Components.SlideLayout
 {
-    public class SlideLayoutViewComponent : ViewComponent
+    public class SlideLayoutViewComponent : BaseViewComponent // Inherit from the simplified BaseViewComponent
     {
-        private readonly IWidgetStyleService _widgetStyleService; // Inject the service
+        public SlideLayoutViewComponent() : base() { } // No dependencies needed
 
-        public SlideLayoutViewComponent(IWidgetStyleService widgetStyleService)
+        public async Task<IViewComponentResult> InvokeAsync(SlideLayoutClass layout)
         {
-            _widgetStyleService = widgetStyleService;
-        }
-
-        public async Task<IViewComponentResult> InvokeAsync(SlideData slide)
-        {
-            slide.Styles = await _widgetStyleService.GetCombinedStylesAsync("SlideLayout", slide.Styles); // Use the service
-            return View(slide);
+            return await base.InvokeAsync(layout); // Directly pass the layout to the base InvokeAsync
         }
     }
 }

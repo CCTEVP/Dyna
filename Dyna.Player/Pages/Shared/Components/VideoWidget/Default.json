@@ -1,0 +1,12 @@
+{
+  "identifier": "outcome",
+  "source": "/vid/celebrate.mp4",
+  "attributes": ["fullscreen"],
+  "status": "",
+  "styles": {
+    "display": "flex",
+    "align-items": "center",
+    "justify-content": "center",
+    "flex-direction": "column"
+  }
+}

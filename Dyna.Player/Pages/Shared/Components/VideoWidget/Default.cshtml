@@ -1,3 +1,4 @@
-﻿@model Dyna.Player.Models.VideoWidget
-<div class="video-widget-@(Model.Identifier ?? "container")" data-src="@Model.Source" class="@(Model.Classes ?? "")">
+﻿@model VideoWidgetClass
+@using Dyna.Player.Utilities
+<div class="video-widget-@(Model.Identifier ?? Guid.NewGuid().ToString("N"))" class="@(Model.Classes ?? "")" style="@ConversionUtilities.GenerateCssStyleString(Model.Styles)">
 </div>

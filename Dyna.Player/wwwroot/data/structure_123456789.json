@@ -1,98 +1,156 @@
 {
   "id": "123456789",
-  "name": "Countdown",
-  "elements": [
+  "name": "Countdown Creative",
+  "createDateTime": "2025-03-06T09:45:05",
+  "styles": {
+    "width": "1080px",
+    "height": "1920px",
+    "position": "relative"
+  },
+  "pieces": [
     {
-      "slide": {
-        "styles": { "visibility": "visible" },
+      "slideLayout": {
+        "styles": {},
+        "classes": "visible",
         "identifier": "slide01",
         "attributes": [],
         "status": "",
-        "widgets": [
+        "contents": [
           {
-            "image": {
+            "imageWidget": {
               "identifier": "background",
               "source": "/img/welcome_sunset.jpg",
-              "classes": "fullscreen background",
+              "classes": "background",
               "attributes": [],
               "status": "",
-              "styles": { "position": "relative" }
+              "styles": {}
             }
           },
           {
-            "countdown": {
-              "classes": "marginTop-400 zIndex5",
-              "styles": {},
+            "countdownWidget": {
+              "identifier": "countdown01",
+              "classes": "",
+              "styles": {
+                "flex-direction": "row"
+              },
               "attributes": [],
               "targetDateTime": {
+                "default": "2025-12-31T23:59:59",
                 "source": "queryParameter",
                 "name": "targetDateTime"
               },
-              "parts": [
+              "contents": [
                 {
-                  "box": {
-                    "identifier": "caca",
+                  "boxLayout": {
                     "attributes": [],
+                    "styles": {},
                     "contents": [
                       {
-                        "text": { "value": "Days" }
+                        "textWidget": {
+                          "value": "Days",
+                          "styles": {
+                            "color": "white"
+                          }
+                        }
                       },
                       {
-                        "text": {
+                        "cardWidget": {
+                          "animation": "roll",
                           "value": "00",
                           "type": "dateTime",
-                          "source": "days"
+                          "source": "days",
+                          "styles": {
+                            "color": "white",
+                            "background-color": "#ffffff1a",
+                            "border": "0.5px solid rgba(255, 255, 255, 0.3)"
+                          }
                         }
                       }
                     ]
                   }
                 },
                 {
-                  "box": {
+                  "boxLayout": {
                     "attributes": [],
+                    "styles": {},
                     "contents": [
                       {
-                        "text": { "value": "Hours" }
+                        "textWidget": {
+                          "value": "Hours",
+                          "styles": {
+                            "color": "white"
+                          }
+                        }
                       },
                       {
-                        "text": {
+                        "cardWidget": {
+                          "animation": "roll",
                           "value": "00",
                           "type": "dateTime",
-                          "source": "hours"
+                          "source": "hours",
+                          "styles": {
+                            "color": "white",
+                            "background-color": "#ffffff1a",
+                            "border": "0.5px solid rgba(255, 255, 255, 0.3)"
+                          }
                         }
                       }
                     ]
                   }
                 },
                 {
-                  "box": {
+                  "boxLayout": {
                     "attributes": [],
+                    "styles": {},
                     "contents": [
                       {
-                        "text": { "value": "Minutes" }
+                        "textWidget": {
+                          "value": "Minutes",
+                          "styles": {
+                            "color": "white"
+                          }
+                        }
                       },
                       {
-                        "text": {
+                        "cardWidget": {
+                          "animation": "roll",
                           "value": "00",
                           "type": "dateTime",
-                          "source": "minutes"
+                          "source": "minutes",
+                          "styles": {
+                            "color": "white",
+                            "background-color": "#ffffff1a",
+                            "border": "0.5px solid rgba(255, 255, 255, 0.3)"
+                          }
                         }
                       }
                     ]
                   }
                 },
                 {
-                  "box": {
+                  "boxLayout": {
                     "attributes": [],
+                    "styles": {},
                     "contents": [
                       {
-                        "text": { "value": "Seconds" }
+                        "textWidget": {
+                          "value": "Seconds",
+                          "styles": {
+                            "color": "white"
+                          }
+                        }
                       },
                       {
-                        "text": {
+                        "cardWidget": {
+                          "animation": "roll",
                           "value": "00",
                           "type": "dateTime",
-                          "source": "seconds"
+                          "source": "seconds",
+                          "styles": {
+                            "color": "white",
+                            "background-color": "#ffffff1a",
+                            "border": "0.5px solid rgba(255, 255, 255, 0.3)"
+                          }
                         }
                       }
                     ]
@@ -110,35 +168,22 @@
       }
     },
     {
-      "slide": {
+      "slideLayout": {
         "identifier": "slide02",
         "classes": "hidden",
         "styles": { "visibility": "hidden" },
         "attributes": [],
         "status": "disabled",
-        "widgets": [
+        "contents": [
           {
-            "video": {
+            "videoWidget": {
               "identifier": "outcome",
               "source": "/vid/celebrate.mp4",
-              "attributes": [
-                "fullscreen"
-              ],
+              "attributes": ["fullscreen"],
               "status": "",
               "styles": { "position": "relative" }
             }
           }
-        ]
-      }
-    },
-    {
-      "slide": {
-        "styles": { "visibility": "hidden" },
-        "identifier": "slide03",
-        "classes": "hidden",
-        "attributes": [],
-        "status": "disabled",
-        "widgets": [
         ]
       }
     }

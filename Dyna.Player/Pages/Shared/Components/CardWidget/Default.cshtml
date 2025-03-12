@@ -1,0 +1,43 @@
+﻿@model CardWidgetClass
+@using Dyna.Player.Models
+@using Dyna.Player.Utilities
+@using Dyna.Player.TagHelpers
+@using System.Diagnostics
+@using Newtonsoft.Json
+
+@{
+    Debug.WriteLine($"[CardWidgetView] - Model: {JsonConvert.SerializeObject(Model)}");
+}
+
+<div id="card-widget-@(Model.Identifier ?? Guid.NewGuid().ToString("N"))" 
+     class="@(Model.Classes ?? "")" 
+     style="@ConversionUtilities.GenerateCssStyleString(Model.Styles)"
+     data-value="@Model.Value"
+     data-animation="@Model.Animation">
+    @if (Model != null)
+    {
+        @if (Model.Value != null)
+        {
+            @Model.Value
+        }
+        else
+        {
+            <p>No value provided</p>
+        }
+    }
+    else
+    {
+        <p>Model is null</p>
+    }
+</div>
+
+@{
+    // Register the CardWidget asset
+    AssetTagHelper.AddPresentAsset("CardWidget", "widget");
+    
+    // If animation is specified, register the animation library
+    if (!string.IsNullOrEmpty(Model.Animation))
+    {
+        AssetTagHelper.AddPresentAsset("CardWidgetAnimations", "library");
+    }
+}

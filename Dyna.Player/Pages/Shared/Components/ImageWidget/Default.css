@@ -1,0 +1,7 @@
+﻿div[id^="image-widget-"] {
+}
+div[id^="image-widget-"].background{
+    position:absolute;
+    z-index:-1
+}
+

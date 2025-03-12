@@ -14,6 +14,7 @@ $(() => {
         const widgetsPresent = Object.values(widgetsUsed).some(value => value === true);
         if (widgetsPresent) {
             console.log("Rendering widgets:")
+            if (typeof renderCardWidgets === 'function') { renderCardWidgets(); }
             if (typeof renderTextWidgets === 'function') { renderTextWidgets(); }
             if (typeof renderImageWidgets === 'function') { renderImageWidgets(); }
             if (typeof renderVideoWidgets === 'function') { renderVideoWidgets(); }

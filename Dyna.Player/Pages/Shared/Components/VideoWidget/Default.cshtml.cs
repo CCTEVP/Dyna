@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Dyna.Player.Models;
 
 namespace Dyna.Player.Pages.Shared.Components.VideoWidget
 {
-    public class VideoWidgetViewComponent : ViewComponent
+    public class VideoWidgetViewComponent : BaseViewComponent // Inherit from the simplified BaseViewComponent
     {
-        public IViewComponentResult Invoke(Dyna.Player.Models.VideoWidget model)
+        public VideoWidgetViewComponent() : base() { } // No dependencies needed
+
+        public async Task<IViewComponentResult> InvokeAsync(VideoWidgetClass layout)
         {
-            return View(model);
+            return await base.InvokeAsync(layout); // Directly pass the layout to the base InvokeAsync
         }
     }
 }
