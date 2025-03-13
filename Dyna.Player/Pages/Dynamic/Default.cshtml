@@ -9,7 +9,8 @@
     @if (Model?.Creative?.Pieces != null)
     {
         ViewData["Title"] = Model.Creative.Name;
-        Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("CreativeTicker", "library");
+        // Register the CreativeTicker script first (it's a dependency)
+        AssetTagHelper.AddPresentAsset("Libraries/Creative/CreativeTicker", "library", 0);
 
         @foreach (var piece in Model.Creative.Pieces)
         {
@@ -20,8 +21,6 @@
                 Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("SlideLayout", "layout");
             }
         }
-
-
     }
     else
     {

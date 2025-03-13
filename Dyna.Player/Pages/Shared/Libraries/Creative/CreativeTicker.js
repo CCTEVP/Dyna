@@ -1,6 +1,6 @@
 window.creativeTicker = window.creativeTicker || {
   interval: null,
-  tickRate: 100, // 10ms tick rate
+  tickRate: 10, // 10ms tick rate
   lastTick: Date.now(),
   subscribers: new Map(),
 

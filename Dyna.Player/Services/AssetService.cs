@@ -8,6 +8,7 @@ namespace Dyna.Player.Services
     public interface IAssetService
     {
         Task<string> GetAssetAsync(string assetName, string assetLocation, string extension, bool debugMode);
+        string GetAssetUrl(string assetName, string assetLocation, string assetType, bool debugMode);
     }
 
     public class AssetService : IAssetService
@@ -16,27 +17,45 @@ namespace Dyna.Player.Services
         {
             var basePath = Directory.GetCurrentDirectory();
             string assetPath;
+            string fullPath;
 
-            switch (assetLocation.ToLower())
+            System.Diagnostics.Debug.WriteLine($"GetAssetAsync called with: {assetName}, {assetLocation}, {extension}, {debugMode}");
+
+            // Handle library paths with subdirectories
+            if (assetLocation.StartsWith("Libraries/"))
             {
-                case "library":
-                    assetPath = Path.Combine(basePath, "Pages", "Shared", "Libraries", assetName);
-                    break;
-                case "widget":
-                case "layout":
-                    assetPath = Path.Combine(basePath, "Pages", "Shared", "Components", assetName);
-                    break;
-                default:
-                    return $"Invalid asset location: {assetLocation}";
+                // For paths like "Libraries/Creative" or "Libraries/WidgetAnimations"
+                assetPath = Path.Combine(basePath, "Pages", "Shared", assetLocation);
+                fullPath = Path.Combine(assetPath, $"{assetName}.{extension}");
+                System.Diagnostics.Debug.WriteLine($"Library path: {fullPath}");
             }
-
-            var fullPath = Path.Combine(assetPath, $"Default.{extension}");
+            else
+            {
+                switch (assetLocation.ToLower())
+                {
+                    case "library":
+                        assetPath = Path.Combine(basePath, "Pages", "Shared", "Libraries", assetName);
+                        break;
+                    case "widget":
+                    case "layout":
+                        assetPath = Path.Combine(basePath, "Pages", "Shared", "Components", assetName);
+                        break;
+                    default:
+                        System.Diagnostics.Debug.WriteLine($"Invalid asset location: {assetLocation}");
+                        return $"Invalid asset location: {assetLocation}";
+                }
+                
+                fullPath = Path.Combine(assetPath, $"Default.{extension}");
+                System.Diagnostics.Debug.WriteLine($"Standard path: {fullPath}");
+            }
 
             if (!File.Exists(fullPath))
             {
+                System.Diagnostics.Debug.WriteLine($"File not found: {fullPath}");
                 return $"Non existing asset file: {assetName} ({fullPath})";
             }
 
+            System.Diagnostics.Debug.WriteLine($"File found: {fullPath}");
             var content = await File.ReadAllTextAsync(fullPath);
 
             if (!debugMode)
@@ -82,6 +101,18 @@ namespace Dyna.Player.Services
             }
 
             return result.Code;
+        }
+
+        public string GetAssetUrl(string assetName, string assetLocation, string assetType, bool debugMode)
+        {
+            string url = $"/asset/{assetType}/{assetLocation}/{assetName}.{assetType}";
+            
+            if (debugMode)
+            {
+                url += "?debug=true";
+            }
+            
+            return url;
         }
     }
 } 

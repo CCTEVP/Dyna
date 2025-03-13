@@ -9,6 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Shared\Libraries\NewFolder\**" />
+    <Compile Remove="Pages\Shared\Libraries\WidgetAnimations\**" />
+    <Content Remove="Pages\Shared\Libraries\NewFolder\**" />
+    <Content Remove="Pages\Shared\Libraries\WidgetAnimations\**" />
+    <EmbeddedResource Remove="Pages\Shared\Libraries\NewFolder\**" />
+    <EmbeddedResource Remove="Pages\Shared\Libraries\WidgetAnimations\**" />
+    <None Remove="Pages\Shared\Libraries\NewFolder\**" />
+    <None Remove="Pages\Shared\Libraries\WidgetAnimations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Pages\Shared\Libraries\CreativeTicker\Default.css" />
   </ItemGroup>
 
@@ -35,14 +46,11 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NUglify" Version="1.21.12" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <FrameworkReference Include="Microsoft.NETCore.App" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Shared\Libraries\NewFolder\" />
-    <Folder Include="Pages\Shared\Libraries\WidgetAnimations\" />
   </ItemGroup>
 
 </Project>

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using NUglify;
+using Microsoft.AspNetCore.Http;
 
 namespace Dyna.Player.Services
 {
@@ -73,73 +74,43 @@ namespace Dyna.Player.Services
                 return null;
             }
 
-            // Generate a hash of the asset list to use as a cache key and filename
+            // Generate a hash of the asset list to use as a cache key
             string assetsHash = GenerateAssetsHash(filteredAssets);
-            string cacheKey = $"bundle_{type}_{assetsHash}_{(debugMode ? "debug" : "min")}";
             
-            _logger?.LogInformation("Generating bundle for {Type} with debug mode: {DebugMode}", type, debugMode);
-
-            // Try to get from cache first
-            if (_cache.TryGetValue(cacheKey, out string cachedUrl))
-            {
-                _logger?.LogInformation("Using cached bundle URL: {CachedUrl}", cachedUrl);
-                return cachedUrl;
-            }
-
-            // Generate bundle filename - use .min for production, no suffix for debug
-            string fileName = $"bundle-{assetsHash}{(debugMode ? "" : ".min")}.{type}";
-            string bundleDirectory = type.ToLower() == "css" ? CSS_BUNDLE_DIRECTORY : JS_BUNDLE_DIRECTORY;
-            string bundlePath = Path.Combine(bundleDirectory, fileName);
-            string fullPath = Path.Combine(_environment.ContentRootPath, bundlePath);
+            // Extract the creative ID from the route path
+            var httpContext = new HttpContextAccessor().HttpContext;
+            string path = httpContext?.Request.Path ?? "";
+            string creativeId = "default";
             
-            _logger?.LogInformation("Bundle file path: {FullPath}", fullPath);
-
-            // Check if bundle file already exists
-            if (File.Exists(fullPath))
+            // Parse the creative ID from paths like /dynamic/123456789 or /interactive/123456789
+            if (path.StartsWith("/dynamic/") || path.StartsWith("/interactive/"))
             {
-                string url = $"/{type}/bundle-{assetsHash}{(debugMode ? "" : ".min")}.{type}";
-                _cache.Set(cacheKey, url, TimeSpan.FromHours(24));
-                _logger?.LogInformation("Using existing bundle file: {Url}", url);
-                return url;
-            }
-
-            // Use a semaphore to prevent multiple threads from generating the same bundle
-            await _bundleLock.WaitAsync();
-            try
-            {
-                // Check again in case another thread created the file while we were waiting
-                if (File.Exists(fullPath))
+                string[] segments = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
+                if (segments.Length >= 2)
                 {
-                    string url = $"/{type}/bundle-{assetsHash}{(debugMode ? "" : ".min")}.{type}";
-                    _cache.Set(cacheKey, url, TimeSpan.FromHours(24));
-                    _logger?.LogInformation("Using existing bundle file (after lock): {Url}", url);
-                    return url;
+                    creativeId = segments[1]; // The second segment is the ID
                 }
-
-                _logger?.LogInformation("Generating new bundle content with debug mode: {DebugMode}", debugMode);
-                
-                // Bundle doesn't exist, create it
-                string bundleContent = await GenerateBundleContentAsync(filteredAssets, type, debugMode);
-                
-                // Write to file
-                await File.WriteAllTextAsync(fullPath, bundleContent);
-                _logger?.LogInformation("Wrote bundle file to: {FullPath}", fullPath);
-
-                // Return the URL
-                string bundleUrl = $"/{type}/bundle-{assetsHash}{(debugMode ? "" : ".min")}.{type}";
-                _cache.Set(cacheKey, bundleUrl, TimeSpan.FromHours(24));
-                
-                return bundleUrl;
             }
-            catch (Exception ex)
+            
+            // Create a URL that includes the creative ID
+            string bundleUrl = $"/{type}/bundle/{creativeId}{(debugMode ? "" : ".min")}.{type}";
+            
+            _logger?.LogInformation("Generated bundle URL: {BundleUrl} for creative ID: {CreativeId}, debug mode: {DebugMode}, path: {Path}", 
+                bundleUrl, creativeId, debugMode, path);
+            
+            return bundleUrl;
+        }
+
+        private string GenerateRequestIdentifier(string requestPath, string requestId)
+        {
+            // Create a string that represents the request
+            string requestString = $"{requestPath}|{requestId}";
+            
+            // Generate MD5 hash
+            using (MD5 md5 = MD5.Create())
             {
-                _logger?.LogError(ex, "Error generating bundle for {Type} with hash {Hash}", type, assetsHash);
-                // Return a fallback URL that will trigger individual asset loading
-                return null;
-            }
-            finally
-            {
-                _bundleLock.Release();
+                byte[] hashBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(requestString));
+                return BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant().Substring(0, 8);
             }
         }
 

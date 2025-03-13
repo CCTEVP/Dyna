@@ -35,15 +35,28 @@ namespace Dyna.Player.TagHelpers
                             (_httpContextAccessor.HttpContext.Request.Query["debug"] == "true" || 
                              _httpContextAccessor.HttpContext.Request.Query["debug"] == "");
             
-            // Log the debug mode determination
-            System.Diagnostics.Debug.WriteLine($"Bundle debug mode: {debugMode}, from query parameter");
+            // Extract the creative ID from the route path
+            string path = _httpContextAccessor.HttpContext.Request.Path;
+            string creativeId = "default";
             
-            // Get the bundle URL
-            string bundleUrl = null;
+            // Parse the creative ID from paths like /dynamic/123456789 or /interactive/123456789
+            if (path.StartsWith("/dynamic/") || path.StartsWith("/interactive/"))
+            {
+                string[] segments = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
+                if (segments.Length >= 2)
+                {
+                    creativeId = segments[1]; // The second segment is the ID
+                }
+            }
+            
+            // Generate the bundle URL based on the creative ID
+            string bundleUrl = $"/{Type}/bundle/{creativeId}{(debugMode ? "" : ".min")}.{Type}";
+            
+            // Log the debug mode and URL information
+            System.Diagnostics.Debug.WriteLine($"Bundle URL: {bundleUrl}, debug mode: {debugMode}, creative ID: {creativeId}, path: {path}");
             
             if (Type.ToLower() == "css")
             {
-                bundleUrl = await _bundleService.GetCssBundleUrlAsync(assets, debugMode);
                 output.TagName = "link";
                 output.Attributes.SetAttribute("rel", "stylesheet");
                 output.Attributes.SetAttribute("href", bundleUrl);
@@ -51,7 +64,6 @@ namespace Dyna.Player.TagHelpers
             }
             else if (Type.ToLower() == "js")
             {
-                bundleUrl = await _bundleService.GetJsBundleUrlAsync(assets, debugMode);
                 output.TagName = "script";
                 output.Attributes.SetAttribute("src", bundleUrl);
                 output.TagMode = TagMode.StartTagAndEndTag;
@@ -62,15 +74,10 @@ namespace Dyna.Player.TagHelpers
                 output.SuppressOutput();
             }
             
-            // If no bundle URL was generated, suppress output
-            if (string.IsNullOrEmpty(bundleUrl))
-            {
-                output.SuppressOutput();
-            }
-            else if (debugMode)
+            if (debugMode)
             {
                 // Add a comment before the tag in debug mode to help identify the bundle
-                output.PreElement.SetHtmlContent($"<!-- Bundle of type {Type} with {assets.Count(a => a.AssetType == Type)} assets (debug mode: query parameter) -->\n");
+                output.PreElement.SetHtmlContent($"<!-- Dynamic bundle of type {Type} for creative ID: {creativeId} (debug mode: enabled) -->\n");
             }
         }
     }

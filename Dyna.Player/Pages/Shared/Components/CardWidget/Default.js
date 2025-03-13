@@ -1,57 +1,40 @@
-﻿function renderCardWidgets() {
-  console.log("Rendering CardWidgets");
-  const cardWidgets = document.querySelectorAll('[id^="card-widget-"]');
+﻿/**
+ * CardWidget/Default.js
+ * Handles the rendering and functionality of card widgets
+ */
 
-  // Check if any card widgets have animations
-  let hasAnimations = false;
+// Function to render all card widgets
+function renderCardWidgets() {
+  const cardWidgets = document.querySelectorAll('div[id^="card-widget-"]');
 
-  cardWidgets.forEach((cardWidget) => {
-    const animationType = cardWidget.getAttribute("data-animation");
-    if (animationType && animationType !== "") {
-      hasAnimations = true;
+  if (cardWidgets.length === 0) {
+    return;
+  }
+
+  console.log(`Found ${cardWidgets.length} card widgets to render`);
+
+  cardWidgets.forEach((widget) => {
+    // Ensure the widget has an ID
+    if (!widget.id) {
+      widget.id = `card-widget-${Math.random().toString(36).substr(2, 9)}`;
     }
 
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (
-          mutation.type === "attributes" &&
-          mutation.attributeName === "data-value"
-        ) {
-          const changedCardWidget = mutation.target;
-          const newValue = changedCardWidget.getAttribute("data-value");
-          handleAttributeChange(
-            changedCardWidget,
-            mutation.attributeName,
-            newValue
-          );
-        }
-      });
-    });
-    observer.observe(cardWidget, { attributes: true });
-
-    const initialValue = cardWidget.getAttribute("data-value");
-    if (initialValue) {
-      // Clear any existing content first
-      cardWidget.textContent = "";
-      updateCardWidgetContent(cardWidget, initialValue);
+    // Ensure data-current-value is set
+    if (!widget.hasAttribute("data-current-value")) {
+      const value = widget.getAttribute("data-value") || "0";
+      widget.setAttribute("data-current-value", value);
     }
   });
 
-  // If any card widgets have animations, load the animation library
-  if (hasAnimations) {
-    // Register the animation library
-    if (
-      typeof Dyna !== "undefined" &&
-      Dyna.Player &&
-      Dyna.Player.TagHelpers &&
-      Dyna.Player.TagHelpers.AssetTagHelper
-    ) {
-      Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset(
-        "CardWidgetAnimations",
-        "library"
-      );
-    }
-  }
+  console.log("Card widgets rendering complete");
+}
+
+// Register the render function with the widget initializer if available
+if (window.widgetInitializer) {
+  window.widgetInitializer.register("CardWidgets", renderCardWidgets);
+} else {
+  // Fallback to direct initialization if needed
+  document.addEventListener("DOMContentLoaded", renderCardWidgets);
 }
 
 function handleAttributeChange(cardWidget, attributeName, newValue) {

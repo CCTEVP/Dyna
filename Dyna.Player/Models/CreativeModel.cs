@@ -41,7 +41,7 @@ namespace Dyna.Player.Models
 
             try
             {
-                string apiUrl = "https://localhost:7193/data/structure_123456789.json";
+                string apiUrl = $"https://localhost:7193/data/structure_{id}.json";
                 Creative = await _apiService.GetAsync<CreativeClass>(apiUrl);
 
                 if (Creative == null)

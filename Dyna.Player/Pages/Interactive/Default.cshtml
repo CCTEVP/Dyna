@@ -8,7 +8,9 @@
     @if (Model?.Creative?.Pieces != null)
     {
         ViewData["Title"] = Model.Creative.Name;
-        Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("CreativeTicker", "creative");
+        // Register the CreativeTicker script first (it's a dependency)
+        AssetTagHelper.AddPresentAsset("Libraries/Creative/CreativeTicker", "library", 0);
+
         @foreach (var piece in Model.Creative.Pieces)
         {
             @if (piece?.SlideLayout != null) // Check if element and SlideLayout are not null

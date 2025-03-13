@@ -32,6 +32,14 @@ builder.Services.Configure<FileServiceOptions>(builder.Configuration.GetSection(
 // Register FileService and IFileService
 builder.Services.AddScoped<IFileService, FileService>();
 
+// Configure the logger
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+
+// Add file logging for easier debugging
+builder.Logging.AddFile("Logs/dyna-player-{Date}.log", LogLevel.Debug);
+
 // Configure the HTTP request pipeline.
 var app = builder.Build();
 
@@ -58,53 +66,16 @@ app.Use(async (context, next) =>
     await next();
 });
 
+// Use endpoint routing
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapRazorPages();
+    // Map controllers with attribute routing
     endpoints.MapControllers();
+    
+    // Map Razor Pages
+    endpoints.MapRazorPages();
 });
 
-// Route for asset files (individual component assets)
-app.MapGet("/{assetType}/{assetLocation}/{assetName}.{extension}", async (HttpContext context, string assetType, string assetLocation, string assetName, string extension, [FromServices] IAssetService assetsService) =>
-{
-    // Validate that assetType matches extension
-    if (assetType != extension)
-    {
-        context.Response.StatusCode = 400;
-        await context.Response.WriteAsync($"Asset type '{assetType}' does not match extension '{extension}'");
-        return;
-    }
-
-    // Check for debug mode via query parameter
-    bool debugMode = context.Request.Query.ContainsKey("debug") && 
-                    context.Request.Query["debug"] != "false";
-    
-    var asset = await assetsService.GetAssetAsync(assetName, assetLocation, extension, debugMode);
-
-    if (asset.StartsWith("Invalid") || asset.StartsWith("Non existing"))
-    {
-        context.Response.StatusCode = 404;
-        await context.Response.WriteAsync(asset);
-        return;
-    }
-
-    context.Response.ContentType = extension switch
-    {
-        "js" => "text/javascript",
-        "css" => "text/css",
-        _ => "text/plain" // Default content type
-    };
-    
-    // Add debug information in headers if in debug mode
-    if (debugMode)
-    {
-        context.Response.Headers.Add("X-Debug-Info", $"Asset: {assetLocation}/{assetName}.{extension}");
-    }
-    
-    await context.Response.WriteAsync(asset);
-});
-
-// Note: The bundle files are now served by the static file middleware
-// since they're stored in wwwroot/css and wwwroot/js
+// Remove all other route mappings to avoid conflicts
 
 app.Run();
