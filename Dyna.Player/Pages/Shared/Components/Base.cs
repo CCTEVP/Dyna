@@ -12,6 +12,7 @@ namespace Dyna.Player.Pages.Shared.Components
 
         protected async Task<IViewComponentResult> InvokeAsync<T>(T model) where T : class
         {
+            await Task.CompletedTask; // Just to make the method async
             return View(model); // Directly render the model
         }
     }

@@ -10,6 +10,7 @@ namespace Dyna.Player.Services
     {
         public async Task<string> DebugLine(object content)
         {
+            await Task.CompletedTask;
             Debug.WriteLine(content);
             return "";
 

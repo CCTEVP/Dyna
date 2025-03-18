@@ -33,7 +33,7 @@ namespace Dyna.Player.TagHelpers
             // Check if debug mode is requested via query parameter ONLY
             bool debugMode = _httpContextAccessor.HttpContext.Request.Query.ContainsKey("debug") && 
                             (_httpContextAccessor.HttpContext.Request.Query["debug"] == "true" || 
-                             _httpContextAccessor.HttpContext.Request.Query["debug"] == "");
+                             _httpContextAccessor.HttpContext.Request.Query["debug"] != "");
             
             // Extract the creative ID from the route path
             string path = _httpContextAccessor.HttpContext.Request.Path;

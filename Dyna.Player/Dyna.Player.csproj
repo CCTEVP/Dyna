@@ -9,18 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Pages\Shared\Libraries\NewFolder\**" />
-    <Compile Remove="Pages\Shared\Libraries\WidgetAnimations\**" />
-    <Content Remove="Pages\Shared\Libraries\NewFolder\**" />
-    <Content Remove="Pages\Shared\Libraries\WidgetAnimations\**" />
-    <EmbeddedResource Remove="Pages\Shared\Libraries\NewFolder\**" />
-    <EmbeddedResource Remove="Pages\Shared\Libraries\WidgetAnimations\**" />
-    <None Remove="Pages\Shared\Libraries\NewFolder\**" />
-    <None Remove="Pages\Shared\Libraries\WidgetAnimations\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Pages\Shared\Libraries\CreativeTicker\Default.css" />
+    <None Remove="Pages\Shared\Libraries\CardWidgetAnimation.js" />
+    <None Remove="Pages\Shared\Libraries\CardWidgetAnimationFlip.js" />
+    <None Remove="Pages\Shared\Libraries\CardWidgetAnimationRoll.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,7 +29,6 @@
     <Content Include="Pages\Shared\Components\BoxLayout\Default.js" />
     <Content Include="Pages\Shared\Components\VideoWidget\Default.js" />
     <Content Include="Pages\Shared\Components\VideoWidget\Default.css" />
-    <Content Include="Pages\Shared\Libraries\CreativeTicker\Default.css" />
   </ItemGroup>
 
   <ItemGroup>

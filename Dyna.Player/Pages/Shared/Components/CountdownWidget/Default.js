@@ -11,20 +11,20 @@ function renderCountdownWidgets() {
 
   if (countdownWidgets.length === 0) return;
 
-  console.log(`Found ${countdownWidgets.length} countdown widgets to render`);
+  //console.log(`Found ${countdownWidgets.length} countdown widgets to render`);
 
   countdownWidgets.forEach((widget) => {
     const targetDateStr = widget.getAttribute("data-target-date-time");
 
     if (!targetDateStr) {
-      console.warn(`Countdown widget ${widget.id} has no target date`);
+      //console.warn(`Countdown widget ${widget.id} has no target date`);
       return;
     }
 
     const targetDate = new Date(targetDateStr);
 
     if (isNaN(targetDate.getTime())) {
-      console.warn(`Invalid target date: ${targetDateStr}`);
+      //console.warn(`Invalid target date: ${targetDateStr}`);
       return;
     }
 
@@ -54,28 +54,28 @@ function setupCountdown(widget, targetDate) {
     seconds: timeRemaining.seconds.toString().padStart(2, "0"),
   };
 
-  console.log(`Initial values calculated: ${JSON.stringify(values)}`);
+  //console.log(`Initial values calculated: ${JSON.stringify(values)}`);
 
   // Delay setting the values to ensure widgets are fully initialized
   setTimeout(() => {
     // Set days and hours first
     if (cardWidgets.days) {
       cardWidgets.days.setAttribute("data-value", values.days);
-      console.log(`Set days widget to ${values.days}`);
+      //console.log(`Set days widget to ${values.days}`);
     }
 
     if (cardWidgets.hours) {
       cardWidgets.hours.setAttribute("data-value", values.hours);
-      console.log(`Set hours widget to ${values.hours}`);
+      //console.log(`Set hours widget to ${values.hours}`);
     }
     if (cardWidgets.minutes) {
       cardWidgets.minutes.setAttribute("data-value", values.minutes);
-      console.log(`Set minutes widget to ${values.minutes}`);
+      //console.log(`Set minutes widget to ${values.minutes}`);
     }
 
     if (cardWidgets.seconds) {
       cardWidgets.seconds.setAttribute("data-value", values.seconds);
-      console.log(`Set seconds widget to ${values.seconds}`);
+      //console.log(`Set seconds widget to ${values.seconds}`);
     }
 
     // Update widget status
@@ -93,9 +93,7 @@ function setupCountdown(widget, targetDate) {
       1000 // Update every second
     );
   } else {
-    console.warn(
-      "CreativeTicker not found. Countdown will not update automatically."
-    );
+    //console.warn("CreativeTicker not found. Countdown will not update automatically.");
     // Fallback to setInterval if creativeTicker is not available
     setInterval(() => updateCountdown(widget, cardWidgets, targetDate), 1000);
   }

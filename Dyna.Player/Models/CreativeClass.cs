@@ -1,12 +1,9 @@
 using Dyna.Player.Pages.Shared.Components.BoxLayout;
 using Dyna.Player.Pages.Shared.Components.CardWidget;
 using Dyna.Player.Pages.Shared.Components.CountdownWidget;
-using Dyna.Player.Pages.Shared.Components.ImageWidget;
 using Dyna.Player.Pages.Shared.Components.SlideLayout;
 using Dyna.Player.Pages.Shared.Components.TextWidget;
 using Dyna.Player.Pages.Shared.Components.VideoWidget;
-using System;
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Dyna.Player.Models

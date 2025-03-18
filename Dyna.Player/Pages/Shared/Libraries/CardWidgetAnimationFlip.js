@@ -1,12 +1,14 @@
 // CardWidgetAnimationFlip.js - Handles flip animation for card widgets
-//console.log("LOADING: CardWidgetAnimationFlip.js");
+console.log("LOADING: CardWidgetAnimationFlip.js");
 
 (function () {
-  //console.log("INITIALIZING: Flip Animation Module");
+  console.log("INITIALIZING: Flip Animation Module");
 
   // ===== FLIP ANIMATION =====
   function animateCardWidgetFlip(cardWidget, oldValue, newValue) {
-    //console.log(`Animating flip from ${oldValue} to ${newValue} for widget ${cardWidget.id}`);
+    console.log(
+      `Animating flip from ${oldValue} to ${newValue} for widget ${cardWidget.id}`
+    );
 
     // Find the elements
     const flipCard = cardWidget.querySelector('[data-role="flip-card"]');
@@ -15,7 +17,9 @@
     const backDigit = cardWidget.querySelector('[data-role="back-digit"]');
 
     if (!flipCard || !staticTop || !topDigit || !backDigit) {
-      //console.error(`Required elements for flip animation not found in widget ${cardWidget.id}`);
+      console.error(
+        `Required elements for flip animation not found in widget ${cardWidget.id}`
+      );
       // Update the value without animation
       cardWidget.setAttribute("data-current-value", newValue);
       const contentDiv = cardWidget.querySelector("div");
@@ -84,8 +88,10 @@
       "flip",
       animateCardWidgetFlip
     );
-    //console.log("Flip animation handler registered with animation system");
+    console.log("Flip animation handler registered with animation system");
   } else {
-    //console.error("CardWidgetAnimationSystem not found. Make sure CardWidgetAnimation.js is loaded first.");
+    console.error(
+      "CardWidgetAnimationSystem not found. Make sure CardWidgetAnimation.js is loaded first."
+    );
   }
 })();

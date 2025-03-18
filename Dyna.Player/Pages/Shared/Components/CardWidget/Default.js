@@ -11,7 +11,7 @@ function renderCardWidgets() {
     return;
   }
 
-  console.log(`Found ${cardWidgets.length} card widgets to render`);
+  //console.log(`Found ${cardWidgets.length} card widgets to render`);
 
   cardWidgets.forEach((widget) => {
     // Ensure the widget has an ID
@@ -26,7 +26,7 @@ function renderCardWidgets() {
     }
   });
 
-  console.log("Card widgets rendering complete");
+  //console.log("Card widgets rendering complete");
 }
 
 // Register the render function with the widget initializer if available
@@ -55,9 +55,7 @@ function handleAttributeChange(cardWidget, attributeName, newValue) {
           if (typeof animateCardWidgetRoll === "function") {
             animateCardWidgetRoll(cardWidget, currentValue, newValue);
           } else {
-            console.warn(
-              "Roll animation function not found. Make sure CardWidgetAnimations library is loaded."
-            );
+            //console.warn("Roll animation function not found. Make sure CardWidgetAnimations library is loaded.");
             updateCardWidgetContent(cardWidget, newValue);
           }
           break;
@@ -66,9 +64,7 @@ function handleAttributeChange(cardWidget, attributeName, newValue) {
           if (typeof animateCardWidgetFlip === "function") {
             animateCardWidgetFlip(cardWidget, currentValue, newValue);
           } else {
-            console.warn(
-              "Flip animation function not found. Make sure CardWidgetAnimations library is loaded."
-            );
+            //console.warn("Flip animation function not found. Make sure CardWidgetAnimations library is loaded.");
             updateCardWidgetContent(cardWidget, newValue);
           }
           break;
@@ -191,7 +187,7 @@ function animateCardWidgetFlip(cardWidget, oldValue, newValue) {
   flipCardBack.appendChild(backDigit);
 
   // Add debug info
-  console.log(`Animating flip from ${oldValue} to ${newValue}`);
+  //console.log(`Animating flip from ${oldValue} to ${newValue}`);
 
   // Trigger the animation after a small delay
   setTimeout(() => {

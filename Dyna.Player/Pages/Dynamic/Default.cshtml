@@ -5,7 +5,6 @@
 @model Dyna.Player.Models.CreativeModel
 
 <div id="dynamic-creative-container" style="@ConversionUtilities.GenerateCssStyleString(Model.Creative.Styles)">
-
     @if (Model?.Creative?.Pieces != null)
     {
         ViewData["Title"] = Model.Creative.Name;
