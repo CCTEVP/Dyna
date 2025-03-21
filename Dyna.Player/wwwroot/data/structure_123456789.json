@@ -158,9 +158,9 @@
                 }
               ],
               "outcome": {
-                "action": "play",
-                "type": "video",
-                "id": "outcome"
+                "action": "goAndPlay",
+                "type": "slide",
+                "id": "slide02"
               }
             }
           }

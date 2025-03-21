@@ -5,7 +5,7 @@
 
 // Function to render all card widgets
 function renderCardWidgets() {
-    console.log("Rendering CardWidgets");
+    console.log("Initializing CardWidgets");
     const cardWidgets = document.querySelectorAll('div[id^="card-widget-"]');
 
     if (cardWidgets.length === 0) {

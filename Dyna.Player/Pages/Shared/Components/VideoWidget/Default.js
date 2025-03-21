@@ -1,5 +1,5 @@
 ﻿function renderVideoWidgets() {
-    console.log("Rendering VideoWidgets");
+    console.log("Initializing VideoWidgets");
     const videoWidgets = document.querySelectorAll('[id^="video-widget-"]');
 
     videoWidgets.forEach(videoWidget => {

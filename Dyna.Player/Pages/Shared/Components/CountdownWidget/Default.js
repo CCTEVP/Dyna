@@ -5,6 +5,7 @@
 
 // Function to render all countdown widgets
 function renderCountdownWidgets() {
+    console.log("Initializing CountdownWidgets");
   const countdownWidgets = document.querySelectorAll(
     'div[id^="countdown-widget-"]'
   );

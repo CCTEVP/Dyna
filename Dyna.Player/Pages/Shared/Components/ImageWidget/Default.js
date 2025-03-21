@@ -1,5 +1,5 @@
 ﻿function renderImageWidgets() {
-    console.log("Rendering ImageWidgets");
+    console.log("Initializing ImageWidgets");
     const imageWidgets = document.querySelectorAll('[id^="image-widget-"]');
 
     imageWidgets.forEach(imageWidget => {
