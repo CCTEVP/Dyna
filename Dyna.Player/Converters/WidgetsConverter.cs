@@ -5,9 +5,17 @@
     using System.Collections.Generic;
     using System.Text.Json;
     using System.Text.Json.Serialization;
+    using Microsoft.Extensions.Logging;
 
     public class WidgetsConverter : JsonConverter<List<object>>
     {
+        private static ILogger _logger;
+
+        public static void InitializeLogger(ILogger logger)
+        {
+            _logger = logger;
+        }
+
         public override List<object> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType == JsonTokenType.StartArray)
@@ -32,7 +40,7 @@
                                     //widgets.Add(JsonSerializer.Deserialize<WidgetElement>(countdownElement.GetRawText(), options));
                                     break;
                                 default:
-                                    System.Diagnostics.Debug.WriteLine("Warning: Widget object missing expected property (image, video, countdown).");
+                                    _logger?.LogWarning("Widget object missing expected property (image, video, countdown).");
                                     break;
                             }
                         }

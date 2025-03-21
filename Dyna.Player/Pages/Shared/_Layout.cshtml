@@ -6,8 +6,10 @@
     <title>Dynamic Template :: @ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <!-- Debug mode is determined solely by the ?debug=true query parameter -->
-    <bundle type="css" />
+    <!-- Libraries bundle followed by components bundle -->
+    <bundle type="css" bundle-type="components" />
+    <bundle type="css" bundle-type="libraries" />
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
     <main id="app" role="main" class="container-fluid">
@@ -25,8 +27,11 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <!-- Debug mode is determined solely by the ?debug=true query parameter -->
-    <bundle type="js" />
+    <bundle type="js" bundle-type="manager" />
+    <bundle type="js" bundle-type="components" />
+    <bundle type="js" bundle-type="libraries" />
+    <bundle type="js" bundle-type="caching" />
     @await RenderSectionAsync("Scripts", required: false)
+    
 </body>
 </html>

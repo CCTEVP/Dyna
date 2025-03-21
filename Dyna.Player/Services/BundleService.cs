@@ -16,8 +16,8 @@ namespace Dyna.Player.Services
 {
     public interface IBundleService
     {
-        Task<string> GetCssBundleUrlAsync(IEnumerable<AssetInfo> assets, bool debugMode);
-        Task<string> GetJsBundleUrlAsync(IEnumerable<AssetInfo> assets, bool debugMode);
+        Task<string> GetCssBundleUrlAsync(IEnumerable<AssetInfo> assets, bool debugMode, string bundleType = "components");
+        Task<string> GetJsBundleUrlAsync(IEnumerable<AssetInfo> assets, bool debugMode, string bundleType = "components");
     }
 
     public class BundleService : IBundleService
@@ -55,22 +55,36 @@ namespace Dyna.Player.Services
             }
         }
 
-        public async Task<string> GetCssBundleUrlAsync(IEnumerable<AssetInfo> assets, bool debugMode)
+        public async Task<string> GetCssBundleUrlAsync(IEnumerable<AssetInfo> assets, bool debugMode, string bundleType = "components")
         {
-            return await GetBundleUrlAsync(assets, "css", debugMode);
+            return await GetBundleUrlAsync(assets, "css", debugMode, bundleType);
         }
 
-        public async Task<string> GetJsBundleUrlAsync(IEnumerable<AssetInfo> assets, bool debugMode)
+        public async Task<string> GetJsBundleUrlAsync(IEnumerable<AssetInfo> assets, bool debugMode, string bundleType = "components")
         {
-            return await GetBundleUrlAsync(assets, "js", debugMode);
+            return await GetBundleUrlAsync(assets, "js", debugMode, bundleType);
         }
 
-        private async Task<string> GetBundleUrlAsync(IEnumerable<AssetInfo> assets, string type, bool debugMode)
+        private async Task<string> GetBundleUrlAsync(IEnumerable<AssetInfo> assets, string type, bool debugMode, string bundleType)
         {
             // Filter assets by type
             var filteredAssets = assets.Where(a => a.AssetType == type).ToList();
             if (!filteredAssets.Any())
             {
+                return null;
+            }
+            
+            // Validate bundle type
+            bundleType = bundleType.ToLower();
+            if (bundleType != "components" && bundleType != "libraries" && bundleType != "caching")
+            {
+                bundleType = "components"; // Default to components if invalid
+            }
+            
+            // For caching bundles, only JS is supported
+            if (bundleType == "caching" && type.ToLower() != "js")
+            {
+                _logger?.LogWarning("Caching bundles only support JS. Requested {Type} will be ignored.", type);
                 return null;
             }
 
@@ -92,11 +106,11 @@ namespace Dyna.Player.Services
                 }
             }
             
-            // Create a URL that includes the creative ID
-            string bundleUrl = $"/{type}/bundle/{creativeId}{(debugMode ? "" : ".min")}.{type}";
+            // Create a URL that includes the creative ID and bundle type
+            string bundleUrl = $"/{type}/{bundleType}_bundle/{creativeId}{(debugMode ? "" : ".min")}.{type}";
             
-            _logger?.LogInformation("Generated bundle URL: {BundleUrl} for creative ID: {CreativeId}, debug mode: {DebugMode}, path: {Path}", 
-                bundleUrl, creativeId, debugMode, path);
+            _logger?.LogInformation("Generated bundle URL: {BundleUrl} for creative ID: {CreativeId}, bundle type: {BundleType}, debug mode: {DebugMode}, path: {Path}", 
+                bundleUrl, creativeId, bundleType, debugMode, path);
             
             return bundleUrl;
         }
@@ -251,7 +265,7 @@ namespace Dyna.Player.Services
             using (MD5 md5 = MD5.Create())
             {
                 byte[] hashBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(assetString));
-                return BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant().Substring(0, 12);
+                return BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
             }
         }
     }

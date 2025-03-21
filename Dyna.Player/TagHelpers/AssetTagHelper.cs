@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Dyna.Player.TagHelpers
 {
@@ -10,10 +11,30 @@ namespace Dyna.Player.TagHelpers
     public class AssetTagHelper : TagHelper
     {
         private static readonly HashSet<AssetInfo> _presentAssets = new HashSet<AssetInfo>();
+        private static ILogger _logger;
 
         public string AssetName { get; set; }
         public string AssetType { get; set; }
         public string AssetLocation { get; set; }
+
+        private readonly ILogger<AssetTagHelper> _instanceLogger;
+
+        public AssetTagHelper(ILogger<AssetTagHelper> logger)
+        {
+            _instanceLogger = logger;
+            if (_logger == null)
+            {
+                _logger = _instanceLogger;
+            }
+        }
+
+        /// <summary>
+        /// Static initialization of logger for static methods
+        /// </summary>
+        public static void InitializeLogger(ILogger logger)
+        {
+            _logger = logger;
+        }
 
         public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
@@ -42,7 +63,7 @@ namespace Dyna.Player.TagHelpers
         /// <param name="priority">Priority for ordering assets (lower numbers load first)</param>
         public static void AddPresentAsset(string assetName, string assetType, int priority)
         {
-            System.Diagnostics.Debug.WriteLine($"AddPresentAsset called with: {assetName}, {assetType}, {priority}");
+            _logger?.LogDebug("AddPresentAsset called with: {AssetName}, {AssetType}, {Priority}", assetName, assetType, priority);
             
             // For library assets, we need to handle the path differently
             if (assetType == "library")
@@ -56,7 +77,7 @@ namespace Dyna.Player.TagHelpers
                         AssetLocation = "Libraries/Creative", 
                         Priority = priority 
                     });
-                    System.Diagnostics.Debug.WriteLine($"Added CreativeTicker asset: Libraries/Creative/CreativeTicker.js (Priority: {priority})");
+                    _logger?.LogDebug("Added CreativeTicker asset: Libraries/Creative/CreativeTicker.js (Priority: {Priority})", priority);
                 }
                 // For WidgetAnimations, use the exact path
                 else if (assetName.Contains("WidgetAnimations"))
@@ -68,7 +89,7 @@ namespace Dyna.Player.TagHelpers
                         AssetLocation = "Libraries/WidgetAnimations", 
                         Priority = priority 
                     });
-                    System.Diagnostics.Debug.WriteLine($"Added WidgetAnimation asset: Libraries/WidgetAnimations/{fileName}.js (Priority: {priority})");
+                    _logger?.LogDebug("Added WidgetAnimation asset: Libraries/WidgetAnimations/{FileName}.js (Priority: {Priority})", fileName, priority);
                 }
                 // For other library assets, use the standard approach
                 else
@@ -83,7 +104,7 @@ namespace Dyna.Player.TagHelpers
                         AssetLocation = directory, 
                         Priority = priority 
                     });
-                    System.Diagnostics.Debug.WriteLine($"Added library asset: {directory}/{fileName}.js (Priority: {priority})");
+                    _logger?.LogDebug("Added library asset: {Directory}/{FileName}.js (Priority: {Priority})", directory, fileName, priority);
                 }
             }
             else
@@ -95,7 +116,7 @@ namespace Dyna.Player.TagHelpers
                     AssetLocation = assetName, 
                     Priority = priority 
                 });
-                System.Diagnostics.Debug.WriteLine($"Added standard asset: {assetName}.{assetType} (Priority: {priority})");
+                _logger?.LogDebug("Added standard asset: {AssetName}.{AssetType} (Priority: {Priority})", assetName, assetType, priority);
             }
         }
 
@@ -105,10 +126,15 @@ namespace Dyna.Player.TagHelpers
         public static IEnumerable<AssetInfo> GetPresentAssets()
         {
             // Debug: Log all assets in the collection
-            System.Diagnostics.Debug.WriteLine($"GetPresentAssets called, {_presentAssets.Count} assets in collection");
-            foreach (var asset in _presentAssets)
+            _logger?.LogDebug("GetPresentAssets called, {Count} assets in collection", _presentAssets.Count);
+            
+            if (_logger?.IsEnabled(LogLevel.Trace) == true)
             {
-                System.Diagnostics.Debug.WriteLine($"Present asset: {asset.AssetLocation}/{asset.AssetName}.{asset.AssetType} (Priority: {asset.Priority})");
+                foreach (var asset in _presentAssets)
+                {
+                    _logger.LogTrace("Present asset: {Location}/{Name}.{Type} (Priority: {Priority})", 
+                        asset.AssetLocation, asset.AssetName, asset.AssetType, asset.Priority);
+                }
             }
             
             // Filter out any "site" layout assets that might be causing errors
@@ -117,7 +143,7 @@ namespace Dyna.Player.TagHelpers
                 .OrderBy(a => a.Priority)
                 .ToList();
                 
-            System.Diagnostics.Debug.WriteLine($"Returning {filtered.Count} filtered assets");
+            _logger?.LogDebug("Returning {Count} filtered assets", filtered.Count);
             return filtered;
         }
 

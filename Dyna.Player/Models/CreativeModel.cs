@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Threading.Tasks;
-using System.Diagnostics;
 using Newtonsoft.Json;
 using Dyna.Player.Services;
 using System;
@@ -15,6 +14,7 @@ using Dyna.Player.Pages.Shared.Components.SlideLayout;
 using Dyna.Player.Pages.Shared.Components.TextWidget;
 using Dyna.Player.Pages.Shared.Components.VideoWidget;
 using Dyna.Player.Pages.Shared.Components.ImageWidget;
+using Microsoft.Extensions.Logging;
 
 namespace Dyna.Player.Models
 {
@@ -22,11 +22,19 @@ namespace Dyna.Player.Models
     {
         private readonly ApiService _apiService;
         private readonly FileService _fileService;
+        private readonly ILogger<CreativeModel> _logger;
+        private readonly CreativeCacheService _cacheService;
 
-        public CreativeModel(ApiService apiService, FileService fileService)
+        public CreativeModel(
+            ApiService apiService, 
+            FileService fileService, 
+            CreativeCacheService cacheService = null,
+            ILogger<CreativeModel> logger = null)
         {
             _apiService = apiService;
             _fileService = fileService;
+            _cacheService = cacheService;
+            _logger = logger;
         }
 
         public CreativeClass Creative { get; set; }
@@ -35,18 +43,30 @@ namespace Dyna.Player.Models
         {
             if (string.IsNullOrEmpty(id))
             {
-                Debug.WriteLine("[CreativeModel] ID is null or empty.");
+                _logger?.LogWarning("[CreativeModel] ID is null or empty.");
                 return NotFound();
             }
 
             try
             {
+                if (_cacheService != null)
+                {
+                    // Try to get from cache service first
+                    var cacheEntry = await _cacheService.GetOrCreateCreativeEntryAsync(id, mergeDefaults);
+                    if (cacheEntry != null)
+                    {
+                        Creative = cacheEntry.Creative;
+                        return Page();
+                    }
+                }
+
+                // Fallback to direct API call if cache service is not available or failed
                 string apiUrl = $"https://localhost:7193/data/structure_{id}.json";
                 Creative = await _apiService.GetAsync<CreativeClass>(apiUrl);
 
                 if (Creative == null)
                 {
-                    Debug.WriteLine("[CreativeModel] Creative is null after deserialization. Check JSON and model classes.");
+                    _logger?.LogWarning("[CreativeModel] Creative is null after deserialization. Check JSON and model classes.");
                     return NotFound();
                 }
 
@@ -61,13 +81,13 @@ namespace Dyna.Player.Models
                     Formatting = Formatting.Indented
                 });
 
-                Debug.WriteLine($"[CreativeModel] Cleaned and Merged Creative Model (Newtonsoft.Json):\n{serializedCreative}");
+                _logger?.LogDebug("[CreativeModel] Cleaned and Merged Creative Model (Newtonsoft.Json):\n{Creative}", serializedCreative);
 
                 return Page();
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[CreativeModel] Error: {ex.Message}");
+                _logger?.LogError("[CreativeModel] Error: {ErrorMessage}", ex.Message);
                 return StatusCode(500, "An error occurred.");
             }
         }
@@ -89,7 +109,7 @@ namespace Dyna.Player.Models
             var sourceType = sourceObject.GetType();
             var defaultType = defaultObject.GetType();
 
-            Debug.WriteLine($"[CreativeModel] Merging properties for {sourceType.Name}");
+            _logger?.LogDebug("[CreativeModel] Merging properties for {SourceType}", sourceType.Name);
 
             foreach (var property in defaultType.GetProperties())
             {
@@ -127,14 +147,14 @@ namespace Dyna.Player.Models
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine($"[CreativeModel] Error merging property {property.Name}: {ex.Message}");
+                    _logger?.LogError("[CreativeModel] Error merging property {PropertyName}: {ErrorMessage}", property.Name, ex.Message);
                 }
             }
         }
 
         private async Task MergeDefaultComponentDefinitions(CreativeClass creative)
         {
-            Debug.WriteLine("[CreativeModel] Starting MergeDefaultComponentDefinitions");
+            _logger?.LogDebug("[CreativeModel] Starting MergeDefaultComponentDefinitions");
 
             // Skip Pieces (container class) and process its contents directly
             if (creative.Pieces != null)
@@ -144,7 +164,7 @@ namespace Dyna.Player.Models
                     // Process SlideLayout directly if it exists
                     if (piece.SlideLayout != null)
                     {
-                        Debug.WriteLine("[CreativeModel] Processing SlideLayout");
+                        _logger?.LogDebug("[CreativeModel] Processing SlideLayout");
                         await MergeComponentRecursively(piece.SlideLayout);
                     }
                 }
@@ -160,7 +180,7 @@ namespace Dyna.Player.Models
                 ? componentType.Substring(0, componentType.Length - 5)
                 : componentType;
 
-            Debug.WriteLine($"[CreativeModel] ====== Processing {componentName} ======");
+            _logger?.LogDebug("[CreativeModel] ====== Processing {ComponentName} ======", componentName);
 
             switch (component)
             {
@@ -187,7 +207,8 @@ namespace Dyna.Player.Models
                                             var textDefaults = await GetObjectDefinitionFromJsonAsync(boxContent.TextWidget);
                                             if (textDefaults != null)
                                             {
-                                                Debug.WriteLine($"[CreativeModel] Processing TextWidget with current styles: {JsonConvert.SerializeObject(boxContent.TextWidget.Styles)}");
+                                                _logger?.LogDebug("[CreativeModel] Processing TextWidget with current styles: {Styles}", 
+                                                    JsonConvert.SerializeObject(boxContent.TextWidget.Styles));
 
                                                 // Only add styles that don't exist in the source
                                                 if (boxContent.TextWidget.Styles == null)
@@ -202,7 +223,8 @@ namespace Dyna.Player.Models
                                                     {
                                                         if (!boxContent.TextWidget.Styles.ContainsKey(style.Key))
                                                         {
-                                                            Debug.WriteLine($"[CreativeModel] Adding missing style {style.Key}: {style.Value} to TextWidget");
+                                                            _logger?.LogDebug("[CreativeModel] Adding missing style {StyleKey}: {StyleValue} to TextWidget", 
+                                                                style.Key, style.Value);
                                                             boxContent.TextWidget.Styles[style.Key] = style.Value;
                                                         }
                                                     }
@@ -215,7 +237,8 @@ namespace Dyna.Player.Models
                                             var cardDefaults = await GetObjectDefinitionFromJsonAsync(boxContent.CardWidget);
                                             if (cardDefaults != null)
                                             {
-                                                Debug.WriteLine($"[CreativeModel] Processing CardWidget with current styles: {JsonConvert.SerializeObject(boxContent.CardWidget.Styles)}");
+                                                _logger?.LogDebug("[CreativeModel] Processing CardWidget with current styles: {Styles}", 
+                                                    JsonConvert.SerializeObject(boxContent.CardWidget.Styles));
 
                                                 // Only add styles that don't exist in the source
                                                 if (boxContent.CardWidget.Styles == null)
@@ -230,7 +253,8 @@ namespace Dyna.Player.Models
                                                     {
                                                         if (!boxContent.CardWidget.Styles.ContainsKey(style.Key))
                                                         {
-                                                            Debug.WriteLine($"[CreativeModel] Adding missing style {style.Key}: {style.Value} to CardWidget");
+                                                            _logger?.LogDebug("[CreativeModel] Adding missing style {StyleKey}: {StyleValue} to CardWidget",
+                                                                style.Key, style.Value);
                                                             boxContent.CardWidget.Styles[style.Key] = style.Value;
                                                         }
                                                     }
@@ -268,7 +292,7 @@ namespace Dyna.Player.Models
             var defaults = await GetObjectDefinitionFromJsonAsync(component);
             if (defaults != null)
             {
-                Debug.WriteLine($"[CreativeModel] Merging defaults for {component.GetType().Name}");
+                _logger?.LogDebug("[CreativeModel] Merging defaults for {ComponentType}", component.GetType().Name);
                 MergePropertiesRecursively(component, defaults);
             }
         }
@@ -277,7 +301,7 @@ namespace Dyna.Player.Models
         {
             if (source == null || defaults == null) return;
 
-            Debug.WriteLine($"[CreativeModel] Merging properties for {source.GetType().Name}");
+            _logger?.LogDebug("[CreativeModel] Merging properties for {SourceType}", source.GetType().Name);
 
             try
             {
@@ -300,7 +324,8 @@ namespace Dyna.Player.Models
 
                             if (sourceContents != null && defaultContents != null)
                             {
-                                Debug.WriteLine($"[CreativeModel] Merging Contents arrays - Source count: {sourceContents.Count}, Default count: {defaultContents.Count}");
+                                _logger?.LogDebug("[CreativeModel] Merging Contents arrays - Source count: {SourceCount}, Default count: {DefaultCount}", 
+                                    sourceContents.Count, defaultContents.Count);
 
                                 // Only process up to the length of the source array
                                 for (int i = 0; i < sourceContents.Count && i < defaultContents.Count; i++)
@@ -310,7 +335,8 @@ namespace Dyna.Player.Models
 
                                     if (sourceItem != null && defaultItem != null)
                                     {
-                                        Debug.WriteLine($"[CreativeModel] Merging content item {i} - Source type: {sourceItem.GetType().Name}, Default type: {defaultItem.GetType().Name}");
+                                        _logger?.LogDebug("[CreativeModel] Merging content item {Index} - Source type: {SourceType}, Default type: {DefaultType}", 
+                                            i, sourceItem.GetType().Name, defaultItem.GetType().Name);
 
                                         // Only merge if the types match
                                         if (sourceItem.GetType() == defaultItem.GetType())
@@ -319,7 +345,7 @@ namespace Dyna.Player.Models
                                         }
                                         else
                                         {
-                                            Debug.WriteLine($"[CreativeModel] Warning: Content type mismatch at index {i}");
+                                            _logger?.LogWarning("[CreativeModel] Warning: Content type mismatch at index {Index}", i);
                                         }
                                     }
                                 }
@@ -327,7 +353,7 @@ namespace Dyna.Player.Models
                         }
                         else if (sourceValue == null && defaultValue != null)
                         {
-                            Debug.WriteLine($"[CreativeModel] Adding missing property {property.Name} from defaults");
+                            _logger?.LogDebug("[CreativeModel] Adding missing property {PropertyName} from defaults", property.Name);
                             property.SetValue(source, defaultValue);
                         }
                         else if (sourceValue != null && defaultValue != null &&
@@ -341,19 +367,19 @@ namespace Dyna.Player.Models
                             }
                             else
                             {
-                                Debug.WriteLine($"[CreativeModel] Warning: Type mismatch for property {property.Name}");
+                                _logger?.LogWarning("[CreativeModel] Warning: Type mismatch for property {PropertyName}", property.Name);
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine($"[CreativeModel] Error processing property {property.Name}: {ex.Message}");
+                        _logger?.LogError("[CreativeModel] Error processing property {PropertyName}: {ErrorMessage}", property.Name, ex.Message);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[CreativeModel] Error in MergePropertiesRecursively: {ex.Message}");
+                _logger?.LogError("[CreativeModel] Error in MergePropertiesRecursively: {ErrorMessage}", ex.Message);
             }
         }
 
@@ -377,14 +403,15 @@ namespace Dyna.Player.Models
                 {
                     if (!sourceStyles.ContainsKey(style.Key))
                     {
-                        Debug.WriteLine($"[CreativeModel] Adding style {style.Key}: {style.Value} to {source.GetType().Name}");
+                        _logger?.LogDebug("[CreativeModel] Adding style {StyleKey}: {StyleValue} to {SourceType}", 
+                            style.Key, style.Value, source.GetType().Name);
                         sourceStyles[style.Key] = style.Value;
                     }
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[CreativeModel] Error in MergeStyles: {ex.Message}");
+                _logger?.LogError("[CreativeModel] Error in MergeStyles: {ErrorMessage}", ex.Message);
             }
         }
 
@@ -392,40 +419,39 @@ namespace Dyna.Player.Models
         {
             if (container == null) return;
 
-            Debug.WriteLine("[CreativeModel] Processing ElementContainer");
+            _logger?.LogDebug("[CreativeModel] Processing ElementContainer");
 
             // Process each possible widget type
             if (container.TextWidget != null)
             {
-                Debug.WriteLine("[CreativeModel] Processing TextWidget");
+                _logger?.LogDebug("[CreativeModel] Processing TextWidget");
                 await MergeComponentRecursively(container.TextWidget);
             }
             if (container.BoxLayout != null)
             {
-                Debug.WriteLine("[CreativeModel] Processing BoxLayout");
+                _logger?.LogDebug("[CreativeModel] Processing BoxLayout");
                 await MergeComponentRecursively(container.BoxLayout);
             }
             if (container.CountdownWidget != null)
             {
-                Debug.WriteLine("[CreativeModel] Processing CountdownWidget");
+                _logger?.LogDebug("[CreativeModel] Processing CountdownWidget");
                 await MergeComponentRecursively(container.CountdownWidget);
             }
             if (container.ImageWidget != null)
             {
-                Debug.WriteLine("[CreativeModel] Processing ImageWidget");
+                _logger?.LogDebug("[CreativeModel] Processing ImageWidget");
                 await MergeComponentRecursively(container.ImageWidget);
             }
             if (container.VideoWidget != null)
             {
-                Debug.WriteLine("[CreativeModel] Processing VideoWidget");
+                _logger?.LogDebug("[CreativeModel] Processing VideoWidget");
                 await MergeComponentRecursively(container.VideoWidget);
             }
             if (container.CardWidget != null)
             {
-                Debug.WriteLine("[CreativeModel] Processing CardWidget");
+                _logger?.LogDebug("[CreativeModel] Processing CardWidget");
                 await MergeComponentRecursively(container.CardWidget);
             }
         }
     }
-
 }

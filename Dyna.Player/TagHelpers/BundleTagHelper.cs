@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dyna.Player.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace Dyna.Player.TagHelpers
 {
@@ -13,11 +14,16 @@ namespace Dyna.Player.TagHelpers
     {
         private readonly IBundleService _bundleService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ILogger<BundleTagHelper> _logger;
 
-        public BundleTagHelper(IBundleService bundleService, IHttpContextAccessor httpContextAccessor)
+        public BundleTagHelper(
+            IBundleService bundleService, 
+            IHttpContextAccessor httpContextAccessor,
+            ILogger<BundleTagHelper> logger)
         {
             _bundleService = bundleService;
             _httpContextAccessor = httpContextAccessor;
+            _logger = logger;
         }
 
         public string Type { get; set; } // "css" or "js"
@@ -25,59 +31,84 @@ namespace Dyna.Player.TagHelpers
         [HtmlAttributeName("debug")]
         public bool? Debug { get; set; } // Optional debug attribute for development
 
+        [HtmlAttributeName("bundle-type")]
+        public string BundleType { get; set; } = "components"; // Can be "components", "libraries", "caching", or "creative"
+
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-            // Get all assets of the specified type
-            var assets = AssetTagHelper.GetPresentAssets();
-            
-            // Check if debug mode is requested via query parameter ONLY
-            bool debugMode = _httpContextAccessor.HttpContext.Request.Query.ContainsKey("debug") && 
-                            (_httpContextAccessor.HttpContext.Request.Query["debug"] == "true" || 
-                             _httpContextAccessor.HttpContext.Request.Query["debug"] != "");
-            
-            // Extract the creative ID from the route path
-            string path = _httpContextAccessor.HttpContext.Request.Path;
-            string creativeId = "default";
-            
-            // Parse the creative ID from paths like /dynamic/123456789 or /interactive/123456789
-            if (path.StartsWith("/dynamic/") || path.StartsWith("/interactive/"))
+            try
             {
-                string[] segments = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
-                if (segments.Length >= 2)
+                // Get the creative ID from the route data
+                var routeData = _httpContextAccessor.HttpContext.GetRouteData();
+                var creativeId = routeData?.Values["id"]?.ToString();
+                
+                // Get viewType from the path since it's not in route data
+                var path = _httpContextAccessor.HttpContext.Request.Path.Value;
+                var viewType = path?.Split('/', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+
+                if (string.IsNullOrEmpty(creativeId) || string.IsNullOrEmpty(viewType))
                 {
-                    creativeId = segments[1]; // The second segment is the ID
+                    _logger.LogError("Missing required values. CreativeId: {CreativeId}, ViewType: {ViewType}, Path: {Path}", 
+                        creativeId, viewType, path);
+                    output.SuppressOutput();
+                    return;
+                }
+
+                // Get debug mode from query string
+                var debugMode = _httpContextAccessor.HttpContext.Request.Query.ContainsKey("debug");
+
+                // Get bundle type from attribute
+                var bundleTypeValue = BundleType.ToLower();
+
+                // Generate the bundle URL
+                string bundleUrl;
+                if (bundleTypeValue == "caching")
+                {
+                    // Caching bundle is at the creative level
+                    bundleUrl = $"/{viewType}/{creativeId}/caching.bundle{(debugMode ? "" : ".min")}.{Type.ToLower()}";
+                }
+                else
+                {
+                    // Other bundles follow the standard pattern with type directory
+                    bundleUrl = $"/{viewType}/{creativeId}/{Type.ToLower()}/{bundleTypeValue}.bundle{(debugMode ? "" : ".min")}.{Type.ToLower()}";
+                }
+
+                _logger.LogInformation(
+                    "Generating bundle URL. Path: {Path}, ViewType: {ViewType}, CreativeId: {CreativeId}, BundleType: {BundleType}, Debug: {DebugMode}", 
+                    bundleUrl, viewType, creativeId, bundleTypeValue, debugMode);
+
+                // Create the appropriate tag based on the type
+                if (Type.ToLower() == "css")
+                {
+                    output.TagName = "link";
+                    output.Attributes.SetAttribute("rel", "stylesheet");
+                    output.Attributes.SetAttribute("href", bundleUrl);
+                    output.TagMode = TagMode.SelfClosing;
+                }
+                else if (Type.ToLower() == "js")
+                {
+                    output.TagName = "script";
+                    output.Attributes.SetAttribute("src", bundleUrl);
+                    output.TagMode = TagMode.StartTagAndEndTag;
+                    output.Content.SetHtmlContent(""); // Empty content between tags
+                }
+                else
+                {
+                    _logger.LogWarning("Invalid bundle type: {Type}", Type);
+                    output.SuppressOutput();
+                    return;
+                }
+                
+                if (debugMode)
+                {
+                    // Add a comment before the tag in debug mode to help identify the bundle
+                    output.PreElement.SetHtmlContent($"<!-- Dynamic {bundleTypeValue} bundle of type {Type} for creative ID: {creativeId} (debug mode: enabled) -->\n");
                 }
             }
-            
-            // Generate the bundle URL based on the creative ID
-            string bundleUrl = $"/{Type}/bundle/{creativeId}{(debugMode ? "" : ".min")}.{Type}";
-            
-            // Log the debug mode and URL information
-            System.Diagnostics.Debug.WriteLine($"Bundle URL: {bundleUrl}, debug mode: {debugMode}, creative ID: {creativeId}, path: {path}");
-            
-            if (Type.ToLower() == "css")
+            catch (Exception ex)
             {
-                output.TagName = "link";
-                output.Attributes.SetAttribute("rel", "stylesheet");
-                output.Attributes.SetAttribute("href", bundleUrl);
-                output.TagMode = TagMode.SelfClosing;
-            }
-            else if (Type.ToLower() == "js")
-            {
-                output.TagName = "script";
-                output.Attributes.SetAttribute("src", bundleUrl);
-                output.TagMode = TagMode.StartTagAndEndTag;
-                output.Content.SetHtmlContent(""); // Empty content between tags
-            }
-            else
-            {
+                _logger.LogError(ex, "Error generating bundle tag");
                 output.SuppressOutput();
-            }
-            
-            if (debugMode)
-            {
-                // Add a comment before the tag in debug mode to help identify the bundle
-                output.PreElement.SetHtmlContent($"<!-- Dynamic bundle of type {Type} for creative ID: {creativeId} (debug mode: enabled) -->\n");
             }
         }
     }

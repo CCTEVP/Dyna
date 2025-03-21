@@ -1,14 +1,51 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Dyna.Player.Services;
 
 namespace Dyna.Player.Pages.Shared.Components.CountdownWidget
 {
-    public class CountdownWidgetViewComponent : BaseViewComponent // Inherit from the simplified BaseViewComponent
+    public class CountdownWidgetViewComponent : BaseViewComponent
     {
-        public CountdownWidgetViewComponent() : base() { } // No dependencies needed
+        private readonly QueryParameterService _queryParameterService;
 
-        public async Task<IViewComponentResult> InvokeAsync(CountdownWidgetClass layout)
+        public CountdownWidgetViewComponent(
+            ILogger<CountdownWidgetViewComponent> logger = null,
+            QueryParameterService queryParameterService = null) 
+            : base(logger)
         {
-            return await base.InvokeAsync(layout); // Directly pass the layout to the base InvokeAsync
+            _queryParameterService = queryParameterService;
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync(CountdownWidgetClass widget)
+        {
+            Logger?.LogDebug("Rendering CountdownWidget: {Id}", widget?.Identifier);
+            
+            if (widget != null)
+            {
+                Logger?.LogTrace("CountdownWidget: {Widget}", JsonConvert.SerializeObject(widget));
+                
+                string targetDateTime = widget.TargetDateTime?.Default;
+
+                if (widget.TargetDateTime?.Source == "queryParameter" && _queryParameterService != null)
+                {
+                    string queryTargetDateTime = _queryParameterService.GetQueryParameterValue(widget.TargetDateTime.Name);
+                    if (queryTargetDateTime != null)
+                    {
+                        targetDateTime = queryTargetDateTime;
+                        Logger?.LogDebug("Using query parameter value for {ParameterName}: {Value}", 
+                            widget.TargetDateTime.Name, targetDateTime);
+                    }
+                }
+                
+                if (widget.Contents != null)
+                {
+                    Logger?.LogDebug("CountdownWidget has {Count} content items", widget.Contents.Count);
+                }
+            }
+            
+            return await base.InvokeAsync(widget);
         }
     }
 }

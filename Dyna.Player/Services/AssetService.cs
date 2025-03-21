@@ -2,6 +2,7 @@ using System.IO;
 using System.Threading.Tasks;
 using NUglify;
 using NUglify.Css;
+using Microsoft.Extensions.Logging;
 
 namespace Dyna.Player.Services
 {
@@ -13,13 +14,21 @@ namespace Dyna.Player.Services
 
     public class AssetService : IAssetService
     {
+        private readonly ILogger<AssetService> _logger;
+
+        public AssetService(ILogger<AssetService> logger)
+        {
+            _logger = logger;
+        }
+
         public async Task<string> GetAssetAsync(string assetName, string assetLocation, string extension, bool debugMode)
         {
             var basePath = Directory.GetCurrentDirectory();
             string assetPath;
             string fullPath;
 
-            System.Diagnostics.Debug.WriteLine($"GetAssetAsync called with: {assetName}, {assetLocation}, {extension}, {debugMode}");
+            _logger.LogDebug("GetAssetAsync called with: {AssetName}, {AssetLocation}, {Extension}, {DebugMode}", 
+                assetName, assetLocation, extension, debugMode);
 
             // Handle library paths with subdirectories
             if (assetLocation.StartsWith("Libraries/"))
@@ -27,7 +36,7 @@ namespace Dyna.Player.Services
                 // For paths like "Libraries/Creative" or "Libraries/WidgetAnimations"
                 assetPath = Path.Combine(basePath, "Pages", "Shared", assetLocation);
                 fullPath = Path.Combine(assetPath, $"{assetName}.{extension}");
-                System.Diagnostics.Debug.WriteLine($"Library path: {fullPath}");
+                _logger.LogDebug("Library path: {FullPath}", fullPath);
             }
             else
             {
@@ -41,21 +50,21 @@ namespace Dyna.Player.Services
                         assetPath = Path.Combine(basePath, "Pages", "Shared", "Components", assetName);
                         break;
                     default:
-                        System.Diagnostics.Debug.WriteLine($"Invalid asset location: {assetLocation}");
+                        _logger.LogWarning("Invalid asset location: {AssetLocation}", assetLocation);
                         return $"Invalid asset location: {assetLocation}";
                 }
                 
                 fullPath = Path.Combine(assetPath, $"Default.{extension}");
-                System.Diagnostics.Debug.WriteLine($"Standard path: {fullPath}");
+                _logger.LogDebug("Standard path: {FullPath}", fullPath);
             }
 
             if (!File.Exists(fullPath))
             {
-                System.Diagnostics.Debug.WriteLine($"File not found: {fullPath}");
+                _logger.LogWarning("File not found: {FullPath}", fullPath);
                 return $"Non existing asset file: {assetName} ({fullPath})";
             }
 
-            System.Diagnostics.Debug.WriteLine($"File found: {fullPath}");
+            _logger.LogDebug("File found: {FullPath}", fullPath);
             var content = await File.ReadAllTextAsync(fullPath);
 
             if (!debugMode)
@@ -79,7 +88,8 @@ namespace Dyna.Player.Services
             {
                 foreach (var error in result.Errors)
                 {
-                    System.Diagnostics.Debug.WriteLine($"Minification error: {error.Message} at line {error.StartLine}, column {error.StartColumn}");
+                    _logger.LogWarning("JS minification error: {Message} at line {Line}, column {Column}", 
+                        error.Message, error.StartLine, error.StartColumn);
                 }
                 return javascript;
             }
@@ -95,7 +105,8 @@ namespace Dyna.Player.Services
             {
                 foreach (var error in result.Errors)
                 {
-                    System.Diagnostics.Debug.WriteLine($"Minification error: {error.Message} at line {error.StartLine}, column {error.StartColumn}");
+                    _logger.LogWarning("CSS minification error: {Message} at line {Line}, column {Column}",
+                        error.Message, error.StartLine, error.StartColumn);
                 }
                 return css;
             }

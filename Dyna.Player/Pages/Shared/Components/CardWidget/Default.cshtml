@@ -2,11 +2,9 @@
 @using Dyna.Player.Models
 @using Dyna.Player.Utilities
 @using Dyna.Player.TagHelpers
-@using System.Diagnostics
 @using Newtonsoft.Json
 
 @{
-    Debug.WriteLine($"[CardWidgetView] - Model: {JsonConvert.SerializeObject(Model)}");
     var value = Model?.Value ?? "00";
     var animation = Model?.Animation?.ToLower() ?? "";
     var styles = ConversionUtilities.GenerateCssStyleString(Model?.Styles);
@@ -80,15 +78,12 @@
 @{
     // Register the CardWidget asset
     AssetTagHelper.AddPresentAsset("CardWidget", "widget");
-    Debug.WriteLine("Registered CardWidget asset");
-
 
     if (!string.IsNullOrEmpty(Model?.Animation))
     {
         // Register the animation libraries in the correct order
         // First register the common animation system with highest priority
         AssetTagHelper.AddPresentAsset("Libraries/WidgetAnimations/CardWidgetAnimation", "library", 100);
-        Debug.WriteLine("Registered CardWidgetAnimation library with priority 100");
 
         // Then register specific animation handlers based on the animation type
         var animationType = Model.Animation.ToLower();
@@ -97,13 +92,11 @@
         {
             // Register the roll animation file with lower priority
             AssetTagHelper.AddPresentAsset("Libraries/WidgetAnimations/CardWidgetAnimationRoll", "library", 101);
-            Debug.WriteLine("Registered CardWidgetAnimationRoll library with priority 101");
         }
         else if (animationType == "flip")
         {
             // Register the flip animation file with lower priority
             AssetTagHelper.AddPresentAsset("Libraries/WidgetAnimations/CardWidgetAnimationFlip", "library", 101);
-            Debug.WriteLine("Registered CardWidgetAnimationFlip library with priority 101");
         }
     }
 }

@@ -1,18 +1,20 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Dyna.Player.Services
 {
     public class ApiService
     {
         private readonly HttpClient _httpClient;
+        private readonly ILogger<ApiService> _logger;
 
-        public ApiService(HttpClient httpClient)
+        public ApiService(HttpClient httpClient, ILogger<ApiService> logger = null)
         {
             _httpClient = httpClient;
+            _logger = logger;
         }
 
         public async Task<T> GetAsync<T>(string apiUrl)
@@ -24,7 +26,7 @@ namespace Dyna.Player.Services
                 if (response.IsSuccessStatusCode)
                 {
                     string json = await response.Content.ReadAsStringAsync();
-                    Debug.WriteLine($"[ApiService] API Response from {apiUrl}: {json}"); // Log the response
+                    _logger?.LogDebug("[ApiService] API Response from {Url}: {Json}", apiUrl, json); // Log the response
 
                     var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
@@ -34,27 +36,28 @@ namespace Dyna.Player.Services
                     }
                     catch (JsonException ex)
                     {
-                        Debug.WriteLine($"[ApiService] JSON Deserialization Error from {apiUrl}: {ex.Message}");
-                        Debug.WriteLine($"[ApiService] JSON that failed to parse: {json}"); // Log the failing json
+                        _logger?.LogError("[ApiService] JSON Deserialization Error from {Url}: {ErrorMessage}", apiUrl, ex.Message);
+                        _logger?.LogError("[ApiService] JSON that failed to parse: {Json}", json); // Log the failing json
                         return default;
                     }
                 }
                 else
                 {
-                    Debug.WriteLine($"[ApiService] API request failed with status code: {(int)response.StatusCode} from {apiUrl}");
+                    _logger?.LogWarning("[ApiService] API request failed with status code: {StatusCode} from {Url}", 
+                        (int)response.StatusCode, apiUrl);
                     string errorContent = await response.Content.ReadAsStringAsync();
-                    Debug.WriteLine($"[ApiService] Error Content: {errorContent}"); // Log the error content
+                    _logger?.LogWarning("[ApiService] Error Content: {ErrorContent}", errorContent); // Log the error content
                     return default;
                 }
             }
             catch (HttpRequestException ex)
             {
-                Debug.WriteLine($"[ApiService] HTTP Request Error from {apiUrl}: {ex.Message}");
+                _logger?.LogError("[ApiService] HTTP Request Error from {Url}: {ErrorMessage}", apiUrl, ex.Message);
                 return default;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[ApiService] General Error from {apiUrl}: {ex.Message}");
+                _logger?.LogError("[ApiService] General Error from {Url}: {ErrorMessage}", apiUrl, ex.Message);
                 return default;
             }
         }

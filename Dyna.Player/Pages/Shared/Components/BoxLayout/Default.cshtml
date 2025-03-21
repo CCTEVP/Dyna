@@ -1,7 +1,6 @@
 ﻿@model BoxLayoutClass
 @using Dyna.Player.Models
 @using Dyna.Player.TagHelpers
-@using System.Diagnostics
 @using Newtonsoft.Json
 @using Dyna.Player.Utilities
 
@@ -10,42 +9,29 @@
     {
         @foreach (var widgetContainer in Model.Contents)
         {
-            Debug.WriteLine($"[BoxLayoutView] Widget Container Type: {widgetContainer.GetType().Name}");
-            Debug.WriteLine($"[BoxLayoutView] Contents: {JsonConvert.SerializeObject(widgetContainer)}");
-
             if (widgetContainer.ImageWidget != null)
             {
-                //Debug.WriteLine($"[BoxLayoutView] Rendering ImageWidget");
                 @await Component.InvokeAsync("ImageWidget", widgetContainer.ImageWidget)
-                Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("ImageWidget", "widget");
             }
             else if (widgetContainer.CountdownWidget != null)
             {
-                //Debug.WriteLine($"[BoxLayoutView] Rendering CountdownWidget");
                 @await Component.InvokeAsync("CountdownWidget", widgetContainer.CountdownWidget)
-                Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("CountdownWidget", "widget");
             }
             else if (widgetContainer.VideoWidget != null)
             {
-                //Debug.WriteLine($"[BoxLayoutView] Rendering VideoWidget");
                 @await Component.InvokeAsync("VideoWidget", widgetContainer.VideoWidget)
-                Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("VideoWidget", "widget");
             }
             else if (widgetContainer.TextWidget != null)
             {
-                //Debug.WriteLine($"[BoxLayoutView] Rendering TextWidget");
                 @await Component.InvokeAsync("TextWidget", widgetContainer.TextWidget)
-                Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("TextWidget", "widget");
             }
             else if (widgetContainer.CardWidget != null)
             {
-                //Debug.WriteLine($"[BoxLayoutView] Rendering CardWidget");
                 @await Component.InvokeAsync("CardWidget", widgetContainer.CardWidget)
-                Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("CardWidget", "widget");
             }
-            else
+            else if (widgetContainer.BoxLayout != null)
             {
-                Debug.WriteLine($"[BoxLayoutView] No widget found in WidgetContainer");
+                @await Component.InvokeAsync("BoxLayout", widgetContainer.BoxLayout)
             }
         }
     }

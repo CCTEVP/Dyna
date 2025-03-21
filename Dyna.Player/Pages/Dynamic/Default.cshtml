@@ -1,6 +1,5 @@
 ﻿@page "/dynamic/{id}"
 @using Dyna.Player.TagHelpers
-@using System.Diagnostics
 @using Dyna.Player.Utilities
 @model Dyna.Player.Models.CreativeModel
 
@@ -15,9 +14,7 @@
         {
             @if (piece?.SlideLayout != null)
             {
-                Debug.WriteLine("[DynamicView] SlideLayout Model: " + piece?.SlideLayout.ToString());
                 @await Component.InvokeAsync("SlideLayout", new { layout = piece.SlideLayout })
-                Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("SlideLayout", "layout");
             }
         }
     }
@@ -26,3 +23,5 @@
         <p>Loading...</p>
     }
 </div>
+
+

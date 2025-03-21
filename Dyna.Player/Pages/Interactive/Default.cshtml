@@ -1,10 +1,9 @@
 ﻿@page "/interactive/{id}"
 @using Dyna.Player.TagHelpers
-@using System.Diagnostics
 @using Dyna.Player.Utilities
 @model Dyna.Player.Models.CreativeModel
 
-<div id="interactive-creative-container" style="@ConversionUtilities.GenerateCssStyleString(Model.Creative.Styles)">
+<div id="dynamic-creative-container" style="@ConversionUtilities.GenerateCssStyleString(Model.Creative.Styles)">
     @if (Model?.Creative?.Pieces != null)
     {
         ViewData["Title"] = Model.Creative.Name;
@@ -13,11 +12,9 @@
 
         @foreach (var piece in Model.Creative.Pieces)
         {
-            @if (piece?.SlideLayout != null) // Check if element and SlideLayout are not null
+            @if (piece?.SlideLayout != null)
             {
-                Debug.WriteLine("[InteractiveView] SlideLayout Model: " + piece?.SlideLayout.ToString());
                 @await Component.InvokeAsync("SlideLayout", new { layout = piece.SlideLayout })
-                Dyna.Player.TagHelpers.AssetTagHelper.AddPresentAsset("SlideLayout", "layout");
             }
         }
     }
@@ -26,3 +23,5 @@
         <p>Loading...</p>
     }
 </div>
+
+

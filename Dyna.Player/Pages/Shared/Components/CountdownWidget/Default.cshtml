@@ -1,14 +1,10 @@
 ﻿@model CountdownWidgetClass
-@using System.Diagnostics
 @using Dyna.Player.Pages.Shared.Components.BoxLayout
 @using Dyna.Player.Services
 @using Dyna.Player.Utilities
 @using Newtonsoft.Json
 @inject QueryParameterService QueryParameterService
 @{
-    Debug.WriteLine("CountdownWidgetClass:");
-    Debug.WriteLine(JsonConvert.SerializeObject(Model));
-
     string targetDateTime = Model.TargetDateTime?.Default;
 
     if (Model.TargetDateTime?.Source == "queryParameter")
@@ -18,10 +14,7 @@
         {
             targetDateTime = queryTargetDateTime;
         }
-
     }
-    Debug.WriteLine($"Query parameter value for {Model.TargetDateTime.Name}: {targetDateTime}");
-   
 }
 
 <div id="countdown-widget-@(Model.Identifier ?? Guid.NewGuid().ToString("N"))" data-target-date-time="@(targetDateTime)" class="@(Model.Classes ?? "")" style="@ConversionUtilities.GenerateCssStyleString(Model.Styles)" data-status="">

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -14,22 +14,27 @@ namespace Dyna.Player.Services
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IOptions<FileServiceOptions> _options;
+        private readonly ILogger<FileService> _logger;
 
-        public FileService(IWebHostEnvironment webHostEnvironment, IOptions<FileServiceOptions> options)
+        public FileService(
+            IWebHostEnvironment webHostEnvironment, 
+            IOptions<FileServiceOptions> options,
+            ILogger<FileService> logger = null)
         {
             _webHostEnvironment = webHostEnvironment;
             _options = options;
+            _logger = logger;
         }
 
         public async Task<object> GetObjectDefinitionFromJsonAsync(Type componentType, string componentName)
         {
             string filePath = Path.Combine(_options.Value.ComponentsFolder, componentName, "Default.json");
 
-            Debug.WriteLine($"[FileService] Attempting to load Default.json from: {filePath}");
+            _logger?.LogDebug("[FileService] Attempting to load Default.json from: {FilePath}", filePath);
 
             if (!File.Exists(filePath))
             {
-                Debug.WriteLine($"[FileService] Component definition file not found: {filePath}");
+                _logger?.LogWarning("[FileService] Component definition file not found: {FilePath}", filePath);
                 return null;
             }
 
@@ -43,12 +48,14 @@ namespace Dyna.Player.Services
                         NamingStrategy = new CamelCaseNamingStrategy()
                     }
                 });
-                Debug.WriteLine($"[FileService] Loaded Default.json for {componentType.Name}: {JsonConvert.SerializeObject(result)}");
+                _logger?.LogDebug("[FileService] Loaded Default.json for {ComponentType}: {Result}", 
+                    componentType.Name, JsonConvert.SerializeObject(result));
                 return result;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[FileService] Error deserializing Default.json for {componentName}: {ex.Message}");
+                _logger?.LogError("[FileService] Error deserializing Default.json for {ComponentName}: {ErrorMessage}", 
+                    componentName, ex.Message);
                 return null;
             }
         }

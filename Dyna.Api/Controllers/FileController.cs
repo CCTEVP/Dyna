@@ -8,17 +8,17 @@ namespace Dyna.Api.Controllers
     [Route("[controller]")]
     public class FileController : ControllerBase
     {
-        private readonly IWebHostEnvironment _env; 
-        private readonly string _baseDataPath; 
+        private readonly IWebHostEnvironment _env;
+        private readonly string _baseDataPath;
         private readonly ILogger<FileController> _logger;
 
         private readonly string _jsonFilePath;
 
-        public FileController(IWebHostEnvironment env) 
+        public FileController(IWebHostEnvironment env)
         {
             _env = env;
             _baseDataPath = Path.Combine(_env.ContentRootPath, "Data");
-            
+
         }
 
         [HttpGet("GetDefault")]
@@ -34,7 +34,9 @@ namespace Dyna.Api.Controllers
                     return NotFound("JSON file not found.");
                 }
                 FileInfo fileInfo = new FileInfo(_jsonFilePath);
-                Console.WriteLine($"Last Modified: {fileInfo.LastWriteTime}");
+                _logger.LogInformation($"[FileController.cs] Last Modified: {fileInfo.LastWriteTime}");
+
+
                 using (FileStream fs = new FileStream(_jsonFilePath, FileMode.Open))
                 using (StreamReader reader = new StreamReader(fs))
                 {
@@ -44,12 +46,12 @@ namespace Dyna.Api.Controllers
             }
             catch (Exception ex)
             {
-                Console.Error.WriteLine(ex);  // Replace with your logging mechanism
+                _logger.LogError($"[FileController.cs] {ex}");  // Replace with your logging mechanism
                 return StatusCode(500, "An error occurred while reading the JSON file."); // Return 500
             }
         }
 
- 
+
         [HttpGet("GetById/{id?}")]
         [ApiExplorerSettings(IgnoreApi = false)]
         public IActionResult GetById([FromRoute] int? id)
@@ -67,7 +69,7 @@ namespace Dyna.Api.Controllers
                     return NotFound("JSON file not found.");
                 }
                 FileInfo fileInfo = new FileInfo(_jsonFilePath);
-                Console.WriteLine($"Last Modified: {fileInfo.LastWriteTime}");
+                _logger.LogInformation($"[FileController.cs] Last Modified: {fileInfo.LastWriteTime}");
                 using (FileStream fs = new FileStream(_jsonFilePath, FileMode.Open))
                 using (StreamReader reader = new StreamReader(fs))
                 {
@@ -77,7 +79,7 @@ namespace Dyna.Api.Controllers
             }
             catch (Exception ex)
             {
-                Console.Error.WriteLine(ex);  // Replace with your logging mechanism
+                _logger.LogError($"[FileController.cs] {ex}");  // Replace with your logging mechanism
                 return StatusCode(500, "An error occurred while reading the JSON file."); // Return 500
             }
         }

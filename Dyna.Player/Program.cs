@@ -2,6 +2,7 @@ using Dyna.Player.Pages.Shared.Components;
 using Dyna.Player.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,9 @@ builder.Services.Configure<FileServiceOptions>(builder.Configuration.GetSection(
 // Register FileService and IFileService
 builder.Services.AddScoped<IFileService, FileService>();
 
+// Register CreativeCacheService as scoped (changed from singleton)
+builder.Services.AddScoped<CreativeCacheService>();
+
 // Configure the logger
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
@@ -42,6 +46,9 @@ builder.Logging.AddFile("Logs/dyna-player-{Date}.log", LogLevel.Debug);
 
 // Configure the HTTP request pipeline.
 var app = builder.Build();
+
+// Initialize all static loggers
+app.Services.InitializeStaticLoggers();
 
 if (!app.Environment.IsDevelopment())
 {
