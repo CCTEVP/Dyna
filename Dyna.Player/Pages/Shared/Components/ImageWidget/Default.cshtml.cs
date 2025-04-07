@@ -1,5 +1,7 @@
 ﻿using Dyna.Player.Models;
 using Microsoft.AspNetCore.Mvc;
+using Dyna.Shared.Classes.Components.Layouts;
+using Dyna.Shared.Classes.Components.Widgets;
 
 namespace Dyna.Player.Pages.Shared.Components.ImageWidget
 {

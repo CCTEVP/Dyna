@@ -1,0 +1,309 @@
+[
+  {
+    "_id": {
+      "$oid": "67e52cbe7acf34a2c374766e"
+    },
+    "styles": {},
+    "classes": "visible",
+    "identifier": "slide01",
+    "attributes": [],
+    "status": "",
+    "type": "SlideLayout",
+    "order": 1,
+    "parent": [
+      {
+        "$oid": "67e5255aa5019234ba89509c"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e52d277acf34a2c374766f"
+    },
+    "identifier": "slide02",
+    "classes": "hidden",
+    "styles": {
+      "visibility": "hidden"
+    },
+    "attributes": [],
+    "status": "disabled",
+    "type": "SlideLayout",
+    "order": 2,
+    "parent": [
+      {
+        "$oid": "67e5255aa5019234ba89509c"
+      },
+      {
+        "$oid": "67ee616ad760d87e72bd4e85"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e52d677acf34a2c3747670"
+    },
+    "identifier": "background",
+    "classes": "background",
+    "attributes": [],
+    "status": "",
+    "styles": {},
+    "type": "ImageWidget",
+    "source": "asset",
+    "asset": {
+      "$oid": "67e5322d7acf34a2c37476a3"
+    },
+    "order": 1,
+    "parent": [
+      {
+        "$oid": "67e52cbe7acf34a2c374766e"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e52da67acf34a2c3747671"
+    },
+    "identifier": "countdown01",
+    "classes": "",
+    "styles": {
+      "flex-direction": "row"
+    },
+    "attributes": [],
+    "targetDateTime": {
+      "default": "2025-12-31T23:59:59",
+      "source": "queryParameter",
+      "name": "targetDateTime"
+    },
+    "type": "CountdownWidget",
+    "order": 2,
+    "parent": [
+      {
+        "$oid": "67e52cbe7acf34a2c374766e"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e52e447acf34a2c3747672"
+    },
+    "identifier": "outcome",
+    "attributes": ["fullscreen"],
+    "status": "",
+    "styles": {
+      "position": "relative",
+      "width": "1080px",
+      "height": "1920px"
+    },
+    "type": "VideoWidget",
+    "source": "asset",
+    "asset": {
+      "$oid": "67e531af7acf34a2c374769e"
+    },
+    "order": 1,
+    "parent": [
+      {
+        "$oid": "67e52d277acf34a2c374766f"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e5302f7acf34a2c3747693"
+    },
+    "attributes": [],
+    "styles": {},
+    "type": "BoxLayout",
+    "order": 1,
+    "parent": [
+      {
+        "$oid": "67e52da67acf34a2c3747671"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e5306c7acf34a2c3747694"
+    },
+    "attributes": [],
+    "styles": {},
+    "type": "BoxLayout",
+    "order": 2,
+    "parent": [
+      {
+        "$oid": "67e52da67acf34a2c3747671"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e530727acf34a2c3747695"
+    },
+    "attributes": [],
+    "styles": {},
+    "type": "BoxLayout",
+    "order": 3,
+    "parent": [
+      {
+        "$oid": "67e52da67acf34a2c3747671"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e530797acf34a2c3747696"
+    },
+    "attributes": [],
+    "styles": {},
+    "type": "BoxLayout",
+    "order": 4,
+    "parent": [
+      {
+        "$oid": "67e52da67acf34a2c3747671"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e53c8d7acf34a2c37476df"
+    },
+    "value": "Days",
+    "styles": {
+      "color": "white"
+    },
+    "type": "TextWidget",
+    "order": 1,
+    "parent": [
+      {
+        "$oid": "67e5302f7acf34a2c3747693"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e53cec7acf34a2c37476e0"
+    },
+    "value": "Hours",
+    "styles": {
+      "color": "white"
+    },
+    "type": "TextWidget",
+    "order": 1,
+    "parent": [
+      {
+        "$oid": "67e5306c7acf34a2c3747694"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e53cf47acf34a2c37476e1"
+    },
+    "value": "Minutes",
+    "styles": {
+      "color": "white"
+    },
+    "type": "TextWidget",
+    "order": 1,
+    "parent": [
+      {
+        "$oid": "67e530727acf34a2c3747695"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e53cfb7acf34a2c37476e2"
+    },
+    "value": "Seconds",
+    "styles": {
+      "color": "white"
+    },
+    "type": "TextWidget",
+    "order": 1,
+    "parent": [
+      {
+        "$oid": "67e530797acf34a2c3747696"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e53d487acf34a2c37476e3"
+    },
+    "animation": "roll",
+    "value": "00",
+    "type": "CardWidget",
+    "source": "days",
+    "styles": {
+      "color": "white",
+      "background-color": "#ffffff1a",
+      "border": "0.5px solid rgba(255, 255, 255, 0.3)"
+    },
+    "order": 2,
+    "parent": [
+      {
+        "$oid": "67e5302f7acf34a2c3747693"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e53d667acf34a2c37476e4"
+    },
+    "animation": "roll",
+    "value": "00",
+    "type": "CardWidget",
+    "source": "hours",
+    "styles": {
+      "color": "white",
+      "background-color": "#ffffff1a",
+      "border": "0.5px solid rgba(255, 255, 255, 0.3)"
+    },
+    "order": 2,
+    "parent": [
+      {
+        "$oid": "67e5306c7acf34a2c3747694"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e53d737acf34a2c37476e5"
+    },
+    "animation": "roll",
+    "value": "00",
+    "type": "CardWidget",
+    "source": "minutes",
+    "styles": {
+      "color": "white",
+      "background-color": "#ffffff1a",
+      "border": "0.5px solid rgba(255, 255, 255, 0.3)"
+    },
+    "order": 2,
+    "parent": [
+      {
+        "$oid": "67e530727acf34a2c3747695"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e53d7d7acf34a2c37476e6"
+    },
+    "animation": "roll",
+    "value": "00",
+    "type": "CardWidget",
+    "source": "seconds",
+    "styles": {
+      "color": "white",
+      "background-color": "#ffffff1a",
+      "border": "0.5px solid rgba(255, 255, 255, 0.3)"
+    },
+    "order": 2,
+    "parent": [
+      {
+        "$oid": "67e530797acf34a2c3747696"
+      }
+    ]
+  }
+]

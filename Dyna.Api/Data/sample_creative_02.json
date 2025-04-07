@@ -1,0 +1,1180 @@
+{
+  "_id": {
+    "$oid": "678eb539cb15537bb2cf5f4a"
+  },
+  "createdAt": {
+    "$date": "2025-01-20T20:42:33.908Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-10T10:29:20.754Z"
+  },
+  "name": "Cupra Interactiva",
+  "campaign": {
+    "$oid": "5defb9f6c66f590487bea638"
+  },
+  "type": "interactive",
+  "format": {
+    "$oid": "58c93651854bce22bb4ea123"
+  },
+  "interactive": true,
+  "websocketActive": false,
+  "slides": [
+    {
+      "name": "Intro",
+      "anchor": "ancslide-1737405752784",
+      "interactive": true,
+      "elements": [
+        {
+          "name": "buttonInteractive-1",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-1",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "PRUÉBALO",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Regular",
+            "fontSize": 28,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "center",
+            "opacity": 1,
+            "top": 1752,
+            "left": 102,
+            "height": 75,
+            "width": 260,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "zIndex": 3,
+            "backgroundColor": "rgba(255,255,255,0)",
+            "borderColor": "#ffffff"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 1,
+          "source": null,
+          "defaultText": ""
+        },
+        {
+          "name": "buttonInteractive-2",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-2",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "Diseño",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Regular",
+            "fontSize": 28,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "center",
+            "opacity": 1,
+            "top": 1750,
+            "left": 425,
+            "height": 75,
+            "width": 260,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "zIndex": 4,
+            "borderColor": "#ffffff",
+            "backgroundColor": "rgba(255,255,255,0)"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 2,
+          "source": null
+        },
+        {
+          "name": "buttonInteractive-3",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-1737409703187",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "Híbrido",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Regular",
+            "fontSize": 28,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "center",
+            "opacity": 1,
+            "top": 1750,
+            "left": 740,
+            "height": 75,
+            "width": 260,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "zIndex": 4,
+            "borderColor": "#ffffff",
+            "backgroundColor": "rgba(255,255,255,0)"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 3,
+          "source": null
+        },
+        {
+          "name": "buttonInteractive-4",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-4",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "CONFIGÚRALO   |",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Book",
+            "fontSize": 24,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "right",
+            "opacity": 1,
+            "top": 1650,
+            "left": 630,
+            "height": 50,
+            "width": 210,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "flex-end",
+            "zIndex": 6,
+            "backgroundColor": "rgba(255,255,255,0)",
+            "border": "none"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 1,
+          "source": null
+        },
+        {
+          "name": "buttonInteractive-5",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-5",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "PRUÉBALO",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Book",
+            "fontSize": 24,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "left",
+            "opacity": 1,
+            "top": 1650,
+            "left": 850,
+            "height": 50,
+            "width": 210,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "flex-start",
+            "zIndex": 7,
+            "backgroundColor": "rgba(255,255,255,0)",
+            "border": "none"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 1,
+          "source": null
+        },
+        {
+          "name": "text5",
+          "type": "text",
+          "anchor": "text-5",
+          "interactive": true,
+          "content": "TOCA Y DESCÚBRELO",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Bold",
+            "fontSize": 38,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "left",
+            "opacity": 1,
+            "top": 1654,
+            "left": 106,
+            "height": 44,
+            "width": 442,
+            "display": "flex",
+            "alignItems": "flex-start",
+            "justifyContent": "flex-start",
+            "zIndex": 8
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "source": null
+        },
+        {
+          "name": "image-2",
+          "type": "image",
+          "anchor": "image-2",
+          "interactive": true,
+          "style": {
+            "top": 1342,
+            "left": 62,
+            "height": 232,
+            "width": 653,
+            "zIndex": 9
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "sources": null,
+          "url": "https://www.googleapis.com/download/storage/v1/b/d3ck-development/o/jas63luofmm67nx4wc.png?generation=1737535744668680&alt=media"
+        },
+        {
+          "name": "image-4",
+          "type": "image",
+          "anchor": "image-4",
+          "interactive": true,
+          "style": {
+            "top": 2,
+            "left": 0,
+            "height": 1920,
+            "width": 1080,
+            "zIndex": 0
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "sources": null,
+          "url": "https://www.googleapis.com/download/storage/v1/b/d3ck-development/o/jas63luofmm67o2bmx.jpg?generation=1737535987408743&alt=media"
+        },
+        {
+          "name": "image-5",
+          "type": "image",
+          "anchor": "image-5",
+          "interactive": true,
+          "style": {
+            "top": 38,
+            "left": 644,
+            "height": 300,
+            "width": 392,
+            "zIndex": 10
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "sources": null,
+          "url": "https://www.googleapis.com/download/storage/v1/b/d3ck-development/o/jas63luofmm67o5b2k.png?generation=1737536125946810&alt=media",
+          "content": "CONFIGÚRALO   |",
+          "source": null
+        }
+      ],
+      "visibility": {
+        "state": "visible",
+        "enterTransition": "instant",
+        "exitTransition": "instant"
+      }
+    },
+    {
+      "name": "Tecnologia",
+      "anchor": "ancslide-1737413679393",
+      "interactive": true,
+      "elements": [
+        {
+          "name": "image-1",
+          "type": "image",
+          "anchor": "image-1",
+          "interactive": true,
+          "style": {
+            "top": 0,
+            "left": 4,
+            "height": 1920,
+            "width": 1080,
+            "zIndex": 1
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "sources": null,
+          "url": "https://www.googleapis.com/download/storage/v1/b/d3ck-development/o/jas63luofmm67o8yn9.jpg?generation=1737536296556738&alt=media",
+          "content": "CONFIGÚRALO   |",
+          "source": null
+        },
+        {
+          "name": "buttonInteractive-1",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-1",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "Tecnología",
+          "style": {
+            "color": "#000000",
+            "fontFamily": "Cupra Regular",
+            "fontSize": 28,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "center",
+            "opacity": 1,
+            "top": 1750,
+            "left": 100,
+            "height": 75,
+            "width": 260,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "zIndex": 2,
+            "backgroundColor": "rgba(255,255,255,1)",
+            "borderColor": "#000000"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 1,
+          "source": null,
+          "defaultText": ""
+        },
+        {
+          "name": "buttonInteractive-2",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-2",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "CONFIGÚRALO   |",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Regular",
+            "fontSize": 28,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "center",
+            "opacity": 1,
+            "top": 1750,
+            "left": 425,
+            "height": 75,
+            "width": 260,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "zIndex": 3,
+            "borderColor": "#ffffff",
+            "backgroundColor": "rgba(255,255,255,0)"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 2,
+          "source": null
+        },
+        {
+          "name": "buttonInteractive-3",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-1737409703187",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "Híbrido",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Regular",
+            "fontSize": 28,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "center",
+            "opacity": 1,
+            "top": 1750,
+            "left": 740,
+            "height": 75,
+            "width": 260,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "zIndex": 3,
+            "borderColor": "#ffffff",
+            "backgroundColor": "rgba(255,255,255,0)"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 3,
+          "source": null
+        },
+        {
+          "name": "buttonInteractive-4",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-4",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "CONFIGÚRALO   |",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Book",
+            "fontSize": 24,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "right",
+            "opacity": 1,
+            "top": 1650,
+            "left": 630,
+            "height": 50,
+            "width": 210,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "flex-end",
+            "zIndex": 5,
+            "backgroundColor": "rgba(255,255,255,0)",
+            "border": "none"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 1,
+          "source": null
+        },
+        {
+          "name": "buttonInteractive-5",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-5",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "PRUÉBALO",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Book",
+            "fontSize": 24,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "left",
+            "opacity": 1,
+            "top": 1650,
+            "left": 850,
+            "height": 50,
+            "width": 210,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "flex-start",
+            "zIndex": 6,
+            "backgroundColor": "rgba(255,255,255,0)",
+            "border": "none"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 1,
+          "source": null
+        },
+        {
+          "name": "text-1",
+          "type": "text",
+          "anchor": "text-1",
+          "interactive": true,
+          "content": "New text",
+          "style": {
+            "color": "#000000",
+            "fontFamily": "'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif",
+            "fontSize": 72,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "left",
+            "opacity": 1,
+            "top": 618,
+            "left": 66,
+            "height": 600,
+            "width": 900,
+            "display": "flex",
+            "alignItems": "flex-start",
+            "justifyContent": "flex-start",
+            "zIndex": 7
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "sources": null,
+          "url": "https://www.googleapis.com/download/storage/v1/b/d3ck-development/o/jas63luofmm67o8pip.jpg?generation=1737536284869172&alt=media"
+        },
+        {
+          "name": "home-2",
+          "type": "text",
+          "anchor": "home-2",
+          "interactive": true,
+          "content": "INICIO",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Book",
+            "fontSize": 24,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "center",
+            "opacity": 1,
+            "top": 1650,
+            "left": 102,
+            "height": 52,
+            "width": 124,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "zIndex": 8
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "source": null
+        },
+        {
+          "name": "image-2",
+          "type": "image",
+          "anchor": "image-2",
+          "interactive": true,
+          "style": {
+            "top": 96,
+            "left": 52,
+            "height": 210,
+            "width": 549,
+            "zIndex": 9
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "sources": null,
+          "url": "https://www.googleapis.com/download/storage/v1/b/d3ck-development/o/jas63luofmm67oao9z.png?generation=1737536376313878&alt=media"
+        },
+        {
+          "name": "image-5",
+          "type": "image",
+          "anchor": "image-5",
+          "interactive": true,
+          "style": {
+            "top": 38,
+            "left": 644,
+            "height": 300,
+            "width": 392,
+            "zIndex": 10
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "sources": null,
+          "url": "https://www.googleapis.com/download/storage/v1/b/d3ck-development/o/jas63luofmm67o5b2k.png?generation=1737536125946810&alt=media",
+          "content": "CONFIGÚRALO   |",
+          "source": null
+        }
+      ],
+      "visibility": {
+        "state": "visible",
+        "enterTransition": "instant",
+        "exitTransition": "instant"
+      }
+    },
+    {
+      "name": "Diseño",
+      "anchor": "ancslide-1737413699911",
+      "interactive": true,
+      "elements": [
+        {
+          "name": "image-1",
+          "type": "image",
+          "anchor": "image-1",
+          "interactive": true,
+          "style": {
+            "top": 0,
+            "left": 0,
+            "height": 1920,
+            "width": 1080,
+            "zIndex": 1
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "sources": null,
+          "url": "https://www.googleapis.com/download/storage/v1/b/d3ck-development/o/jas63luofmm65iq2t1.jpg?generation=1737406085040731&alt=media",
+          "content": "CONFIGÚRALO   |",
+          "source": null
+        },
+        {
+          "name": "buttonInteractive-1",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-1",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "Tecnología",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Regular",
+            "fontSize": 28,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "center",
+            "opacity": 1,
+            "top": 1750,
+            "left": 100,
+            "height": 75,
+            "width": 260,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "zIndex": 2,
+            "backgroundColor": "rgba(255,255,255,0)",
+            "borderColor": "#ffffff"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 1,
+          "source": null,
+          "defaultText": ""
+        },
+        {
+          "name": "buttonInteractive-2",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-2",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "PRUÉBALO",
+          "style": {
+            "color": "#000000",
+            "fontFamily": "Cupra Regular",
+            "fontSize": 28,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "center",
+            "opacity": 1,
+            "top": 1750,
+            "left": 425,
+            "height": 75,
+            "width": 260,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "zIndex": 3,
+            "borderColor": "#000000",
+            "backgroundColor": "rgba(255,255,255,1)"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 2,
+          "source": null
+        },
+        {
+          "name": "buttonInteractive-3",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-1737409703187",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "Híbrido",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Regular",
+            "fontSize": 28,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "center",
+            "opacity": 1,
+            "top": 1750,
+            "left": 740,
+            "height": 75,
+            "width": 260,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "zIndex": 3,
+            "borderColor": "#ffffff",
+            "backgroundColor": "rgba(255,255,255,0)"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 3,
+          "source": null
+        },
+        {
+          "name": "buttonInteractive-4",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-4",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "CONFIGÚRALO   |",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Book",
+            "fontSize": 24,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "right",
+            "opacity": 1,
+            "top": 1650,
+            "left": 630,
+            "height": 50,
+            "width": 210,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "flex-end",
+            "zIndex": 5,
+            "backgroundColor": "rgba(255,255,255,0)",
+            "border": "none"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 1,
+          "source": null
+        },
+        {
+          "name": "buttonInteractive-5",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-5",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "PRUÉBALO",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Book",
+            "fontSize": 24,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "left",
+            "opacity": 1,
+            "top": 1650,
+            "left": 850,
+            "height": 50,
+            "width": 210,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "flex-start",
+            "zIndex": 6,
+            "backgroundColor": "rgba(255,255,255,0)",
+            "border": "none"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 1,
+          "source": null
+        },
+        {
+          "name": "text-1",
+          "type": "text",
+          "anchor": "text-1",
+          "interactive": true,
+          "content": "New text",
+          "style": {
+            "color": "#000000",
+            "fontFamily": "'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif",
+            "fontSize": 72,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "left",
+            "opacity": 1,
+            "top": 668,
+            "left": 78,
+            "height": 736,
+            "width": 954,
+            "display": "flex",
+            "alignItems": "flex-start",
+            "justifyContent": "flex-start",
+            "zIndex": 7
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          }
+        }
+      ],
+      "visibility": {
+        "state": "visible",
+        "enterTransition": "instant",
+        "exitTransition": "instant"
+      }
+    },
+    {
+      "name": "Hibrido",
+      "anchor": "ancslide-1737413712975",
+      "interactive": true,
+      "elements": [
+        {
+          "name": "image-1",
+          "type": "image",
+          "anchor": "image-1",
+          "interactive": true,
+          "style": {
+            "top": 0,
+            "left": 0,
+            "height": 1920,
+            "width": 1080,
+            "zIndex": 1
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "sources": null,
+          "url": "https://www.googleapis.com/download/storage/v1/b/d3ck-development/o/jas63luofmm65iq2t1.jpg?generation=1737406085040731&alt=media",
+          "content": "CONFIGÚRALO   |",
+          "source": null
+        },
+        {
+          "name": "buttonInteractive-1",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-1",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "Tecnología",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Regular",
+            "fontSize": 28,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "center",
+            "opacity": 1,
+            "top": 1750,
+            "left": 100,
+            "height": 75,
+            "width": 260,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "zIndex": 2,
+            "backgroundColor": "rgba(255,255,255,0)",
+            "borderColor": "#ffffff"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 1,
+          "source": null,
+          "defaultText": ""
+        },
+        {
+          "name": "buttonInteractive-2",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-2",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "Diseño",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Regular",
+            "fontSize": 28,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "center",
+            "opacity": 1,
+            "top": 1750,
+            "left": 425,
+            "height": 75,
+            "width": 260,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "zIndex": 3,
+            "borderColor": "#ffffff",
+            "backgroundColor": "rgba(255,255,255,0)"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 2,
+          "source": null
+        },
+        {
+          "name": "buttonInteractive-3",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-1737409703187",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "Híbrido",
+          "style": {
+            "color": "#000000",
+            "fontFamily": "Cupra Regular",
+            "fontSize": 28,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "center",
+            "opacity": 1,
+            "top": 1750,
+            "left": 740,
+            "height": 75,
+            "width": 260,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "zIndex": 3,
+            "borderColor": "#000000",
+            "backgroundColor": "rgba(255,255,255,1)"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 3,
+          "source": null
+        },
+        {
+          "name": "image-2",
+          "type": "image",
+          "anchor": "image-2",
+          "interactive": true,
+          "style": {
+            "top": 800,
+            "left": 50,
+            "height": 616,
+            "width": 980,
+            "zIndex": 5
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "sources": null,
+          "url": "https://www.googleapis.com/download/storage/v1/b/d3ck-development/o/jas63luofmm65nse4g.jpg?generation=1737414591018784&alt=media"
+        },
+        {
+          "name": "buttonInteractive-4",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-4",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "CONFIGÚRALO   |",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Book",
+            "fontSize": 24,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "right",
+            "opacity": 1,
+            "top": 1650,
+            "left": 630,
+            "height": 50,
+            "width": 210,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "flex-end",
+            "zIndex": 5,
+            "backgroundColor": "rgba(255,255,255,0)",
+            "border": "none"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 1,
+          "source": null
+        },
+        {
+          "name": "buttonInteractive-5",
+          "type": "buttonInteractive",
+          "anchor": "buttonInteractive-5",
+          "interactive": true,
+          "memoryUrls": [],
+          "content": "PRUÉBALO",
+          "style": {
+            "color": "#ffffff",
+            "fontFamily": "Cupra Book",
+            "fontSize": 24,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "left",
+            "opacity": 1,
+            "top": 1650,
+            "left": 850,
+            "height": 50,
+            "width": 210,
+            "borderRadius": 2,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "flex-start",
+            "zIndex": 6,
+            "backgroundColor": "rgba(255,255,255,0)",
+            "border": "none"
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "targetSlide": 1,
+          "source": null
+        }
+      ],
+      "visibility": {
+        "state": "visible",
+        "enterTransition": "instant",
+        "exitTransition": "instant"
+      }
+    },
+    {
+      "name": "Configuralo",
+      "anchor": "ancslide-1737416167182",
+      "interactive": true,
+      "elements": [
+        {
+          "name": "image-1",
+          "type": "image",
+          "anchor": "image-1",
+          "interactive": true,
+          "style": {
+            "top": 754,
+            "left": 330,
+            "height": 440,
+            "width": 420,
+            "zIndex": 1
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "sources": null,
+          "url": "https://www.googleapis.com/download/storage/v1/b/d3ck-development/o/jas63luofmm67p7mpn.png?generation=1737537913947923&alt=media"
+        }
+      ],
+      "visibility": {
+        "state": "visible",
+        "enterTransition": "instant",
+        "exitTransition": "instant"
+      }
+    },
+    {
+      "name": "Pruebalo",
+      "anchor": "ancslide-1737416180040",
+      "interactive": true,
+      "elements": [
+        {
+          "name": "image-1",
+          "type": "image",
+          "anchor": "image-1",
+          "interactive": true,
+          "style": {
+            "top": 754,
+            "left": 386,
+            "height": 330,
+            "width": 315,
+            "zIndex": 1
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "sources": null,
+          "url": "https://www.googleapis.com/download/storage/v1/b/d3ck-development/o/jas63luofmm67p9q9r.png?generation=1737538011880981&alt=media"
+        }
+      ],
+      "visibility": {
+        "state": "visible",
+        "enterTransition": "instant",
+        "exitTransition": "instant"
+      }
+    }
+  ],
+  "playbacksActive": true,
+  "customPop": true,
+  "sonataAudience": null,
+  "_format": {
+    "createdAt": "2017-08-03T14:30:44.038Z",
+    "updatedAt": "2017-12-04T09:19:36.603Z",
+    "_id": "58c93651854bce22bb4ea123",
+    "name": "Street Panel",
+    "group": {
+      "toString": {}
+    },
+    "width": 1080,
+    "height": 1920,
+    "size": "1080 x 1920"
+  },
+  "_campaign": {
+    "createdAt": "2019-12-10T15:29:58.074Z",
+    "updatedAt": "2019-12-10T15:29:58.074Z",
+    "_id": "5defb9f6c66f590487bea638",
+    "name": "Experimental",
+    "advertiser": {
+      "createdAt": "2017-08-31T11:21:33.211Z",
+      "updatedAt": "2017-08-31T11:22:57.509Z",
+      "_id": "59a7f13d552b5d0fbeca45b4",
+      "name": "CCE Content",
+      "client": {
+        "toString": {}
+      },
+      "active": true
+    }
+  }
+}

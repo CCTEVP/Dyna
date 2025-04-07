@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Dyna.Player.Services;
+using Dyna.Shared.Classes.Components.Layouts;
+using Dyna.Shared.Classes.Components.Widgets;
+
 
 namespace Dyna.Player.Pages.Shared.Components.CountdownWidget
 {

@@ -1,6 +1,10 @@
-﻿@model Dyna.Player.Models.ImageWidgetClass
-@using Dyna.Player.Utilities
+﻿@model ImageWidgetClass
 @using System.Linq
+@using Dyna.Player.Utilities
+@using Dyna.Shared.Classes.Components.Layouts
+@using Dyna.Shared.Classes.Components.Widgets
+
+
 <div id="image-widget-@(Model.Identifier ?? Guid.NewGuid().ToString("N"))" class="@(Model.Classes ?? "")" style="@ConversionUtilities.GenerateCssStyleString(Model.Styles)">
-    <img src="@(Model.Source ?? "")" alt="@Model.Identifier" />
+    <img src="@(Model.Asset.Url ?? "")" alt="@Model.Identifier" />
 </div>

@@ -1,8 +1,10 @@
 ﻿@model BoxLayoutClass
 @using Dyna.Player.Models
 @using Dyna.Player.TagHelpers
-@using Newtonsoft.Json
 @using Dyna.Player.Utilities
+@using Dyna.Shared.Classes.Components.Layouts;
+@using Newtonsoft.Json
+
 
 <div id="box-layout-@(Model.Identifier ?? Guid.NewGuid().ToString("N"))" class="@(Model.Classes ?? "")" style="@ConversionUtilities.GenerateCssStyleString(Model.Styles)">
     @if (Model.Contents != null)

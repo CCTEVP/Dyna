@@ -25,7 +25,6 @@ builder.Services.Configure<Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions
     // You can add other view location formats here if needed
 });
 builder.Services.AddScoped<IAssetService, AssetService>();
-builder.Services.AddScoped<IBundleService, BundleService>();
 builder.Services.AddMemoryCache(); // Add memory cache for bundle caching
 // Configure FileServiceOptions
 builder.Services.Configure<FileServiceOptions>(builder.Configuration.GetSection("FileServiceOptions"));

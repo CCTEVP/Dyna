@@ -1,20 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Dyna.Player.Services;
-using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
-using System.Linq;
-using Dyna.Player.Pages.Shared.Components.CardWidget;
-using Dyna.Player.Pages.Shared.Components.CountdownWidget;
-using Dyna.Player.Pages.Shared.Components.BoxLayout;
-using Dyna.Player.Pages.Shared.Components.SlideLayout;
-using Dyna.Player.Pages.Shared.Components.TextWidget;
-using Dyna.Player.Pages.Shared.Components.VideoWidget;
-using Dyna.Player.Pages.Shared.Components.ImageWidget;
-using Microsoft.Extensions.Logging;
+using Dyna.Shared.Classes.Content;
+using Dyna.Shared.Classes.Components.Widgets;
+using Dyna.Shared.Classes.Components.Layouts;
 
 namespace Dyna.Player.Models
 {
@@ -61,7 +51,8 @@ namespace Dyna.Player.Models
                 }
 
                 // Fallback to direct API call if cache service is not available or failed
-                string apiUrl = $"https://localhost:7193/data/structure_{id}.json";
+                //string apiUrl = $"https://localhost:7230/JSON/GetById/{id}";
+                string apiUrl = $"https://localhost:7230/Content/Creatives/{id}"+"/?nested=true";
                 Creative = await _apiService.GetAsync<CreativeClass>(apiUrl);
 
                 if (Creative == null)
@@ -157,9 +148,9 @@ namespace Dyna.Player.Models
             _logger?.LogDebug("[CreativeModel] Starting MergeDefaultComponentDefinitions");
 
             // Skip Pieces (container class) and process its contents directly
-            if (creative.Pieces != null)
+            if (creative.Elements != null)
             {
-                foreach (var piece in creative.Pieces)
+                foreach (var piece in creative.Elements)
                 {
                     // Process SlideLayout directly if it exists
                     if (piece.SlideLayout != null)

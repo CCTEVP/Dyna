@@ -8,6 +8,10 @@ using Dyna.Player.TagHelpers;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System.Net.NetworkInformation;
+using Dyna.Shared.Classes.Content;
+using Dyna.Shared.Classes.Components.Layouts;
+using Dyna.Shared.Classes.Components.Widgets;
 
 namespace Dyna.Player.Services
 {
@@ -140,7 +144,7 @@ namespace Dyna.Player.Services
 
         private async Task AnalyzeCreativeStructure(CreativeClass creative)
         {
-            if (creative?.Pieces == null) return;
+            if (creative?.Elements == null) return;
             
             // Get available components from the /Pages/Shared/Components directory
             var availableComponents = GetAvailableComponents();
@@ -148,7 +152,7 @@ namespace Dyna.Player.Services
             // Add base assets first
             AddBaseAssets();
             
-            foreach (var piece in creative.Pieces)
+            foreach (var piece in creative.Elements)
             {
                 // Check for SlideLayout
                 if (piece?.SlideLayout != null)
@@ -298,9 +302,9 @@ namespace Dyna.Player.Services
         {
             var mediaFiles = new HashSet<string>();
             
-            if (creative?.Pieces == null) return mediaFiles.ToList();
+            if (creative?.Elements == null) return mediaFiles.ToList();
             
-            foreach (var piece in creative.Pieces)
+            foreach (var piece in creative.Elements)
             {
                 if (piece?.SlideLayout != null)
                 {
@@ -424,10 +428,10 @@ namespace Dyna.Player.Services
             var urls = new List<string>
             {
                 $"/{viewType}/{creativeId}",
-                $"/{viewType}/{creativeId}/js/components.bundle.min.js",
-                $"/{viewType}/{creativeId}/js/libraries.bundle.min.js",
-                $"/{viewType}/{creativeId}/css/components.bundle.min.css",
-                $"/{viewType}/{creativeId}/css/libraries.bundle.min.css",
+                $"/{creativeId}.components.bundle.min.js",
+                $"/{creativeId}.libraries.bundle.min.js",
+                $"/{creativeId}.components.bundle.min.css",
+                $"/{creativeId}.libraries.bundle.min.css",
                 "/offline.html",
                 "/lib/jquery/dist/jquery.min.js",
                 "/lib/bootstrap/dist/js/bootstrap.bundle.min.js",
@@ -436,11 +440,11 @@ namespace Dyna.Player.Services
 
             if (isDebug)
             {
-                urls.Add($"/{viewType}/{creativeId}?debug=true");
-                urls.Add($"/{viewType}/{creativeId}/js/components.bundle.js");
-                urls.Add($"/{viewType}/{creativeId}/js/libraries.bundle.js");
-                urls.Add($"/{viewType}/{creativeId}/css/components.bundle.css");
-                urls.Add($"/{viewType}/{creativeId}/css/libraries.bundle.css");
+                urls.Add($"/{creativeId}?debug=true");
+                urls.Add($"/{creativeId}.components.bundle.js");
+                urls.Add($"/{creativeId}.libraries.bundle.js");
+                urls.Add($"/{creativeId}.components.bundle.css");
+                urls.Add($"/{creativeId}.libraries.bundle.css");
                 urls.Add("/js/sw-debug.js");
             }
 

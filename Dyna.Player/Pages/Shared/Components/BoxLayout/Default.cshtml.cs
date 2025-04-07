@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using Dyna.Shared.Classes.Components.Layouts;
 
 namespace Dyna.Player.Pages.Shared.Components.BoxLayout
 {
@@ -22,7 +20,6 @@ namespace Dyna.Player.Pages.Shared.Components.BoxLayout
                 foreach (var widgetContainer in layout.Contents)
                 {
                     Logger?.LogDebug("Widget Container Type: {Type}", widgetContainer.GetType().Name);
-                    
                     if (widgetContainer.ImageWidget != null)
                         Logger?.LogDebug("Rendering ImageWidget");
                     else if (widgetContainer.CountdownWidget != null)

@@ -1,16 +1,20 @@
 ﻿@page "/interactive/{id}"
+@model CreativeModel
 @using Dyna.Player.TagHelpers
 @using Dyna.Player.Utilities
-@model Dyna.Player.Models.CreativeModel
+@using Dyna.Player.Models
+@using Dyna.Shared.Classes.Content
+@using Dyna.Shared.Classes.Components.Layouts
+@using Dyna.Shared.Classes.Components.Widgets
 
 <div id="dynamic-creative-container" style="@ConversionUtilities.GenerateCssStyleString(Model.Creative.Styles)">
-    @if (Model?.Creative?.Pieces != null)
+    @if (Model?.Creative?.Elements != null)
     {
         ViewData["Title"] = Model.Creative.Name;
         // Register the CreativeTicker script first (it's a dependency)
         AssetTagHelper.AddPresentAsset("Libraries/Creative/CreativeTicker", "library", 0);
 
-        @foreach (var piece in Model.Creative.Pieces)
+        @foreach (var piece in Model.Creative.Elements)
         {
             @if (piece?.SlideLayout != null)
             {
@@ -23,5 +27,3 @@
         <p>Loading...</p>
     }
 </div>
-
-

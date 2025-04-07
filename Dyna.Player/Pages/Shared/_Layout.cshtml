@@ -7,8 +7,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <!-- Libraries bundle followed by components bundle -->
-    <bundle type="css" bundle-type="components" />
-    <bundle type="css" bundle-type="libraries" />
+    @if (ViewData["Title"] != "Default")
+    {
+        <bundle type="css" bundle-type="components" />
+        <bundle type="css" bundle-type="libraries" />
+    }
     @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
@@ -16,21 +19,24 @@
         @RenderBody()
     </main>
     <div id="debug">
-        <a href="/dynamic/123456789?targetDateTime=2025-08-13T12:00:00">Dynamic sample 01</a><br />
-        <a href="/dynamic/987654321?targetDateTime=2025-08-13T12:00:00">Dynamic sample 02</a><br />
+        <a href="/dynamic/67e5255aa5019234ba89509c?targetDateTime=2025-08-13T12:00:00">Dynamic sample 01</a><br />
+        <a href="/dynamic/67ee616ad760d87e72bd4e85?targetDateTime=2025-08-13T12:00:00">Dynamic sample 02</a><br />
         <br/>
-        <a href="/interactive/123456789?targetDateTime=2025-08-13T12:00:00">Interactive sample 01</a><br />
-        <a href="/interactive/987654321?targetDateTime=2025-08-13T12:00:00">Interactive sample 02</a><br />
+        <a href="/interactive/67e5255aa5019234ba89509c?targetDateTime=2025-08-13T12:00:00">Interactive sample 01</a><br />
+        <a href="/interactive/67ee616ad760d87e72bd4e85?targetDateTime=2025-08-13T12:00:00">Interactive sample 02</a><br />
         <br />
         <a href="@(Context.Request.Path)@(Context.Request.QueryString.HasValue ? Context.Request.QueryString.Value + "&debug=true" : "?debug=true")">Enable debug mode</a>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <bundle type="js" bundle-type="manager" />
-    <bundle type="js" bundle-type="components" />
-    <bundle type="js" bundle-type="libraries" />
-    <bundle type="js" bundle-type="caching" />
+    @if (ViewData["Title"] != "Default")
+    {
+        <bundle type="js" bundle-type="components" />
+        <bundle type="js" bundle-type="libraries" />
+        <bundle type="js" bundle-type="caching" />
+        <bundle type="js" bundle-type="manager" />
+    }
     @await RenderSectionAsync("Scripts", required: false)
     
 </body>

@@ -1,0 +1,50 @@
+[{
+  "_id": {
+    "$oid": "67e5255aa5019234ba89509c"
+  },
+  "created": {
+    "$date": "2025-03-27T11:18:00.000Z"
+  },
+  "name": "Countdown Creative",
+  "styles": {
+    "width": "1080px",
+    "height": "1920px",
+    "position": "relative"
+  },
+  "updated": {
+    "$date": "2025-04-27T11:19:00.000Z"
+  },
+  "format": {
+    "$oid": "67e53f627acf34a2c37476fa"
+  },
+  "parent": [
+    {
+      "$oid": "67ee438ad760d87e72bd4e53"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67ee616ad760d87e72bd4e85"
+  },
+  "created": {
+    "$date": "2025-03-27T11:18:00.000Z"
+  },
+  "name": "Template Creative",
+  "styles": {
+    "width": "1080px",
+    "height": "1920px",
+    "position": "relative"
+  },
+  "updated": {
+    "$date": "2025-03-27T11:19:00.000Z"
+  },
+  "format": {
+    "$oid": "67e53f627acf34a2c37476fa"
+  },
+  "parent": [
+    {
+      "$oid": "67e53ecc7acf34a2c37476f6"
+    }
+  ]
+}]

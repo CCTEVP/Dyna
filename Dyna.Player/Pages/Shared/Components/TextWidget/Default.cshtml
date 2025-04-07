@@ -1,5 +1,7 @@
 ﻿@model TextWidgetClass
 @using Dyna.Player.Utilities
+@using Dyna.Shared.Classes.Components.Widgets
+
 
 <div id="text-widget-@(Model.Identifier ?? Guid.NewGuid().ToString("N"))" class="@(Model.Classes ?? "")" style="@ConversionUtilities.GenerateCssStyleString(Model.Styles)">
     @if (Model.Value != null)

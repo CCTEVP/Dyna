@@ -1,0 +1,205 @@
+{
+  "id": "67e541477acf34a2c3747727",
+  "name": "Countdown Creative",
+  "createDateTime": "2025-03-06T09:45:05",
+  "styles": {
+    "width": "1080px",
+    "height": "1920px",
+    "position": "relative"
+  },
+  "elements": [
+    {
+      "slideLayout": {
+        "styles": {},
+        "classes": "visible",
+        "identifier": "slide01",
+        "attributes": [],
+        "status": "",
+        "contents": [
+          {
+            "imageWidget": {
+              "identifier": "background",
+              "source": "asset",
+              "asset": {
+                "mime": "image/jpeg",
+                "kind": "image",
+                "url": "https://localhost:7230/Media/image/llYL5vXDOJh6h24TpVTn.jpg"
+              },
+              "classes": "background",
+              "attributes": [],
+              "status": "",
+              "styles": {}
+            }
+          },
+          {
+            "countdownWidget": {
+              "identifier": "countdown01",
+              "classes": "",
+              "styles": {
+                "flex-direction": "row"
+              },
+              "attributes": [],
+              "targetDateTime": {
+                "default": "2025-12-31T23:59:59",
+                "source": "queryParameter",
+                "name": "targetDateTime"
+              },
+              "contents": [
+                {
+                  "boxLayout": {
+                    "attributes": [],
+                    "styles": {},
+                    "contents": [
+                      {
+                        "textWidget": {
+                          "value": "Days",
+                          "styles": {
+                            "color": "white"
+                          }
+                        }
+                      },
+                      {
+                        "cardWidget": {
+                          "animation": "roll",
+                          "value": "00",
+                          "type": "dateTime",
+                          "source": "days",
+                          "styles": {
+                            "color": "white",
+                            "background-color": "#ffffff1a",
+                            "border": "0.5px solid rgba(255, 255, 255, 0.3)"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "boxLayout": {
+                    "attributes": [],
+                    "styles": {},
+                    "contents": [
+                      {
+                        "textWidget": {
+                          "value": "Hours",
+                          "styles": {
+                            "color": "white"
+                          }
+                        }
+                      },
+                      {
+                        "cardWidget": {
+                          "animation": "roll",
+                          "value": "00",
+                          "type": "dateTime",
+                          "source": "hours",
+                          "styles": {
+                            "color": "white",
+                            "background-color": "#ffffff1a",
+                            "border": "0.5px solid rgba(255, 255, 255, 0.3)"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "boxLayout": {
+                    "attributes": [],
+                    "styles": {},
+                    "contents": [
+                      {
+                        "textWidget": {
+                          "value": "Minutes",
+                          "styles": {
+                            "color": "white"
+                          }
+                        }
+                      },
+                      {
+                        "cardWidget": {
+                          "animation": "roll",
+                          "value": "00",
+                          "type": "dateTime",
+                          "source": "minutes",
+                          "styles": {
+                            "color": "white",
+                            "background-color": "#ffffff1a",
+                            "border": "0.5px solid rgba(255, 255, 255, 0.3)"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "boxLayout": {
+                    "attributes": [],
+                    "styles": {},
+                    "contents": [
+                      {
+                        "textWidget": {
+                          "value": "Seconds",
+                          "styles": {
+                            "color": "white"
+                          }
+                        }
+                      },
+                      {
+                        "cardWidget": {
+                          "animation": "roll",
+                          "value": "00",
+                          "type": "dateTime",
+                          "source": "seconds",
+                          "styles": {
+                            "color": "white",
+                            "background-color": "#ffffff1a",
+                            "border": "0.5px solid rgba(255, 255, 255, 0.3)"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "outcome": {
+                "action": "goAndPlay",
+                "type": "slide",
+                "id": "slide02"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "slideLayout": {
+        "identifier": "slide02",
+        "classes": "hidden",
+        "styles": { "visibility": "hidden" },
+        "attributes": [],
+        "status": "disabled",
+        "contents": [
+          {
+            "videoWidget": {
+              "identifier": "outcome",
+              "source": "asset",
+              "asset": {
+                "mime": "video/mp4",
+                "kind": "video",
+                "url": "https://localhost:7230/Media/video/4lEUtgnxqFYcYNqP1RAA.mp4"
+              },
+              "attributes": [ "fullscreen" ],
+              "status": "",
+              "styles": {
+                "position": "relative",
+                "width": "1080px",
+                "height": "1920px"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

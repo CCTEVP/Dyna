@@ -12,16 +12,13 @@ namespace Dyna.Player.TagHelpers
     [HtmlTargetElement("bundle", TagStructure = TagStructure.WithoutEndTag)]
     public class BundleTagHelper : TagHelper
     {
-        private readonly IBundleService _bundleService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<BundleTagHelper> _logger;
 
         public BundleTagHelper(
-            IBundleService bundleService, 
             IHttpContextAccessor httpContextAccessor,
             ILogger<BundleTagHelper> logger)
         {
-            _bundleService = bundleService;
             _httpContextAccessor = httpContextAccessor;
             _logger = logger;
         }
@@ -61,17 +58,7 @@ namespace Dyna.Player.TagHelpers
                 var bundleTypeValue = BundleType.ToLower();
 
                 // Generate the bundle URL
-                string bundleUrl;
-                if (bundleTypeValue == "caching")
-                {
-                    // Caching bundle is at the creative level
-                    bundleUrl = $"/{viewType}/{creativeId}/caching.bundle{(debugMode ? "" : ".min")}.{Type.ToLower()}";
-                }
-                else
-                {
-                    // Other bundles follow the standard pattern with type directory
-                    bundleUrl = $"/{viewType}/{creativeId}/{Type.ToLower()}/{bundleTypeValue}.bundle{(debugMode ? "" : ".min")}.{Type.ToLower()}";
-                }
+                string bundleUrl = $"/{creativeId}.{bundleTypeValue}.bundle{(debugMode ? "" : ".min")}.{Type.ToLower()}";
 
                 _logger.LogInformation(
                     "Generating bundle URL. Path: {Path}, ViewType: {ViewType}, CreativeId: {CreativeId}, BundleType: {BundleType}, Debug: {DebugMode}", 

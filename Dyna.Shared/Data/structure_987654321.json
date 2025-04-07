@@ -1,0 +1,182 @@
+{
+  "id": "987654321",
+  "name": "Countdown Creative",
+  "createDateTime": "2025-03-06T09:45:05",
+  "styles": {
+    "width": "1080px",
+    "height": "1920px",
+    "position": "relative"
+  },
+  "pieces": [
+    {
+      "slideLayout": {
+        "styles": {},
+        "classes": "visible",
+        "identifier": "slide01",
+        "attributes": [],
+        "status": "",
+        "contents": [
+          {
+            "imageWidget": {
+              "identifier": "background",
+              "source": "4Rmzy7YIxJcLR3cUZeQe.jpg",
+              "classes": "background",
+              "attributes": [],
+              "status": "",
+              "styles": {}
+            }
+          },
+          {
+            "countdownWidget": {
+              "identifier": "countdown01",
+              "classes": "",
+              "styles": {
+                "flex-direction": "row"
+              },
+              "attributes": [],
+              "targetDateTime": {
+                "default": "2025-12-31T23:59:59",
+                "source": "queryParameter",
+                "name": "targetDateTime"
+              },
+              "contents": [
+                {
+                  "boxLayout": {
+                    "attributes": [],
+                    "styles": {},
+                    "contents": [
+                      {
+                        "textWidget": {
+                          "value": "Days",
+                          "styles": {
+                            "color": "red"
+                          }
+                        }
+                      },
+                      {
+                        "cardWidget": {
+                          "animation": "flip",
+                          "value": "00",
+                          "type": "dateTime",
+                          "source": "days",
+                          "styles": {
+                            "color": "white",
+                            "background-color": "#ffffff1a",
+                            "border": "0.5px solid rgba(255, 255, 255, 0.3)"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "boxLayout": {
+                    "attributes": [],
+                    "styles": {},
+                    "contents": [
+                      {
+                        "textWidget": {
+                          "value": "Hours",
+                          "styles": {
+                            "color": "blue"
+                          }
+                        }
+                      },
+                      {
+                        "cardWidget": {
+                          "animation": "flip",
+                          "value": "00",
+                          "type": "dateTime",
+                          "source": "hours",
+                          "styles": {
+                            "color": "white",
+                            "background-color": "#ffffff1a",
+                            "border": "0.5px solid rgba(255, 255, 255, 0.3)"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "boxLayout": {
+                    "attributes": [],
+                    "styles": {},
+                    "contents": [
+                      {
+                        "textWidget": {
+                          "value": "Minutes",
+                          "styles": {
+                            "color": "green"
+                          }
+                        }
+                      },
+                      {
+                        "cardWidget": {
+                          "animation": "flip",
+                          "value": "00",
+                          "type": "dateTime",
+                          "source": "minutes",
+                          "styles": {
+                            "color": "white",
+                            "background-color": "#ffffff1a",
+                            "border": "0.5px solid rgba(255, 255, 255, 0.3)"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "boxLayout": {
+                    "attributes": [],
+                    "styles": {},
+                    "contents": [
+                      {
+                        "textWidget": {
+                          "value": "Seconds",
+                          "styles": {
+                            "color": "yellow"
+                          }
+                        }
+                      },
+                      {
+                        "cardWidget": {
+                          "animation": "flip",
+                          "value": "00",
+                          "type": "dateTime",
+                          "source": "seconds",
+                          "styles": {
+                            "color": "white",
+                            "background-color": "#ffffff1a",
+                            "border": "0.5px solid rgba(255, 255, 255, 0.3)"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "outcome": {
+                "action": "goAndPlay",
+                "type": "slide",
+                "id": "slide02"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "slideLayout": {
+        "identifier": "slide02",
+        "classes": "hidden",
+        "styles": { "visibility": "hidden" },
+        "attributes": [],
+        "status": "disabled",
+        "contents": [     
+        ]
+      }
+    }
+  ]
+}

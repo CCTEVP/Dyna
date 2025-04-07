@@ -1,5 +1,4 @@
 ﻿using MongoDB.Bson;
-using Dyna.Api.Models;
 
 namespace Dyna.Api.Utilities
 {

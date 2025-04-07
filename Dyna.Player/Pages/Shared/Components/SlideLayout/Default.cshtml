@@ -1,7 +1,9 @@
 ﻿@model SlideLayoutClass
 @using Dyna.Player.Models
-@using Dyna.Player.Utilities
 @using Dyna.Player.TagHelpers
+@using Dyna.Player.Utilities
+@using Dyna.Shared.Classes.Components.Layouts
+@using Dyna.Shared.Classes.Components.Widgets
 @using Newtonsoft.Json;
 
 <div id="slide-layout-@(Model.Identifier ?? Guid.NewGuid().ToString("N"))" class="@(Model.Classes ?? "")" style="@ConversionUtilities.GenerateCssStyleString(Model.Styles)">

@@ -1,0 +1,97 @@
+{
+  "_id": {
+    "$oid": "67920742cb15537bb2cf5f4f"
+  },
+  "createdAt": {
+    "$date": "2025-01-23T09:09:22.031Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-12T18:01:33.086Z"
+  },
+  "name": "Cupra Videos",
+  "campaign": {
+    "$oid": "5ea1b5a8ba631c1ed9095506"
+  },
+  "type": "default",
+  "format": {
+    "$oid": "58c93651854bce22bb4ea123"
+  },
+  "interactive": false,
+  "websocketActive": false,
+  "slides": [
+    {
+      "name": "New slide",
+      "anchor": "ancslide-1738147956179",
+      "interactive": false,
+      "elements": [
+        {
+          "name": "video-1",
+          "type": "video",
+          "anchor": "video-1",
+          "interactive": false,
+          "style": {
+            "top": 26,
+            "left": 108,
+            "height": 506,
+            "width": 900,
+            "zIndex": 1
+          },
+          "visibility": {
+            "state": "visible",
+            "enterTransition": "instant",
+            "exitTransition": "instant"
+          },
+          "sources": [
+            {
+              "url": "https://clearchannel-development.s3-eu-west-1.amazonaws.com/videos/jas63luofmm6hssuky.mp4",
+              "type": "video/mp4"
+            },
+            {
+              "url": "https://clearchannel-development.s3-eu-west-1.amazonaws.com/videos/jas63luofmm6hssuky.webm",
+              "type": "video/webm"
+            }
+          ],
+          "url": "https://clearchannel-development.s3-eu-west-1.amazonaws.com/jas63luofmm6hssuky.mp4"
+        }
+      ],
+      "visibility": {
+        "state": "visible",
+        "enterTransition": "instant",
+        "exitTransition": "instant"
+      }
+    }
+  ],
+  "playbacksActive": true,
+  "customPop": true,
+  "sonataAudience": null,
+  "_format": {
+    "createdAt": "2017-08-03T14:30:44.038Z",
+    "updatedAt": "2017-12-04T09:19:36.603Z",
+    "_id": "58c93651854bce22bb4ea123",
+    "name": "Street Panel",
+    "group": {
+      "toString": {}
+    },
+    "width": 1080,
+    "height": 1920,
+    "size": "1080 x 1920"
+  },
+  "_campaign": {
+    "createdAt": "2020-04-23T15:35:04.506Z",
+    "updatedAt": "2020-04-23T15:35:04.506Z",
+    "_id": "5ea1b5a8ba631c1ed9095506",
+    "advertiser": {
+      "createdAt": "2018-04-26T13:18:36.254Z",
+      "updatedAt": "2018-04-26T13:18:36.254Z",
+      "_id": "5ae1d1ac3f160b1d7448c136",
+      "name": "UK Random Advertiser",
+      "client": {
+        "toString": {}
+      },
+      "active": true
+    },
+    "name": "test"
+  }
+} {
+
+}

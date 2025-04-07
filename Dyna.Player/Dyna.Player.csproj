@@ -29,6 +29,9 @@
     <Content Include="Pages\Shared\Components\BoxLayout\Default.js" />
     <Content Include="Pages\Shared\Components\VideoWidget\Default.js" />
     <Content Include="Pages\Shared\Components\VideoWidget\Default.css" />
+    <Content Include="Pages\Shared\Libraries\ServiceWorkers\DefinitionTemplate.js" />
+    <Content Include="Pages\Shared\Libraries\ServiceWorkers\ManagerTemplate.js" />
+    <Content Include="Pages\Shared\Libraries\ServiceWorkers\RegistrationTemplate.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +44,17 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <FrameworkReference Include="Microsoft.NETCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dyna.Shared\Dyna.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="wwwroot\data\67e5255aa5019234ba89509c.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

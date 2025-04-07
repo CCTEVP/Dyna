@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Dyna.Shared.Classes.Components.Layouts;
 
 namespace Dyna.Player.Pages.Shared.Components.SlideLayout
 {

@@ -45,90 +45,62 @@ namespace Dyna.Player.Controllers
         }
 
         [HttpGet]
-        [Route("{viewType}/{creativeId}/css/components.bundle.css")]
-        public async Task<IActionResult> GetComponentsCssBundle(string viewType, string creativeId)
+        [Route("{creativeId}.components.bundle.{assetType:regex(^(js|css)$)}")]
+        public async Task<IActionResult> GetComponentsBundle(string creativeId, string assetType)
         {
-            return await GetBundle(creativeId, "css", true);
+            return await GetComponentsBundle(creativeId, assetType, true);
         }
 
         [HttpGet]
-        [Route("{viewType}/{creativeId}/css/components.bundle.min.css")]
-        public async Task<IActionResult> GetComponentsCssBundleMin(string viewType, string creativeId)
+        [Route("{creativeId}.components.bundle.min.{assetType:regex(^(js|css)$)}")]
+        public async Task<IActionResult> GetComponentsBundleMin(string creativeId, string assetType)
         {
-            return await GetBundle(creativeId, "css", false);
+            return await GetComponentsBundle(creativeId, assetType, false);
         }
 
         [HttpGet]
-        [Route("{viewType}/{creativeId}/js/components.bundle.js")]
-        public async Task<IActionResult> GetComponentsJsBundle(string viewType, string creativeId)
+        [Route("{creativeId}.libraries.bundle.{assetType:regex(^(js|css)$)}")]
+        public async Task<IActionResult> GetLibrariesBundle(string creativeId, string assetType)
         {
-            return await GetBundle(creativeId, "js", true);
+            return await GetLibrariesBundle(creativeId, assetType, true);
         }
 
         [HttpGet]
-        [Route("{viewType}/{creativeId}/js/components.bundle.min.js")]
-        public async Task<IActionResult> GetComponentsJsBundleMin(string viewType, string creativeId)
+        [Route("{creativeId}.libraries.bundle.min.{assetType:regex(^(js|css)$)}")]
+        public async Task<IActionResult> GetLibrariesBundleMin(string creativeId, string assetType)
         {
-            return await GetBundle(creativeId, "js", false);
+            return await GetLibrariesBundle(creativeId, assetType, false);
         }
 
         [HttpGet]
-        [Route("{viewType}/{creativeId}/js/libraries.bundle.js")]
-        public async Task<IActionResult> GetLibrariesJsBundle(string viewType, string creativeId)
+        [Route("{creativeId}.caching.bundle.{assetType:regex(^js$)}")]
+        public async Task<IActionResult> GetCachingJsBundle(string creativeId, string assetType)
         {
-            return await GetLibrariesBundle(creativeId, true);
+            return await GetCachingBundle(creativeId, assetType, true);
         }
 
         [HttpGet]
-        [Route("{viewType}/{creativeId}/js/libraries.bundle.min.js")]
-        public async Task<IActionResult> GetLibrariesJsBundleMin(string viewType, string creativeId)
+        [Route("{creativeId}.caching.bundle.min.{assetType:regex(^js$)}")]
+        public async Task<IActionResult> GetCachingJsBundleMin(string creativeId, string assetType)
         {
-            return await GetLibrariesBundle(creativeId, false);
+            return await GetCachingBundle(creativeId, assetType, false);
         }
 
         [HttpGet]
-        [Route("{viewType}/{creativeId}/css/libraries.bundle.css")]
-        public async Task<IActionResult> GetLibrariesCssBundle(string viewType, string creativeId)
+        [Route("{creativeId}.manager.bundle.{assetType:regex(^js$)}")]
+        public async Task<IActionResult> GetManagerJsBundle(string creativeId, string assetType)
         {
-            return await GetLibrariesBundle(creativeId, true);
+            return await GetManagerBundle(creativeId, assetType, true);
         }
 
         [HttpGet]
-        [Route("{viewType}/{creativeId}/css/libraries.bundle.min.css")]
-        public async Task<IActionResult> GetLibrariesCssBundleMin(string viewType, string creativeId)
+        [Route("{creativeId}.manager.bundle.min.{assetType:regex(^js$)}")]
+        public async Task<IActionResult> GetManagerJsBundleMin(string creativeId, string assetType)
         {
-            return await GetLibrariesBundle(creativeId, false);
+            return await GetManagerBundle(creativeId, assetType, false);
         }
 
-        [HttpGet]
-        [Route("{viewType}/{creativeId}/caching.bundle.js")]
-        public async Task<IActionResult> GetCachingJsBundle(string viewType, string creativeId)
-        {
-            return await GetCachingBundle(creativeId, true);
-        }
-
-        [HttpGet]
-        [Route("{viewType}/{creativeId}/caching.bundle.min.js")]
-        public async Task<IActionResult> GetCachingJsBundleMin(string viewType, string creativeId)
-        {
-            return await GetCachingBundle(creativeId, false);
-        }
-
-        [HttpGet]
-        [Route("{viewType}/{creativeId}/js/manager.bundle.js")]
-        public async Task<IActionResult> GetManagerJsBundle(string viewType, string creativeId)
-        {
-            return await GetManagerBundle(creativeId, true);
-        }
-
-        [HttpGet]
-        [Route("{viewType}/{creativeId}/js/manager.bundle.min.js")]
-        public async Task<IActionResult> GetManagerJsBundleMin(string viewType, string creativeId)
-        {
-            return await GetManagerBundle(creativeId, false);
-        }
-
-        private async Task<IActionResult> GetBundle(string creativeId, string type, bool debugMode)
+        private async Task<IActionResult> GetComponentsBundle(string creativeId, string type, bool debugMode)
         {
             try
             {
@@ -305,7 +277,13 @@ namespace Dyna.Player.Controllers
             {
                 _logger?.LogInformation("Minifying JavaScript content of length: {Length}", javascript.Length);
 
-                var result = Uglify.Js(javascript);
+                var settings = new NUglify.JavaScript.CodeSettings
+                {
+                    MinifyCode = true,
+                    PreserveImportantComments = false,
+                    Format = NUglify.JavaScript.JavaScriptFormat.Normal
+                };
+                var result = Uglify.Js(javascript, settings);
 
                 if (result.HasErrors)
                 {
@@ -398,7 +376,7 @@ namespace Dyna.Player.Controllers
             AssetTagHelper.AddPresentAsset("Libraries/Creative/WidgetInitializer", "library", 1);
         }
 
-        private async Task<IActionResult> GetLibrariesBundle(string creativeId, bool debugMode)
+        private async Task<IActionResult> GetLibrariesBundle(string creativeId, string type, bool debugMode)
         {
             try
             {
@@ -419,10 +397,11 @@ namespace Dyna.Player.Controllers
                 }
 
                 var assets = cacheEntry?.LibraryAssets?
+                    .Where(a => a.AssetType == type)
                     .OrderBy(a => a.Priority)
                     .ToList()
                     ?? AssetTagHelper.GetPresentAssets()
-                        .Where(a => a.AssetLocation.StartsWith("Libraries/"))
+                        .Where(a => a.AssetLocation.StartsWith("Libraries/") && a.AssetType == type)
                         .OrderBy(a => a.Priority)
                         .ToList();
 
@@ -498,17 +477,24 @@ namespace Dyna.Player.Controllers
             }
         }
 
-        private async Task<IActionResult> GetCachingBundle(string creativeId, bool debugMode)
+        private async Task<IActionResult> GetCachingBundle(string creativeId, string type, bool debugMode)
         {
             try
             {
+                // Service worker bundles are always JavaScript
+                if (type.ToLower() != "js")
+                {
+                    _logger?.LogWarning("Attempted to get caching bundle with type {Type}. Only JavaScript is supported.", type);
+                    return StatusCode(400, "Caching bundle only supports JavaScript type");
+                }
+
                 // Read the service worker template file
-                string templatePath = Path.Combine(_env.WebRootPath, "js", "service-worker-definition-template.js");
+                string templatePath = Path.Combine(_env.ContentRootPath, "Pages", "Shared", "Libraries", "ServiceWorkers", "DefinitionTemplate.js");
 
                 if (!System.IO.File.Exists(templatePath))
                 {
-                    _logger?.LogError("Service worker template file not found at {Path}", templatePath);
-                    return StatusCode(500, "Service worker template file not found at "+ templatePath);
+                    _logger?.LogError("Service worker definition template file not found at {Path}", templatePath);
+                    return StatusCode(500, "Service worker definition template file not found at " + templatePath);
                 }
 
                 string serviceWorkerTemplate = await System.IO.File.ReadAllTextAsync(templatePath);
@@ -525,10 +511,15 @@ namespace Dyna.Player.Controllers
 
                 // Add bundle URLs
                 string minSuffix = debugMode ? "" : ".min";
-                filesToCache.Add($"/dynamic/{creativeId}/js/components.bundle{minSuffix}.js");
-                filesToCache.Add($"/dynamic/{creativeId}/js/libraries.bundle{minSuffix}.js");
-                filesToCache.Add($"/dynamic/{creativeId}/css/components.bundle{minSuffix}.css");
-                filesToCache.Add($"/dynamic/{creativeId}/css/libraries.bundle{minSuffix}.css");
+                //filesToCache.Add("~/lib/bootstrap/dist/css/bootstrap.min.css");
+                //filesToCache.Add("~/css/site.css");
+                //filesToCache.Add("~/lib/jquery/dist/jquery.min.js");
+                //filesToCache.Add("~/lib/bootstrap/dist/js/bootstrap.bundle.min.js");
+                //filesToCache.Add("~/js/site.js");
+                filesToCache.Add($"/{creativeId}.components.bundle{minSuffix}.js");
+                filesToCache.Add($"/{creativeId}.libraries.bundle{minSuffix}.js");
+                filesToCache.Add($"/{creativeId}.libraries.bundle{minSuffix}.css");
+                filesToCache.Add($"/{creativeId}.components.bundle{minSuffix}.css");
 
                 // Add media assets from creative cache entry
                 if (cacheEntry.CachingAssets != null && cacheEntry.CachingAssets.Any())
@@ -569,10 +560,17 @@ namespace Dyna.Player.Controllers
             }
         }
 
-        private async Task<IActionResult> GetManagerBundle(string creativeId, bool debugMode)
+        private async Task<IActionResult> GetManagerBundle(string creativeId, string type, bool debugMode)
         {
             try
             {
+                // Service worker manager bundles are always JavaScript
+                if (type.ToLower() != "js")
+                {
+                    _logger?.LogWarning("Attempted to get manager bundle with type {Type}. Only JavaScript is supported.", type);
+                    return StatusCode(400, "Manager bundle only supports JavaScript type");
+                }
+
                 var bundleContent = new StringBuilder();
 
                 if (debugMode)
@@ -582,11 +580,11 @@ namespace Dyna.Player.Controllers
                 }
 
                 // Read the service worker manager code
-                string managerPath = Path.Combine(_env.WebRootPath, "js", "service-worker-manager-template.js");
+                string managerPath = Path.Combine(_env.ContentRootPath, "Pages", "Shared", "Libraries", "ServiceWorkers", "ManagerTemplate.js");
                 if (!System.IO.File.Exists(managerPath))
                 {
-                    _logger?.LogError("Service worker manager file not found at {Path}", managerPath);
-                    return StatusCode(500, "Service worker manager file not found");
+                    _logger?.LogError("Service worker manager template file not found at {Path}", managerPath);
+                    return StatusCode(500, "Service worker manager template file not found: " + managerPath);
                 }
 
                 string managerCode = await System.IO.File.ReadAllTextAsync(managerPath);
@@ -618,7 +616,25 @@ namespace Dyna.Player.Controllers
                 {
                     try
                     {
-                        result = MinifyJavaScript(result);
+                        var settings = new NUglify.JavaScript.CodeSettings
+                        {
+                            MinifyCode = true,
+                            PreserveImportantComments = false,
+                            Format = NUglify.JavaScript.JavaScriptFormat.Normal
+                        };
+                        var minResult = Uglify.Js(result, settings);
+                        if (!minResult.HasErrors)
+                        {
+                            result = minResult.Code;
+                        }
+                        else
+                        {
+                            foreach (var error in minResult.Errors)
+                            {
+                                _logger?.LogWarning("JS minification error: {Message} at line {Line}, column {Column}",
+                                    error.Message, error.StartLine, error.StartColumn);
+                            }
+                        }
                     }
                     catch (Exception ex)
                     {
