@@ -18,22 +18,22 @@ builder.Services.AddScoped<QueryParameterService>();
 builder.Services.AddScoped<DebugService>();
 builder.Services.AddScoped<ApiService>();
 builder.Services.AddScoped<FileService>();
+builder.Services.AddScoped<IAssetService, AssetService>();
+// Register CreativeCacheService as scoped (changed from singleton)
+builder.Services.AddScoped<CreativeCacheService>();
+// Register FileService and IFileService
+builder.Services.AddScoped<IFileService, FileService>();
+
 // Configure View Location Formats for Widgets
 builder.Services.Configure<Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions>(o => {
     o.ViewLocationFormats.Insert(0,"/Pages/Shared/Components/PageViews/{0}/{1}.cshtml"); // Page Views
     o.ViewLocationFormats.Insert(1, "/Pages/Shared/Components/Widgets/{0}/{1}.cshtml"); // Widgets
     // You can add other view location formats here if needed
 });
-builder.Services.AddScoped<IAssetService, AssetService>();
 builder.Services.AddMemoryCache(); // Add memory cache for bundle caching
 // Configure FileServiceOptions
 builder.Services.Configure<FileServiceOptions>(builder.Configuration.GetSection("FileServiceOptions"));
 
-// Register FileService and IFileService
-builder.Services.AddScoped<IFileService, FileService>();
-
-// Register CreativeCacheService as scoped (changed from singleton)
-builder.Services.AddScoped<CreativeCacheService>();
 
 // Configure the logger
 builder.Logging.ClearProviders();

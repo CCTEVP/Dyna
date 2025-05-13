@@ -1,0 +1,198 @@
+[
+  {
+    "$lookup": {
+      "from": "elements_with_assets",
+      "let": {
+        "parentId": "$_id"
+      },
+      "pipeline": [
+        {
+          "$match": {
+            "$expr": {
+              "$in": ["$$parentId", "$parent"]
+            }
+          }
+        },
+        {
+          "$sort": {
+            "order": 1
+          }
+        },
+        {
+          "$lookup": {
+            "from": "elements_with_assets",
+            "let": {
+              "childId": "$_id"
+            },
+            "pipeline": [
+              {
+                "$match": {
+                  "$expr": {
+                    "$in": ["$$childId", "$parent"]
+                  }
+                }
+              },
+              {
+                "$sort": {
+                  "order": 1
+                }
+              },
+              {
+                "$lookup": {
+                  "from": "elements_with_assets",
+                  "let": {
+                    "grandChildId": "$_id"
+                  },
+                  "pipeline": [
+                    {
+                      "$match": {
+                        "$expr": {
+                          "$in": ["$$grandChildId", "$parent"]
+                        }
+                      }
+                    },
+                    {
+                      "$sort": {
+                        "order": 1
+                      }
+                    },
+                    {
+                      "$replaceRoot": {
+                        "newRoot": {
+                          "$arrayToObject": [
+                            [
+                              {
+                                "k": "$type",
+                                "v": {
+                                  "$mergeObjects": [
+                                    {
+                                      "_id": "$_id",
+                                      "identifier": "$identifier",
+                                      "classes": "$classes",
+                                      "attributes": "$attributes",
+                                      "styles": "$styles",
+                                      "contents": "$contents",
+                                      "order": "$order",
+                                      "parent": "$parent",
+                                      "type": "$type",
+                                      "status": "$status"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "as": "contents"
+                }
+              },
+              {
+                "$addFields": {
+                  "contents": {
+                    "$cond": {
+                      "if": {
+                        "$gt": [
+                          {
+                            "$size": {
+                              "$ifNull": ["$contents", []]
+                            }
+                          },
+                          0
+                        ]
+                      },
+                      "then": "$contents",
+                      "else": "$$REMOVE"
+                    }
+                  }
+                }
+              },
+              {
+                "$replaceRoot": {
+                  "newRoot": {
+                    "$arrayToObject": [
+                      [
+                        {
+                          "k": "$type",
+                          "v": {
+                            "$mergeObjects": [
+                              {
+                                "_id": "$_id",
+                                "identifier": "$identifier",
+                                "classes": "$classes",
+                                "attributes": "$attributes",
+                                "styles": "$styles",
+                                "contents": "$contents",
+                                "order": "$order",
+                                "parent": "$parent",
+                                "type": "$type",
+                                "status": "$status"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    ]
+                  }
+                }
+              }
+            ],
+            "as": "contents"
+          }
+        },
+        {
+          "$addFields": {
+            "contents": {
+              "$cond": {
+                "if": {
+                  "$gt": [
+                    {
+                      "$size": {
+                        "$ifNull": ["$contents", []]
+                      }
+                    },
+                    0
+                  ]
+                },
+                "then": "$contents",
+                "else": "$$REMOVE"
+              }
+            }
+          }
+        },
+        {
+          "$replaceRoot": {
+            "newRoot": {
+              "$arrayToObject": [
+                [
+                  {
+                    "k": "$type",
+                    "v": {
+                      "$mergeObjects": [
+                        {
+                          "_id": "$_id",
+                          "identifier": "$identifier",
+                          "classes": "$classes",
+                          "attributes": "$attributes",
+                          "styles": "$styles",
+                          "contents": "$contents",
+                          "order": "$order",
+                          "parent": "$parent",
+                          "type": "$type",
+                          "status": "$status"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              ]
+            }
+          }
+        }
+      ],
+      "as": "contents"
+    }
+  }
+]

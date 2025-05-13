@@ -5,6 +5,6 @@
 @using Dyna.Shared.Classes.Components.Widgets
 
 
-<div id="image-widget-@(Model.Identifier ?? Guid.NewGuid().ToString("N"))" class="@(Model.Classes ?? "")" style="@ConversionUtilities.GenerateCssStyleString(Model.Styles)">
-    <img src="@(Model.Asset.Url ?? "")" alt="@Model.Identifier" />
+<div id="image-widget-@(Model.Id)" data-name="@(Model.Identifier ?? Guid.NewGuid().ToString("N"))" class="@(Model.Classes ?? "")" style="@ConversionUtilities.GenerateCssStyleString(Model.Styles)">
+    <img src="@(Model.Source.Url ?? "")" alt="@Model.Identifier" />
 </div>

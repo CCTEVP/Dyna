@@ -8,12 +8,33 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\ContentController.cs" />
+    <Compile Remove="Controllers\Content\SampleController.cs" />
+    <Compile Remove="Controllers\Content\ComponentsController.cs" />
+    <Compile Remove="Controllers\Content\CampaignsController.cs" />
+    <Compile Remove="Controllers\Content\ElementsController.cs" />
+    <Compile Remove="Controllers\Content\FormatsController.cs" />
+    <Compile Remove="Controllers\Content\AssetsController.cs" />
+    <Compile Remove="Controllers\Content\CreativesController.cs" />
+
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="3.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Dyna.Shared\Dyna.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Controllers\Content\PostController.cs" />
+    <None Include="Controllers\Content\GetController.cs" />
   </ItemGroup>
   
 </Project>

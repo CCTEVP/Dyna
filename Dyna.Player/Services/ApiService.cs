@@ -38,6 +38,8 @@ namespace Dyna.Player.Services
                     {
                         _logger?.LogError("[ApiService] JSON Deserialization Error from {Url}: {ErrorMessage}", apiUrl, ex.Message);
                         _logger?.LogError("[ApiService] JSON that failed to parse: {Json}", json); // Log the failing json
+                        _logger?.LogError("[ApiService] JSON Path: {Path}", ex.Path); // Log the path where deserialization failed
+                        _logger?.LogError("[ApiService] Line Number: {LineNumber}, Line Position: {LinePosition}", ex.LineNumber, ex.BytePositionInLine);
                         return default;
                     }
                 }

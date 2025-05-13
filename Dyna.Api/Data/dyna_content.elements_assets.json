@@ -15,7 +15,8 @@
     {
       "$oid": "67e5255aa5019234ba89509c"
     }
-  ]
+  ],
+  "source": 0
 },
 {
   "_id": {
@@ -37,7 +38,8 @@
     {
       "$oid": "67ee616ad760d87e72bd4e85"
     }
-  ]
+  ],
+  "source": 0
 },
 {
   "_id": {
@@ -49,9 +51,19 @@
   "status": "",
   "styles": {},
   "type": "ImageWidget",
-  "source": "asset",
-  "asset": {
-    "$oid": "67e5322d7acf34a2c37476a3"
+  "source": {
+    "_id": {
+      "$oid": "67e5322d7acf34a2c37476a3"
+    },
+    "mime": "image/jpeg",
+    "url": "https://localhost:7230/Media/image/llYL5vXDOJh6h24TpVTn.jpg",
+    "kind": "image",
+    "created": {
+      "$date": "2025-04-03T00:00:00.000Z"
+    },
+    "updated": {
+      "$date": "2025-04-03T00:00:00.000Z"
+    }
   },
   "order": 1,
   "parent": [
@@ -83,7 +95,8 @@
       "$oid": "67e52cbe7acf34a2c374766e"
     }
   ],
-  "status": ""
+  "status": "",
+  "source": 0
 },
 {
   "_id": {
@@ -100,9 +113,19 @@
     "height": "1920px"
   },
   "type": "VideoWidget",
-  "source": "asset",
-  "asset": {
-    "$oid": "67e531af7acf34a2c374769e"
+  "source": {
+    "_id": {
+      "$oid": "67e531af7acf34a2c374769e"
+    },
+    "mime": "video/mp4",
+    "url": "https://localhost:7230/Media/video/4lEUtgnxqFYcYNqP1RAA.mp4",
+    "kind": "video",
+    "created": {
+      "$date": "2025-04-03T00:00:00.000Z"
+    },
+    "updated": {
+      "$date": "2025-04-03T00:00:00.000Z"
+    }
   },
   "order": 1,
   "parent": [
@@ -117,7 +140,13 @@
   },
   "attributes": [],
   "styles": {
-    "gap": "15px"
+    "gap": "15px",
+    "align-items": "center",
+    "display": "flex",
+    "flex-direction": "column",
+    "justify-content": "center",
+    "margin": "30px",
+    "width": "180px"
   },
   "type": "BoxLayout",
   "order": 1,
@@ -127,14 +156,23 @@
     }
   ],
   "identifier": "days",
-  "status": ""
+  "status": "",
+  "source": 0
 },
 {
   "_id": {
     "$oid": "67e5306c7acf34a2c3747694"
   },
   "attributes": [],
-  "styles": {},
+  "styles": {
+    "align-items": "center",
+    "display": "flex",
+    "flex-direction": "column",
+    "gap": "15px",
+    "justify-content": "center",
+    "margin": "30px",
+    "width": "180px"
+  },
   "type": "BoxLayout",
   "order": 2,
   "parent": [
@@ -143,14 +181,23 @@
     }
   ],
   "identifier": "hours",
-  "status": ""
+  "status": "",
+  "source": 0
 },
 {
   "_id": {
     "$oid": "67e530727acf34a2c3747695"
   },
   "attributes": [],
-  "styles": {},
+  "styles": {
+    "align-items": "center",
+    "display": "flex",
+    "flex-direction": "column",
+    "gap": "15px",
+    "justify-content": "center",
+    "margin": "30px",
+    "width": "180px"
+  },
   "type": "BoxLayout",
   "order": 3,
   "parent": [
@@ -159,14 +206,23 @@
     }
   ],
   "identifier": "minutes",
-  "status": ""
+  "status": "",
+  "source": 0
 },
 {
   "_id": {
     "$oid": "67e530797acf34a2c3747696"
   },
   "attributes": [],
-  "styles": {},
+  "styles": {
+    "align-items": "center",
+    "display": "flex",
+    "flex-direction": "column",
+    "gap": "15px",
+    "justify-content": "center",
+    "margin": "30px",
+    "width": "180px"
+  },
   "type": "BoxLayout",
   "order": 4,
   "parent": [
@@ -175,7 +231,8 @@
     }
   ],
   "identifier": "seconds",
-  "status": ""
+  "status": "",
+  "source": 0
 },
 {
   "_id": {
@@ -183,7 +240,11 @@
   },
   "value": "Days",
   "styles": {
-    "color": "white"
+    "color": "white",
+    "font-size": "40px",
+    "position": "relative",
+    "text-align": "center",
+    "width": "100%"
   },
   "type": "TextWidget",
   "order": 1,
@@ -193,7 +254,8 @@
     }
   ],
   "identifier": "label",
-  "status": ""
+  "status": "",
+  "source": 0
 },
 {
   "_id": {
@@ -201,7 +263,11 @@
   },
   "value": "Hours",
   "styles": {
-    "color": "white"
+    "color": "white",
+    "font-size": "40px",
+    "position": "relative",
+    "text-align": "center",
+    "width": "100%"
   },
   "type": "TextWidget",
   "order": 1,
@@ -211,7 +277,8 @@
     }
   ],
   "identifier": "label",
-  "status": ""
+  "status": "",
+  "source": 0
 },
 {
   "_id": {
@@ -219,7 +286,11 @@
   },
   "value": "Minutes",
   "styles": {
-    "color": "white"
+    "color": "white",
+    "font-size": "40px",
+    "position": "relative",
+    "text-align": "center",
+    "width": "100%"
   },
   "type": "TextWidget",
   "order": 1,
@@ -229,7 +300,8 @@
     }
   ],
   "identifier": "label",
-  "status": ""
+  "status": "",
+  "source": 0
 },
 {
   "_id": {
@@ -237,7 +309,11 @@
   },
   "value": "Seconds",
   "styles": {
-    "color": "white"
+    "color": "white",
+    "position": "relative",
+    "width": "100%",
+    "font-size": "40px",
+    "text-align": "center"
   },
   "type": "TextWidget",
   "order": 1,
@@ -247,7 +323,8 @@
     }
   ],
   "identifier": "label",
-  "status": ""
+  "status": "",
+  "source": 0
 },
 {
   "_id": {
@@ -256,13 +333,18 @@
   "animation": "roll",
   "value": "00",
   "type": "CardWidget",
-  "source": "days",
+  "source": 0,
   "styles": {
     "color": "white",
     "background-color": "#ffffff1a",
     "border": "0.5px solid rgba(255, 255, 255, 0.3)",
     "height": "200px",
-    "width": "180px"
+    "width": "180px",
+    "border-radius": "5%",
+    "font-size": "120px",
+    "margin-top": "10px",
+    "position": "relative",
+    "text-align": "center"
   },
   "order": 2,
   "parent": [
@@ -280,13 +362,18 @@
   "animation": "roll",
   "value": "00",
   "type": "CardWidget",
-  "source": "hours",
+  "source": 0,
   "styles": {
     "color": "white",
     "background-color": "#ffffff1a",
     "border": "0.5px solid rgba(255, 255, 255, 0.3)",
     "height": "200px",
-    "width": "180px"
+    "width": "180px",
+    "border-radius": "5%",
+    "font-size": "120px",
+    "margin-top": "10px",
+    "position": "relative",
+    "text-align": "center"
   },
   "order": 2,
   "parent": [
@@ -304,13 +391,18 @@
   "animation": "roll",
   "value": "00",
   "type": "CardWidget",
-  "source": "minutes",
+  "source": 0,
   "styles": {
     "color": "white",
     "background-color": "#ffffff1a",
     "border": "0.5px solid rgba(255, 255, 255, 0.3)",
     "height": "200px",
-    "width": "180px"
+    "width": "180px",
+    "border-radius": "5%",
+    "font-size": "120px",
+    "margin-top": "10px",
+    "position": "relative",
+    "text-align": "center"
   },
   "order": 2,
   "parent": [
@@ -328,13 +420,18 @@
   "animation": "roll",
   "value": "00",
   "type": "CardWidget",
-  "source": "seconds",
+  "source": 0,
   "styles": {
     "color": "white",
     "background-color": "#ffffff1a",
     "border": "0.5px solid rgba(255, 255, 255, 0.3)",
     "height": "200px",
-    "width": "180px"
+    "width": "180px",
+    "border-radius": "5%",
+    "font-size": "120px",
+    "margin-top": "10px",
+    "position": "relative",
+    "text-align": "center"
   },
   "order": 2,
   "parent": [

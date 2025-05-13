@@ -12,6 +12,7 @@ using System.Net.NetworkInformation;
 using Dyna.Shared.Classes.Content;
 using Dyna.Shared.Classes.Components.Layouts;
 using Dyna.Shared.Classes.Components.Widgets;
+using System.Reflection;
 
 namespace Dyna.Player.Services
 {
@@ -91,7 +92,7 @@ namespace Dyna.Player.Services
 
             // Cache the entry
             var cacheOptions = new MemoryCacheEntryOptions()
-                .SetSlidingExpiration(TimeSpan.FromMinutes(30));
+                .SetSlidingExpiration(TimeSpan.FromMinutes(15));
             
             _cache.Set(cacheKey, entry, cacheOptions);
 
@@ -323,14 +324,32 @@ namespace Dyna.Player.Services
             var type = component.GetType();
             
             // Check for source properties that might contain media URLs
-            var sourceProperty = type.GetProperty("Source");
+            var sourceProperties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var sourceProperty = sourceProperties.FirstOrDefault(p => p.Name == "Source");
             if (sourceProperty != null)
             {
-                var source = sourceProperty.GetValue(component) as string;
-                if (!string.IsNullOrEmpty(source) && IsMediaUrl(source))
+                var sourceValue = sourceProperty.GetValue(component);
+                if (sourceValue is string sourceString)
                 {
-                    var normalizedUrl = NormalizeMediaUrl(source);
-                    mediaFiles.Add(normalizedUrl);
+                    if (!string.IsNullOrEmpty(sourceString) && IsMediaUrl(sourceString))
+                    {
+                        var normalizedUrl = NormalizeMediaUrl(sourceString);
+                        mediaFiles.Add(normalizedUrl);
+                    }
+                }
+                else if (sourceValue != null)
+                {
+                    // Try to get a "url" property from the object
+                    var urlProp = sourceValue.GetType().GetProperty("url");
+                    if (urlProp != null)
+                    {
+                        var urlValue = urlProp.GetValue(sourceValue) as string;
+                        if (!string.IsNullOrEmpty(urlValue) && IsMediaUrl(urlValue))
+                        {
+                            var normalizedUrl = NormalizeMediaUrl(urlValue);
+                            mediaFiles.Add(normalizedUrl);
+                        }
+                    }
                 }
             }
             

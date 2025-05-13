@@ -6,7 +6,7 @@ namespace Dyna.Shared.Classes.Components
     public class ComponentBaseClass
     {
         [JsonPropertyName("_id")]
-        public string id { get; set; }
+        public string Id { get; set; }
 
         [JsonPropertyName("identifier")]
         public string Identifier { get; set; }
@@ -19,6 +19,12 @@ namespace Dyna.Shared.Classes.Components
 
         [JsonPropertyName("classes")]
         public string Classes { get; set; }
+
+        [JsonPropertyName("contents")]
+        public List<ElementContainerClass> Contents { get; set; }
+
+        [JsonPropertyName("parent")]
+        public List<string> Parent { get; set; }
 
         [JsonPropertyName("styles")]
         public Dictionary<string, string> Styles { get; set; }
@@ -56,8 +62,11 @@ namespace Dyna.Shared.Classes.Components
 
     }
 
-    public class Asset
+    public class Source
     {
+        [JsonPropertyName("_id")]
+        public string Id { get; set; }
+
         [JsonPropertyName("form")]
         public string Form { get; set; }
 
@@ -70,7 +79,14 @@ namespace Dyna.Shared.Classes.Components
         [JsonPropertyName("kind")]
         public string Kind { get; set; }
 
-        [JsonPropertyName("type")]
+        [JsonPropertyName("mime")]
         public string Mime { get; set; }
+
+        [JsonPropertyName("created")]
+        public DateTime CreateDateTime { get; set; }
+
+        [JsonPropertyName("updated")]
+        public DateTime UpdatedDateTime { get; set; }
+
     }
 }

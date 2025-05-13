@@ -1,0 +1,115 @@
+[
+  {
+    "$lookup": {
+      "from": "components",
+      "localField": "type",
+      "foreignField": "type",
+      "as": "component"
+    }
+  },
+  {
+    "$addFields": {
+      "merged": {
+        "$mergeObjects": [
+          { "$arrayElemAt": ["$component", 0] },
+          {
+            "$cond": {
+              "if": { "$ne": ["$styles", {}] },
+              "then": { "styles": "$styles" },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": { "$ne": ["$classes", ""] },
+              "then": { "classes": "$classes" },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": { "$ne": ["$identifier", ""] },
+              "then": { "identifier": "$identifier" },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": { "$ne": ["$attributes", []] },
+              "then": { "attributes": "$attributes" },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": { "$ne": ["$status", ""] },
+              "then": { "status": "$status" },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": { "$ne": ["$order", 0] },
+              "then": { "order": "$order" },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": { "$ne": ["$parent", []] },
+              "then": { "parent": "$parent" },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": { "$ne": ["$value", ""] },
+              "then": { "value": "$value" },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": { "$ne": ["$source", ""] },
+              "then": { "source": "$source" },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": { "$ne": ["$asset", {}] },
+              "then": { "asset": "$asset" },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": { "$ne": ["$targetDateTime", null] },
+              "then": { "targetDateTime": "$targetDateTime" },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": { "$ne": ["$animation", ""] },
+              "then": { "animation": "$animation" },
+              "else": {}
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "$replaceRoot": {
+      "newRoot": {
+        "$mergeObjects": ["$merged", { "_id": "$_id" }]
+      }
+    }
+  },
+  {
+    "$project": {
+      "component": 0
+    }
+  }
+]

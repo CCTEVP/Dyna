@@ -1,0 +1,280 @@
+{
+  "_id": {
+    "$oid": "67e52da67acf34a2c3747671"
+  },
+  "identifier": "countdown01",
+  "classes": "",
+  "styles": {
+    "flex-direction": "row",
+    "gap": "10px"
+  },
+  "attributes": [],
+  "targetDateTime": {
+    "default": "2025-12-31T23:59:59",
+    "source": "queryParameter",
+    "name": "targetDateTime"
+  },
+  "contents": [
+    {
+      "BoxLayout": {
+        "_id": {
+          "$oid": "67e5302f7acf34a2c3747693"
+        },
+        "attributes": [],
+        "styles": {
+          "gap": "15px"
+        },
+        "type": "BoxLayout",
+        "order": 1,
+        "parent": [
+          {
+            "$oid": "67e52da67acf34a2c3747671"
+          }
+        ],
+        "identifier": "days",
+        "contents": [
+          {
+            "TextWidget": {
+              "_id": {
+                "$oid": "67e53c8d7acf34a2c37476df"
+              },
+              "value": "Days",
+              "styles": {
+                "color": "white"
+              },
+              "type": "TextWidget",
+              "order": 1,
+              "parent": [
+                {
+                  "$oid": "67e5302f7acf34a2c3747693"
+                }
+              ],
+              "identifier": "label"
+            }
+          },
+          {
+            "CardWidget": {
+              "_id": {
+                "$oid": "67e53d487acf34a2c37476e3"
+              },
+              "animation": "roll",
+              "value": "00",
+              "type": "CardWidget",
+              "source": "days",
+              "styles": {
+                "color": "white",
+                "background-color": "#ffffff1a",
+                "border": "0.5px solid rgba(255, 255, 255, 0.3)",
+                "height": "200px",
+                "width": "180px"
+              },
+              "order": 2,
+              "parent": [
+                {
+                  "$oid": "67e5302f7acf34a2c3747693"
+                }
+              ],
+              "identifier": "value"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "BoxLayout": {
+        "_id": {
+          "$oid": "67e5306c7acf34a2c3747694"
+        },
+        "attributes": [],
+        "styles": {},
+        "type": "BoxLayout",
+        "order": 2,
+        "parent": [
+          {
+            "$oid": "67e52da67acf34a2c3747671"
+          }
+        ],
+        "identifier": "hours",
+        "contents": [
+          {
+            "TextWidget": {
+              "_id": {
+                "$oid": "67e53cec7acf34a2c37476e0"
+              },
+              "value": "Hours",
+              "styles": {
+                "color": "white"
+              },
+              "type": "TextWidget",
+              "order": 1,
+              "parent": [
+                {
+                  "$oid": "67e5306c7acf34a2c3747694"
+                }
+              ],
+              "identifier": "label"
+            }
+          },
+          {
+            "CardWidget": {
+              "_id": {
+                "$oid": "67e53d667acf34a2c37476e4"
+              },
+              "animation": "roll",
+              "value": "00",
+              "type": "CardWidget",
+              "source": "hours",
+              "styles": {
+                "color": "white",
+                "background-color": "#ffffff1a",
+                "border": "0.5px solid rgba(255, 255, 255, 0.3)",
+                "height": "200px",
+                "width": "180px"
+              },
+              "order": 2,
+              "parent": [
+                {
+                  "$oid": "67e5306c7acf34a2c3747694"
+                }
+              ],
+              "identifier": "value"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "BoxLayout": {
+        "_id": {
+          "$oid": "67e530727acf34a2c3747695"
+        },
+        "attributes": [],
+        "styles": {},
+        "type": "BoxLayout",
+        "order": 3,
+        "parent": [
+          {
+            "$oid": "67e52da67acf34a2c3747671"
+          }
+        ],
+        "identifier": "minutes",
+        "contents": [
+          {
+            "TextWidget": {
+              "_id": {
+                "$oid": "67e53cf47acf34a2c37476e1"
+              },
+              "value": "Minutes",
+              "styles": {
+                "color": "white"
+              },
+              "type": "TextWidget",
+              "order": 1,
+              "parent": [
+                {
+                  "$oid": "67e530727acf34a2c3747695"
+                }
+              ],
+              "identifier": "label"
+            }
+          },
+          {
+            "CardWidget": {
+              "_id": {
+                "$oid": "67e53d737acf34a2c37476e5"
+              },
+              "animation": "roll",
+              "value": "00",
+              "type": "CardWidget",
+              "source": "minutes",
+              "styles": {
+                "color": "white",
+                "background-color": "#ffffff1a",
+                "border": "0.5px solid rgba(255, 255, 255, 0.3)",
+                "height": "200px",
+                "width": "180px"
+              },
+              "order": 2,
+              "parent": [
+                {
+                  "$oid": "67e530727acf34a2c3747695"
+                }
+              ],
+              "identifier": "value"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "BoxLayout": {
+        "_id": {
+          "$oid": "67e530797acf34a2c3747696"
+        },
+        "attributes": [],
+        "styles": {},
+        "type": "BoxLayout",
+        "order": 4,
+        "parent": [
+          {
+            "$oid": "67e52da67acf34a2c3747671"
+          }
+        ],
+        "identifier": "seconds",
+        "contents": [
+          {
+            "TextWidget": {
+              "_id": {
+                "$oid": "67e53cfb7acf34a2c37476e2"
+              },
+              "value": "Seconds",
+              "styles": {
+                "color": "white"
+              },
+              "type": "TextWidget",
+              "order": 1,
+              "parent": [
+                {
+                  "$oid": "67e530797acf34a2c3747696"
+                }
+              ],
+              "identifier": "label"
+            }
+          },
+          {
+            "CardWidget": {
+              "_id": {
+                "$oid": "67e53d7d7acf34a2c37476e6"
+              },
+              "animation": "roll",
+              "value": "00",
+              "type": "CardWidget",
+              "source": "seconds",
+              "styles": {
+                "color": "white",
+                "background-color": "#ffffff1a",
+                "border": "0.5px solid rgba(255, 255, 255, 0.3)",
+                "height": "200px",
+                "width": "180px"
+              },
+              "order": 2,
+              "parent": [
+                {
+                  "$oid": "67e530797acf34a2c3747696"
+                }
+              ],
+              "identifier": "value"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "type": "CountdownWidget",
+  "order": 2,
+  "parent": [
+    {
+      "$oid": "67e52cbe7acf34a2c374766e"
+    }
+  ]
+}

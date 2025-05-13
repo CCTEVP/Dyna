@@ -2,8 +2,8 @@
 @using Dyna.Player.Utilities
 @using Dyna.Shared.Classes.Components.Widgets
 
-<div class="video-widget-@(Model.Identifier ?? Guid.NewGuid().ToString("N"))" class="@(Model.Classes ?? "")" style="@ConversionUtilities.GenerateCssStyleString(Model.Styles)">
+<div id="video-widget-@(Model.Id)" data-name="@(Model.Identifier ?? Guid.NewGuid().ToString("N"))" class="@(Model.Classes ?? "")" style="@ConversionUtilities.GenerateCssStyleString(Model.Styles)">
     <video width="100%" height="100%" muted preload="auto">
-        <source src="@Model.Asset.Url" />
+        <source src="@Model.Source.Url" />
     </video>
 </div>

@@ -1,0 +1,42 @@
+[{
+  "_id": {
+    "$oid": "67e531af7acf34a2c374769e"
+  },
+  "mime": "video/mp4",
+  "url": "https://localhost:7230/Media/video/4lEUtgnxqFYcYNqP1RAA.mp4",
+  "kind": "video",
+  "created": {
+    "$date": "2025-04-03T00:00:00.000Z"
+  },
+  "updated": {
+    "$date": "2025-04-03T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5322d7acf34a2c37476a3"
+  },
+  "mime": "image/jpeg",
+  "url": "https://localhost:7230/Media/image/llYL5vXDOJh6h24TpVTn.jpg",
+  "kind": "image",
+  "created": {
+    "$date": "2025-04-03T00:00:00.000Z"
+  },
+  "updated": {
+    "$date": "2025-04-03T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67ebfce8b773464c5b934dc4"
+  },
+  "mime": "image/jpeg",
+  "url": "https://localhost:7230/Media/image/DlOn1SS0CdrAmDAzWbQt.jpg",
+  "kind": "image",
+  "created": {
+    "$date": "2025-04-03T00:00:00.000Z"
+  },
+  "updated": {
+    "$date": "2025-04-03T00:00:00.000Z"
+  }
+}]

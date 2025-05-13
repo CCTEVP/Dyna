@@ -41,13 +41,25 @@ namespace Dyna.Player.Services
             try
             {
                 string json = await File.ReadAllTextAsync(filePath);
-                var result = JsonConvert.DeserializeObject(json, componentType, new JsonSerializerSettings 
+                var settings = new JsonSerializerSettings 
                 { 
                     ContractResolver = new DefaultContractResolver
                     {
                         NamingStrategy = new CamelCaseNamingStrategy()
-                    }
-                });
+                    },
+                    NullValueHandling = NullValueHandling.Ignore
+                };
+
+                // First try with camelCase
+                var result = JsonConvert.DeserializeObject(json, componentType, settings);
+                
+                if (result == null)
+                {
+                    // If that fails, try with PascalCase
+                    settings.ContractResolver = new DefaultContractResolver();
+                    result = JsonConvert.DeserializeObject(json, componentType, settings);
+                }
+
                 _logger?.LogDebug("[FileService] Loaded Default.json for {ComponentType}: {Result}", 
                     componentType.Name, JsonConvert.SerializeObject(result));
                 return result;

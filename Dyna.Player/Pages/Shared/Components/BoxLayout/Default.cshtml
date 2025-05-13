@@ -6,7 +6,7 @@
 @using Newtonsoft.Json
 
 
-<div id="box-layout-@(Model.Identifier ?? Guid.NewGuid().ToString("N"))" class="@(Model.Classes ?? "")" style="@ConversionUtilities.GenerateCssStyleString(Model.Styles)">
+<div id="box-layout-@(Model.Id)" data-name="@(Model.Identifier ?? Guid.NewGuid().ToString("N"))" class="@(Model.Classes ?? "")" style="@ConversionUtilities.GenerateCssStyleString(Model.Styles)">
     @if (Model.Contents != null)
     {
         @foreach (var widgetContainer in Model.Contents)

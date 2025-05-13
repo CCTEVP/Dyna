@@ -208,10 +208,6 @@ namespace Dyna.Player.Controllers
                     if (assets.Any(a => a.AssetName.Contains("SlideLayout")))
                         bundleContent.AppendLine("renderSlideLayouts();");
 
-                    // Trigger service worker registration after all components are initialized
-                    bundleContent.AppendLine("\n// Trigger service worker registration");
-                    bundleContent.AppendLine($"window.dispatchEvent(new CustomEvent('creative-ready', {{ detail: {{ creativeId: '{creativeId}' }} }}));");
-
                     result = bundleContent.ToString();
                 }
 
@@ -610,6 +606,10 @@ namespace Dyna.Player.Controllers
                 bundleContent.AppendLine("    }");
                 bundleContent.AppendLine("});");
 
+                // Trigger service worker registration after all components are initialized
+                bundleContent.AppendLine("\n// Trigger service worker registration");
+                bundleContent.AppendLine($"window.dispatchEvent(new CustomEvent('creative-ready', {{ detail: {{ creativeId: '{creativeId}' }} }}));");
+
                 string result = bundleContent.ToString();
 
                 if (!debugMode)
@@ -625,7 +625,7 @@ namespace Dyna.Player.Controllers
                         var minResult = Uglify.Js(result, settings);
                         if (!minResult.HasErrors)
                         {
-                            result = minResult.Code;
+                            //result = minResult.Code;
                         }
                         else
                         {

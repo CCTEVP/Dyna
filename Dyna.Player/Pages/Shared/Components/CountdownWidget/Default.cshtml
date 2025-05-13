@@ -19,7 +19,7 @@
     }
 }
 
-<div id="countdown-widget-@(Model.Identifier ?? Guid.NewGuid().ToString("N"))" data-target-date-time="@(targetDateTime)" class="@(Model.Classes ?? "")" style="@ConversionUtilities.GenerateCssStyleString(Model.Styles)" data-status="">
+<div  id="countdown-widget-@(Model.Id)" data-name="@(Model.Identifier ?? Guid.NewGuid().ToString("N"))" data-target-date-time="@(targetDateTime)" class="@(Model.Classes ?? "")" style="@ConversionUtilities.GenerateCssStyleString(Model.Styles)" data-status="">
     @if (Model.Contents != null)
     {
         foreach (var part in Model.Contents) // Iterate through Elements

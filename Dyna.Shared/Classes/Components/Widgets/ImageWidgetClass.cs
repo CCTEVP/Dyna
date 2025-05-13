@@ -7,8 +7,8 @@ namespace Dyna.Shared.Classes.Components.Widgets
     {
         public string ComponentName { get; set; } = "ImageWidget";
 
-        [JsonPropertyName("asset")]
-        public Asset Asset { get; set; }
+        [JsonPropertyName("source")]
+        public Source Source { get; set; }
     }
 
 }

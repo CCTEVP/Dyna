@@ -1,0 +1,35 @@
+[
+  {
+    "$lookup": {
+      "from": "assets",
+      "localField": "asset",
+      "foreignField": "_id",
+      "as": "assetArray"
+    }
+  },
+  {
+    "$addFields": {
+      "asset": {
+        "$cond": {
+          "if": {
+            "$gt": [
+              {
+                "$size": "$assetArray"
+              },
+              0
+            ]
+          },
+          "then": {
+            "$arrayElemAt": ["$assetArray", 0]
+          },
+          "else": "$asset"
+        }
+      }
+    }
+  },
+  {
+    "$project": {
+      "assetArray": 0
+    }
+  }
+]

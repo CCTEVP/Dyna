@@ -8,9 +8,6 @@ namespace Dyna.Shared.Classes.Components.Widgets
     {
         public string ComponentName { get; set; } = "CountdownWidget";
 
-        [JsonPropertyName("contents")]
-        public List<ElementContainerClass> Contents { get; set; }
-
         [JsonPropertyName("targetDateTime")]
         public TargetDateTimeClass TargetDateTime { get; set; }
 

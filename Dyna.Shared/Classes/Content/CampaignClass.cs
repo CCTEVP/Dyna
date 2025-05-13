@@ -16,6 +16,12 @@ namespace Dyna.Shared.Classes.Content
         [JsonPropertyName("ends")]
         public string EndDate { get; set; }
 
+        [JsonPropertyName("created")]
+        public DateTime CreateDateTime { get; set; }
+
+        [JsonPropertyName("updated")]
+        public DateTime UpdatedDateTime { get; set; }
+
         [JsonPropertyName("creatives")]
         public List<CreativeClass> Creatives { get; set; }
     }

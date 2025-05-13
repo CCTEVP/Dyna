@@ -1,0 +1,480 @@
+[
+  {
+    "$lookup": {
+      "from": "components",
+      "localField": "type",
+      "foreignField": "type",
+      "as": "component"
+    }
+  },
+  {
+    "$addFields": {
+      "componentObj": {
+        "$arrayElemAt": [ "$component", 0 ]
+      },
+      "componentStyles": {
+        "$ifNull": [
+          {
+            "$arrayElemAt": [ "$component.styles", 0 ]
+          },
+          {}
+        ]
+      },
+      "elementStyles": {
+        "$ifNull": [
+          "$styles",
+          {}
+        ]
+      }
+    }
+  },
+  {
+    "$addFields": {
+      "mergedStyles": {
+        "$mergeObjects": [
+          "$componentStyles",
+          "$elementStyles"
+        ]
+      },
+      "componentContents": {
+        "$ifNull": [
+          {
+            "$arrayElemAt": [
+              "$component.contents",
+              0
+            ]
+          },
+          []
+        ]
+      },
+      "elementContents": {
+        "$ifNull": [
+          "$contents",
+          []
+        ]
+      }
+    }
+  },
+  {
+    "$addFields": {
+      "merged": {
+        "$mergeObjects": [
+          "$componentObj",
+          {
+            "styles": "$mergedStyles"
+          },
+          {
+            "$cond": {
+              "if": {
+                "$ne": [ "$classes", "" ]
+              },
+              "then": {
+                "classes": "$classes"
+              },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": {
+                "$ne": [ "$identifier", "" ]
+              },
+              "then": {
+                "identifier": "$identifier"
+              },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": {
+                "$ne": [
+                  "$attributes",
+                  []
+                ]
+              },
+              "then": {
+                "attributes": "$attributes"
+              },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": {
+                "$ne": [ "$status", "" ]
+              },
+              "then": {
+                "status": "$status"
+              },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": {
+                "$ne": [ "$order", 0 ]
+              },
+              "then": {
+                "order": "$order"
+              },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": {
+                "$ne": [
+                  "$parent",
+                  []
+                ]
+              },
+              "then": {
+                "parent": "$parent"
+              },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": {
+                "$ne": [ "$value", "" ]
+              },
+              "then": {
+                "value": "$value"
+              },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": {
+                "$ne": [ "$source", "" ]
+              },
+              "then": {
+                "source": "$source"
+              },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": {
+                "$ne": [
+                  "$asset",
+                  {}
+                ]
+              },
+              "then": {
+                "asset": "$asset"
+              },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": {
+                "$ne": [ "$targetDateTime", null ]
+              },
+              "then": {
+                "targetDateTime": "$targetDateTime"
+              },
+              "else": {}
+            }
+          },
+          {
+            "$cond": {
+              "if": {
+                "$ne": [ "$animation", "" ]
+              },
+              "then": {
+                "animation": "$animation"
+              },
+              "else": {}
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "$addFields": {
+      "mergedContents": {
+        "$cond": {
+          "if": {
+            "$and": [
+              {
+                "$isArray": "$componentContents"
+              },
+              {
+                "$isArray": "$elementContents"
+              }
+            ]
+          },
+          "then": {
+            "$cond": {
+              "if": {
+                "$gt": [
+                  {
+                    "$size": "$elementContents"
+                  },
+                  0
+                ]
+              },
+              "then": {
+                "$map": {
+                  "input": "$elementContents",
+                  "as": "elemContent",
+                  "in": {
+                    "$let": {
+                      "vars": {
+                        "matchingComp": {
+                          "$filter": {
+                            "input": "$componentContents",
+                            "as": "compContent",
+                            "cond": {
+                              "$eq": [
+                                "$$compContent.type",
+                                "$$elemContent.type"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "in": {
+                        "$cond": {
+                          "if": {
+                            "$gt": [
+                              {
+                                "$size": "$$matchingComp"
+                              },
+                              0
+                            ]
+                          },
+                          "then": {
+                            "$mergeObjects": [
+                              {
+                                "$arrayElemAt": [
+                                  "$$matchingComp",
+                                  0
+                                ]
+                              },
+                              "$$elemContent",
+                              {
+                                "styles": {
+                                  "$mergeObjects": [
+                                    {
+                                      "$ifNull": [
+                                        {
+                                          "$arrayElemAt": [
+                                            "$$matchingComp.styles",
+                                            0
+                                          ]
+                                        },
+                                        {}
+                                      ]
+                                    },
+                                    {
+                                      "$ifNull": [
+                                        "$$elemContent.styles",
+                                        {}
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "$cond": {
+                                  "if": {
+                                    "$gt": [
+                                      {
+                                        "$size": {
+                                          "$ifNull": [
+                                            "$$elemContent.contents",
+                                            []
+                                          ]
+                                        }
+                                      },
+                                      0
+                                    ]
+                                  },
+                                  "then": {
+                                    "contents": "$$elemContent.contents"
+                                  },
+                                  "else": {}
+                                }
+                              }
+                            ]
+                          },
+                          "else": {
+                            "$mergeObjects": [
+                              "$$elemContent",
+                              {
+                                "$cond": {
+                                  "if": {
+                                    "$gt": [
+                                      {
+                                        "$size": {
+                                          "$ifNull": [
+                                            "$$elemContent.contents",
+                                            []
+                                          ]
+                                        }
+                                      },
+                                      0
+                                    ]
+                                  },
+                                  "then": {
+                                    "contents": "$$elemContent.contents"
+                                  },
+                                  "else": {}
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "else": {
+                "$map": {
+                  "input": "$componentContents",
+                  "as": "compContent",
+                  "in": {
+                    "$mergeObjects": [
+                      "$$compContent",
+                      {
+                        "$cond": {
+                          "if": {
+                            "$gt": [
+                              {
+                                "$size": {
+                                  "$ifNull": [
+                                    "$$compContent.contents",
+                                    []
+                                  ]
+                                }
+                              },
+                              0
+                            ]
+                          },
+                          "then": {
+                            "contents": "$$compContent.contents"
+                          },
+                          "else": {}
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "$cond": {
+              "if": {
+                "$gt": [
+                  {
+                    "$size": "$elementContents"
+                  },
+                  0
+                ]
+              },
+              "then": {
+                "$map": {
+                  "input": "$elementContents",
+                  "as": "content",
+                  "in": {
+                    "$mergeObjects": [
+                      "$$content",
+                      {
+                        "$cond": {
+                          "if": {
+                            "$gt": [
+                              {
+                                "$size": {
+                                  "$ifNull": [
+                                    "$$content.contents",
+                                    []
+                                  ]
+                                }
+                              },
+                              0
+                            ]
+                          },
+                          "then": {
+                            "contents": "$$content.contents"
+                          },
+                          "else": {}
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "else": {
+                "$map": {
+                  "input": "$componentContents",
+                  "as": "content",
+                  "in": {
+                    "$mergeObjects": [
+                      "$$content",
+                      {
+                        "$cond": {
+                          "if": {
+                            "$gt": [
+                              {
+                                "$size": {
+                                  "$ifNull": [
+                                    "$$content.contents",
+                                    []
+                                  ]
+                                }
+                              },
+                              0
+                            ]
+                          },
+                          "then": {
+                            "contents": "$$content.contents"
+                          },
+                          "else": {}
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "$replaceRoot": {
+      "newRoot": {
+        "$mergeObjects": [
+          "$merged",
+          {
+            "_id": "$_id",
+            "contents": "$mergedContents"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "$project": {
+      "component": 0,
+      "componentObj": 0,
+      "componentStyles": 0,
+      "elementStyles": 0,
+      "mergedStyles": 0,
+      "componentContents": 0,
+      "elementContents": 0,
+      "mergedContents": 0
+    }
+  }
+]

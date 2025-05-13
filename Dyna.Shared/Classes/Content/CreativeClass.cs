@@ -30,16 +30,12 @@ namespace Dyna.Shared.Classes.Content
         [JsonPropertyName("parent")]
         public List<string> Parent { get; set; }
     }
-    public class FormatClass
-    {
-
-    }
     public class ElementsClass
     {
         [JsonPropertyName("slideLayout")]
         public SlideLayoutClass? SlideLayout { get; set; }
 
-        [JsonPropertyName("FrameLayout")]
+        [JsonPropertyName("frameLayout")]
         public FrameLayoutClass? FrameLayout { get; set; }
     }
     public class ElementContainerClass
@@ -61,5 +57,9 @@ namespace Dyna.Shared.Classes.Content
 
         [JsonPropertyName("boxLayout")]
         public BoxLayoutClass? BoxLayout { get; set; }
+    }
+    public class FormatClass
+    {
+
     }
 }

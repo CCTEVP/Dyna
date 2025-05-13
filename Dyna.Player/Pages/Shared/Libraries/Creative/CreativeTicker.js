@@ -10,7 +10,7 @@ window.creativeTicker = window.creativeTicker || {
     this.interval = setInterval(() => {
       const now = Date.now();
       const elapsed = now - this.lastTick;
-      this.lastTick = now;
+        this.lastTick = now;
 
       // Call all subscribers with elapsed time
       this.subscribers.forEach((sub) => {
